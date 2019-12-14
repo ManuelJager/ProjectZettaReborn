@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : Grid
+namespace GridSystem
 {
+    public class Ship : Grid
+    { 
+        
+    }
 }
+
