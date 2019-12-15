@@ -7,13 +7,6 @@ namespace GridSystem
 {
     public class ArmorGridBlock : GridBlockBase, IPhysicalGridBlock
     {
-        public ArmorGridBlock(Vector2 size, float mass, float armor, float health)
-            : base(size, mass)
-        {
-            this.armor = armor;
-            this.health = health;
-        }
-
         [SerializeField]
         private float armor;
         public float Armor

@@ -4,14 +4,9 @@ using UnityEngine;
 
 namespace GridSystem
 {
-    public partial class Grid : MonoBehaviour
+    public partial class BlockGrid : MonoBehaviour
     {
         // Unordered list of references to all blocks in grid
-        private List<GridBlockBase> uBlockList;
-        public Grid(List<GridBlockBase> uBlockList = null)
-        {
-            this.uBlockList = uBlockList ?? defaultGrid;
-        }
+        public List<GridBlockBase> uBlockList = null;
     }
-
 }

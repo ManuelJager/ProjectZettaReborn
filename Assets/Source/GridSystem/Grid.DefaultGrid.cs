@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace GridSystem
 {
-    public partial class Grid
+    public partial class BlockGrid
     {
-        public static List<GridBlockBase> defaultGrid
+        public List<GridBlockBase> defaultGrid
         {
             get
             {
-                return new List<GridBlockBase> 
-                { 
-                    new ArmorGridBlock(new Vector2(1, 1), 10, 10, 10) 
+                var block = Instantiate(GameManager.Instance.LightArmorBlockPrefab);
+                block.transform.SetParent(transform);
+
+                return new List<GridBlockBase>
+                {
+                    (GridBlockBase)block.GetComponent(typeof(GridBlockBase))
                 };
             }
         }

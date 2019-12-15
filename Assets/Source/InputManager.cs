@@ -1,27 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class InputManager : MonoBehaviour
+/// <summary>
+/// Global event driven inputManager
+/// </summary>
+public partial class InputManager : MonoBehaviour
 {
-    public delegate void InputDelegate();
-    public event InputDelegate Click;
+    public static InputManager Instance;
 
-    void Start()
+    public delegate void ButtonActionClickDelegate();
+    public static event ButtonActionClickDelegate ClickShift;
+    public static event ButtonActionClickDelegate ClickEsc;
+
+    public delegate void ButtonKeypressClickDelegate(char keyPressed);
+    public static event ButtonKeypressClickDelegate ClickKeypress;
+
+    public delegate void InputAxisDelegate(Vector2 input);
+    public static event InputAxisDelegate InputAxis;
+
+    public InputManager()
     {
-        Click += OnClick;
+        Instance = this;
+        var controller = new PlayerController();
+    }
+
+    void OnGUI()
+    {
+        var currentEvent = Event.current;
+        if (currentEvent.isKey && currentEvent.type == EventType.KeyDown)
+        {
+            var keyCode = currentEvent.keyCode;
+            if (keyCode == KeyCode.None)
+            {
+                return;
+            }
+            char key;
+            if (TryParseKeycode(keyCode, out key))
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    key = char.ToUpper(key);
+                }
+                ClickKeypress?.Invoke(key);
+            }    
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("a"))
+        // ButtonPresses
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Click.Invoke();
+            ClickShift?.Invoke();
         }
-    }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClickEsc?.Invoke();
+        }
 
-    public void OnClick()
-    {
-        print("a");
+        // Axis input
+        var horizontalAxis = Input.GetAxisRaw("Horizontal");
+        var verticalAxis = Input.GetAxisRaw("Vertical");
+        if (horizontalAxis != 0f || verticalAxis != 0f)
+        {
+            InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
+        }
     }
 }

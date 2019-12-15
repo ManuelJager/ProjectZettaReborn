@@ -10,10 +10,12 @@ namespace GridSystem
     {
         [SerializeField]
         public BlockSideRenderer blockSideRenderer;
-        public GridBlockBase(Vector2 size, float mass)
+
+        [SerializeField]
+        protected int blockTypeID;
+        public int BlockTypeID
         {
-            this.size = size;
-            this.mass = mass;
+            get => blockTypeID;
         }
 
         [SerializeField]
