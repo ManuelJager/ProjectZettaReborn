@@ -1,34 +1,31 @@
 fileFormatVersion: 2
-guid: 757d903be817cda4097134904257582b
+guid: 7404b7cbc26dee843930b7982252c542
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2734423211405241899
-    second: Gyroscope
-  - first:
-      213: 7347111767958844189
-    second: Block Frame
-  - first:
-      213: 6903120917539983151
+      213: 7127221303392145066
     second: Light Armor Block
   - first:
-      213: -1963881525561619928
+      213: 4958096635232942198
     second: Heavy Armor Block
   - first:
-      213: 2577598707902432233
-    second: Structural Block
+      213: 6397496480420073231
+    second: Medium Thruster
   - first:
-      213: 4580618572166466534
-    second: Small Thruster
+      213: 3645848052118946982
+    second: Cockpit
   - first:
-      213: -9164865234333532883
-    second: Autoloader
+      213: 7127221303392145066
+    second: ShipTiles1x3_0
   - first:
-      213: -4117242004358440833
-    second: Reactor Block [on]
+      213: 4958096635232942198
+    second: ShipTiles1x3_1
   - first:
-      213: 7403916245691689920
-    second: Reactor Block [off]
+      213: 6397496480420073231
+    second: ShipTiles1x3_2
+  - first:
+      213: 3645848052118946982
+    second: ShipTiles1x3_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -125,190 +122,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gyroscope
+      name: ShipTiles1x3_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ad6abeb406613f4e88b33fd99643de1
+      internalID: 7127221303392145066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShipTiles1x3_1
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 32
+        width: 96
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bb58b010bf3835469a5f49be3da5616
-      internalID: 2734423211405241899
+      spriteID: abd55cc585fadf94bbc9203092ada487
+      internalID: 4958096635232942198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block Frame
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f246a7e8a7c8864bb8c24a67b049b63
-      internalID: 7347111767958844189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Light Armor Block
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 150922f770ad54e488705c3c61b1b27e
-      internalID: 6903120917539983151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Heavy Armor Block
+      name: ShipTiles1x3_2
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 32
+        width: 96
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db44b02912c082a418a57763d79ecee3
-      internalID: -1963881525561619928
+      spriteID: f8c7067f3a1972d4ca74396a8c14a554
+      internalID: 6397496480420073231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Structural Block
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce14af0c44fd2fb4ba00033d20370cdc
-      internalID: 2577598707902432233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Small Thruster
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29593be52bf281543b457b41cb59d351
-      internalID: 4580618572166466534
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Autoloader
+      name: ShipTiles1x3_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 96
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4d8434ada81e114c9f541ffacdfc75f
-      internalID: -9164865234333532883
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Reactor Block [on]
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 50ba84720c3392149ae7581056c885c2
-      internalID: -4117242004358440833
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Reactor Block [off]
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b0cfa10ff3d83404390be45c2fb0edac
-      internalID: 7403916245691689920
+      spriteID: 39ebbc4a1f282fb428d32d736a9c44b1
+      internalID: 3645848052118946982
       vertices: []
       indices: 
       edges: []
