@@ -12,8 +12,8 @@ namespace GridSystem
         public BlockSideRenderer blockSideRenderer;
 
         [SerializeField]
-        protected int blockTypeID;
-        public int BlockTypeID
+        protected string blockTypeID;
+        public string BlockTypeID
         {
             get => blockTypeID;
         }

@@ -311,7 +311,7 @@ MonoBehaviour:
     rightSide: {fileID: 3232895384009432802}
     backSide: {fileID: 3232895384009432810}
     leftSide: {fileID: 3232895384009432814}
-  blockTypeID: 1
+  blockTypeID: Zetta:HeavyArmorBlock
   size: {x: 1, y: 1}
   mass: 20
   armor: 15

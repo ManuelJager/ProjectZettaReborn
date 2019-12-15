@@ -311,6 +311,7 @@ MonoBehaviour:
     rightSide: {fileID: 944349300155486019}
     backSide: {fileID: 944349300155486027}
     leftSide: {fileID: 944349300155486031}
+  blockTypeID: Zetta:LightArmorBlock
   size: {x: 1, y: 1}
   mass: 10
   armor: 10
