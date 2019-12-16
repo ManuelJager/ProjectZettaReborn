@@ -8,5 +8,10 @@ namespace GridSystem
     {
         // Unordered list of references to all blocks in grid
         public List<GridBlockBase> uBlockList = null;
+
+        public void Awake()
+        {
+            GridSizeChanged += UpdateCenterOfMass;
+        }
     }
 }

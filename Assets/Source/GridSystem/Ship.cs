@@ -12,6 +12,11 @@ namespace GridSystem
             var ship = shipObject.AddComponent<Ship>();
             ship.uBlockList = uBlockList ?? ship.defaultGrid;
         }
+
+        public void Update()
+        {
+            transform.rotation = GridUtilities.MouseLookAtRotation(transform, 100);
+        }
     }
 }
 
