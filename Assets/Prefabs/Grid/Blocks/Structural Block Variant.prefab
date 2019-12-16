@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2732306680193117259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811984407559883900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25eecfef40b3ed04b9871fb50d5758d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockSideRenderer:
+    frontSide: {fileID: 2811984407559883902}
+    rightSide: {fileID: 2811984407559883896}
+    backSide: {fileID: 2811984407559883888}
+    leftSide: {fileID: 2811984407559883892}
+  blockTypeID: Zetta::StructuralBlock
+  size: {x: 1, y: 1}
+  mass: 5
+  armor: 0
+  health: 10
 --- !u!1001 &2811984407559850716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +31,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_Name
-      value: Structural Block
+      value: Structural Block Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,3 +134,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
+--- !u!1 &2811984407559883900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2811984407559850716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2811984407559883888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100012, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2811984407559850716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2811984407559883902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2811984407559850716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2811984407559883892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2811984407559850716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2811984407559883896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2811984407559850716}
+  m_PrefabAsset: {fileID: 0}

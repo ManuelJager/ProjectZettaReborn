@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &9087454500349990197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173231675390662303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25eecfef40b3ed04b9871fb50d5758d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockSideRenderer:
+    frontSide: {fileID: 6173231675390662301}
+    rightSide: {fileID: 6173231675390662299}
+    backSide: {fileID: 6173231675390662291}
+    leftSide: {fileID: 6173231675390662295}
+  blockTypeID: Zetta::LightArmorBlock
+  size: {x: 1, y: 1}
+  mass: 10
+  armor: 10
+  health: 10
 --- !u!1001 &6173231675390562367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +31,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_Name
-      value: Light Armor Block
+      value: Light Armor Block Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,3 +134,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
+--- !u!1 &6173231675390662303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6173231675390562367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6173231675390662291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100012, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6173231675390562367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6173231675390662301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6173231675390562367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6173231675390662295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6173231675390562367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6173231675390662299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: 632235b30ced42e42aa51a07dbeb448c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6173231675390562367}
+  m_PrefabAsset: {fileID: 0}
