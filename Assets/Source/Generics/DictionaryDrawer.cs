@@ -16,7 +16,9 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     {
         CheckInitialize(property, label);
         if (_Foldout)
+        {
             return (_Dictionary.Count + 1) * PropertyFieldHeight;
+        }
         return PropertyFieldHeight;
     }
 
@@ -25,8 +27,6 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     /// </summary>
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        Debug.Log("onGUI");
-
         CheckInitialize(property, label);
 
         // set height of property field
@@ -40,7 +40,9 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
         EditorGUI.BeginChangeCheck();
         _Foldout = EditorGUI.Foldout(foldoutRect, _Foldout, label, true);
         if (EditorGUI.EndChangeCheck())
+        {
             EditorPrefs.SetBool(label.text, _Foldout);
+        }
 
         // base button rect for dictionary control buttons (add / clear)
         var buttonRect = position;
@@ -64,7 +66,9 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
 
         // if not folded out, don't need to draw fields
         if (!_Foldout)
+        {
             return;
+        }
 
         // draw fields for each keyvaluepair
         foreach (var item in _Dictionary)
