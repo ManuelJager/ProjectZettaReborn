@@ -16,6 +16,7 @@ namespace Blueprints
         }
 
         protected Vector2 position;
+
         public Dictionary<string, float> Position
         {
             get => new Dictionary<string, float>
@@ -25,10 +26,35 @@ namespace Blueprints
             };
         }
 
+        protected int rotation;
+        public int Rotation
+        {
+            get => rotation;
+        }
+
+        /// <summary>
+        /// Blueprint block is a list simplified version of an grid block
+        /// </summary>
+        /// <param name="blockTypeID">The block type id</param>
+        /// <param name="position">The position of the block</param>
         public BlueprintBlock(string blockTypeID, Vector2 position)
         {
             this.blockTypeID = blockTypeID;
             this.position = position;
+            this.rotation = 0;
+        }
+
+        /// <summary>
+        /// Blueprint block is a list simplified version of an grid block
+        /// </summary>
+        /// <param name="blockTypeID">The block type id</param>
+        /// <param name="position">The position of the block</param>
+        /// <param name="rotation">The rotation of the block(0,1,2,3)</param>
+        public BlueprintBlock(string blockTypeID, Vector2 position, int rotation)
+        {
+            this.blockTypeID = blockTypeID;
+            this.position = position;
+            this.rotation = rotation;
         }
     }
 }
