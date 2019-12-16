@@ -6,10 +6,7 @@ using GridSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public GameObject GridPrefab;
-
-    public GameObject LightArmorBlockPrefab;
+    public PrefabProviderInstance prefabProvider = new PrefabProviderInstance();
 
     public GameManager()
     {
