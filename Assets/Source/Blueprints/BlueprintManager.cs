@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Assets.Source.Blueprints
+namespace Blueprints
 {
     class BlueprintManager : MonoBehaviour
     {
