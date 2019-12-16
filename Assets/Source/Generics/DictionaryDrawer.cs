@@ -11,58 +11,79 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     private const float kButtonWidth = 18f;
     private const float PropertyFieldHeight = 17f;
 
+    // Get total height of drawer 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         CheckInitialize(property, label);
         if (_Foldout)
             return (_Dictionary.Count + 1) * PropertyFieldHeight;
-        return 17f;
+        return PropertyFieldHeight;
     }
 
+    /// <summary>
+    /// Draw GUI
+    /// </summary>
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        Debug.Log("onGUI");
+
         CheckInitialize(property, label);
 
+        // set height of property field
         position.height = PropertyFieldHeight;
 
+        // foldout button rect
         var foldoutRect = position;
         foldoutRect.width -= 2 * kButtonWidth;
+
+        // get foldout value
         EditorGUI.BeginChangeCheck();
         _Foldout = EditorGUI.Foldout(foldoutRect, _Foldout, label, true);
         if (EditorGUI.EndChangeCheck())
             EditorPrefs.SetBool(label.text, _Foldout);
 
+        // base button rect for dictionary control buttons (add / clear)
         var buttonRect = position;
         buttonRect.x = position.width - kButtonWidth + position.x;
         buttonRect.width = kButtonWidth + 2;
 
-        if (GUI.Button(buttonRect, new GUIContent("+", "Add item"), EditorStyles.miniButton))
+        // add item to dictionary button
+        if (GUI.Button(buttonRect, new GUIContent("+", "Add item"), EditorStyles.miniButtonRight))
         {
             AddNewItem();
         }
 
+        // shift rect position to left
         buttonRect.x -= kButtonWidth;
 
-        if (GUI.Button(buttonRect, new GUIContent("X", "Clear dictionary"), EditorStyles.miniButtonRight))
+        // clear dictionary button
+        if (GUI.Button(buttonRect, new GUIContent("X", "Clear dictionary"), EditorStyles.miniButtonLeft))
         {
             ClearDictionary();
         }
 
+        // if not folded out, don't need to draw fields
         if (!_Foldout)
             return;
 
+        // draw fields for each keyvaluepair
         foreach (var item in _Dictionary)
         {
+            
             var key = item.Key;
             var value = item.Value;
 
             position.y += PropertyFieldHeight;
 
+            // rect for key field
             var keyRect = position;
             keyRect.width /= 2;
             keyRect.width -= 4;
+
+            // create field for key
             EditorGUI.BeginChangeCheck();
             var newKey = DoField(keyRect, typeof(TK), key);
+
             if (EditorGUI.EndChangeCheck())
             {
                 try
@@ -77,9 +98,12 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
                 break;
             }
 
+            // rect for value field
             var valueRect = position;
             valueRect.x = position.width / 2 + 15;
             valueRect.width = keyRect.width - kButtonWidth;
+
+            // set value of key to value of property drawer
             EditorGUI.BeginChangeCheck();
             value = DoField(valueRect, typeof(TV), value);
             if (EditorGUI.EndChangeCheck())
@@ -88,10 +112,11 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
                 break;
             }
 
+            // create remote item button
             var removeRect = valueRect;
-            removeRect.x = valueRect.xMax + 2;
+            removeRect.x = valueRect.xMax + 6;
             removeRect.width = kButtonWidth;
-            if (GUI.Button(removeRect, new GUIContent("x", "Remove item"), EditorStyles.miniButtonRight))
+            if (GUI.Button(removeRect, new GUIContent("x", "Remove item"), EditorStyles.miniButton))
             {
                 RemoveItem(key);
                 break;
@@ -99,11 +124,17 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
         }
     }
 
+    /// <summary>
+    /// Remove item by key
+    /// </summary>
     private void RemoveItem(TK key)
     {
         _Dictionary.Remove(key);
     }
 
+    /// <summary>
+    /// Make sure Dictionary is initialIzed
+    /// </summary>
     private void CheckInitialize(SerializedProperty property, GUIContent label)
     {
         if (_Dictionary == null)
@@ -120,6 +151,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
         }
     }
 
+    // get editorGUI field for type
     private static readonly Dictionary<Type, Func<Rect, object, object>> _Fields =
         new Dictionary<Type, Func<Rect, object, object>>()
         {
@@ -133,6 +165,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
             { typeof(Rect), (rect, value) => EditorGUI.RectField(rect, (Rect)value) },
         };
 
+    // get property field for type
     private static T DoField<T>(Rect rect, Type type, T value)
     {
         Func<Rect, object, object> field;
@@ -154,6 +187,9 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
         _Dictionary.Clear();
     }
 
+    /// <summary>
+    /// Add empty key/value pair to dictionary
+    /// </summary>
     private void AddNewItem()
     {
         TK key;
@@ -173,5 +209,6 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     }
 }
 
+// bind property drawer to PrefabProviderInstance
 [CustomPropertyDrawer(typeof(PrefabProviderInstance))]
 public class PrefabProviderInstanceDrawer : DictionaryDrawer<string, GameObject> { }
