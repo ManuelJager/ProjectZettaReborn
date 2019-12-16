@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Assets.Source.Blueprints
 {
-    class BlueprintManager
+    class BlueprintManager : MonoBehaviour
     {
 
         /// <summary>
@@ -37,8 +38,9 @@ namespace Assets.Source.Blueprints
         /// <returns>The deserialized blueprint</returns>
         public static Blueprint Import(string json)
         {
-            // TODO implement
-            return null;
+            Blueprint blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
+            
+            return blueprint;
         }
     }
 }
