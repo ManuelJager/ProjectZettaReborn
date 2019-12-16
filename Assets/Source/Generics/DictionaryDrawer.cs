@@ -9,12 +9,13 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     private SerializableDictionary<TK, TV> _Dictionary;
     private bool _Foldout;
     private const float kButtonWidth = 18f;
+    private const float PropertyFieldHeight = 17f;
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         CheckInitialize(property, label);
         if (_Foldout)
-            return (_Dictionary.Count + 1) * 17f;
+            return (_Dictionary.Count + 1) * PropertyFieldHeight;
         return 17f;
     }
 
@@ -22,7 +23,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
     {
         CheckInitialize(property, label);
 
-        position.height = 17f;
+        position.height = PropertyFieldHeight;
 
         var foldoutRect = position;
         foldoutRect.width -= 2 * kButtonWidth;
@@ -55,7 +56,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
             var key = item.Key;
             var value = item.Value;
 
-            position.y += 17f;
+            position.y += PropertyFieldHeight;
 
             var keyRect = position;
             keyRect.width /= 2;
