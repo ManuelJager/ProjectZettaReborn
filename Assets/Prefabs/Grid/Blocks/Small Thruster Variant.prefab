@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_Name
-      value: Small Thruster
+      value: Small Thruster Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 632235b30ced42e42aa51a07dbeb448c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63,7 +63,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6903120917539983151, guid: 757d903be817cda4097134904257582b,
+      objectReference: {fileID: -2114712970683939943, guid: 757d903be817cda4097134904257582b,
         type: 3}
     - target: {fileID: 3858292075680718268, guid: 632235b30ced42e42aa51a07dbeb448c,
         type: 3}
