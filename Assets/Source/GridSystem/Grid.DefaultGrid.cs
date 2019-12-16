@@ -10,7 +10,7 @@ namespace GridSystem
         {
             get
             {
-                var block = Instantiate(GameManager.Instance.LightArmorBlockPrefab);
+                var block = Instantiate(PrefabProvider.GetPrefab("Zetta::LightArmorBlock"));
                 block.transform.SetParent(transform);
 
                 return new List<GridBlockBase>
