@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Blueprints;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +7,18 @@ namespace GridSystem
 {
     public partial class BlockGrid
     {
+        /// <summary>
+        /// Instantiates the default grid
+        /// </summary>
+        /// <returns>The blocks instantiated</returns>
         public List<GridBlockBase> defaultGrid
         {
             get
             {
-                var block = Instantiate(PrefabProvider.GetPrefab("Zetta::LightArmorBlock"));
-                block.transform.SetParent(transform);
-
-                return new List<GridBlockBase>
-                {
-                    (GridBlockBase)block.GetComponent(typeof(GridBlockBase))
-                };
+                Blueprint defaultBlueprint = BlueprintManager.Import(BlueprintManager.DEFAULT_BLUEPRINT);
+                return InstantiateBlueprint(defaultBlueprint);
             }
+
         }
     }
 }

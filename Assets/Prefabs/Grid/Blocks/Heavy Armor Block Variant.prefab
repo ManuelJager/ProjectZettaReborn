@@ -19,6 +19,8 @@ MonoBehaviour:
     leftSide: {fileID: 2649749059877213469}
   blockTypeID: Zetta::HeavyArmorBlock
   size: {x: 1, y: 1}
+  blockPositions:
+  - {x: 0, y: 0}
   mass: 20
   armor: 15
   health: 15

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Exceptions;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,14 @@ public static class PrefabProvider
 {
     public static GameObject GetPrefab(string index)
     {
-        return PrefabProviderInstance.Instance[index];
+        try
+        {
+            return PrefabProviderInstance.Instance[index];
+        }
+        catch (KeyNotFoundException)
+        {
+            throw new PrefabNotFoundException(index);
+        }
     }
 }
 

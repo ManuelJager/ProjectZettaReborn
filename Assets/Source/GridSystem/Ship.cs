@@ -15,7 +15,7 @@ namespace GridSystem
 
         public void Update()
         {
-            transform.rotation = GridUtilities.MouseLookAtRotation(transform, 100);
+            //transform.rotation = GridUtilities.MouseLookAtRotation(transform, 200);
         }
     }
 }

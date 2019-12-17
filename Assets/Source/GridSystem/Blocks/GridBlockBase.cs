@@ -27,6 +27,14 @@ namespace GridSystem
         }
 
         [SerializeField]
+        private Vector2[] blockPositions;
+        public Vector2[] BlockPositions
+        {
+            get => blockPositions;
+            set => blockPositions = value;
+        }
+
+        [SerializeField]
         private float mass;
         public float Mass
         {

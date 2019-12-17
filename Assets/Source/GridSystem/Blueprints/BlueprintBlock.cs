@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Blueprints
 {
-    class BlueprintBlock
+    public class BlueprintBlock
     {
         protected string blockTypeID;
         public string BlockTypeID
@@ -17,6 +18,13 @@ namespace Blueprints
 
         protected Vector2 position;
 
+        [JsonIgnore]
+        public Vector2 VectorPosition
+        {
+            get => position;
+            set => position = value;
+        }
+
         public Dictionary<string, float> Position
         {
             get => new Dictionary<string, float>
@@ -25,7 +33,6 @@ namespace Blueprints
                 { "y", position.y }
             };
         }
-
         protected int rotation;
         public int Rotation
         {
@@ -50,6 +57,7 @@ namespace Blueprints
         /// <param name="blockTypeID">The block type id</param>
         /// <param name="position">The position of the block</param>
         /// <param name="rotation">The rotation of the block(0,1,2,3)</param>
+        [JsonConstructor]
         public BlueprintBlock(string blockTypeID, Vector2 position, int rotation)
         {
             this.blockTypeID = blockTypeID;
