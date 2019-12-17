@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GridUtilities
+public static partial class GridUtilities
 {
     /// <summary>
     /// Rotates a target towards the mouse at a constant rate

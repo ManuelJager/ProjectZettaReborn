@@ -19,6 +19,8 @@ MonoBehaviour:
     leftSide: {fileID: 2811984407559883892}
   blockTypeID: Zetta::StructuralBlock
   size: {x: 1, y: 1}
+  blockPositions:
+  - {x: 0, y: 0}
   mass: 5
   armor: 0
   health: 10

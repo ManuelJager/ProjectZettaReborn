@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blueprints
 {
-    class Blueprint
+    public class Blueprint
     {
         protected string name;
         public string Name
