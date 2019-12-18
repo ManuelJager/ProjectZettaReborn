@@ -109,12 +109,26 @@ namespace Blueprints
             return FindDuplicates(positions);
         }
 
-        //TODO Remove this later when don't need it anymore
-        [RuntimeInitializeOnLoadMethod]
-        public static void createTestBlueprint()
+        private static Blueprint CreateTestBlueprint(int size)
         {
-            Blueprint testBp = new Blueprint("Default Ship", new List<BlueprintBlock>() {
 
+            List<BlueprintBlock> blocks = new List<BlueprintBlock>();
+            blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 0)));
+
+            for (int i = 1; i < size + 1; i++)
+            {
+                blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, i)));
+                blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(i, 0)));
+                blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, -i)));
+                blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-i, 0)));
+            }
+
+            return new Blueprint("Test Ship", blocks);
+        }
+
+        private static Blueprint TestShip()
+        {
+            return new Blueprint("Default Ship", new List<BlueprintBlock>() {
                 new BlueprintBlock("Zetta::MediumThruster", new Vector2(-3, 0)),
 
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(-2, 2)),
@@ -145,8 +159,14 @@ namespace Blueprints
 
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(3, -2), 2),
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(3, 2), 2),
-
             });
+        }
+
+        //TODO Remove this later when don't need it anymore
+        [RuntimeInitializeOnLoadMethod]
+        public static void createTestBlueprint()
+        {
+            Blueprint testBp = CreateTestBlueprint(5);
 
             DEFAULT_BLUEPRINT = Export(testBp);
             if (ValidateBlueprint(testBp).Count <= 0)
