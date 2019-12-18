@@ -7,77 +7,105 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // The bias of the average camera size
-    public const float cameraBias = 1.9f;
+    // Singleton instance
+    public static CameraController Instance;
 
-    public const float lerpSpeed = 23f;
+    public CameraController()
+    {
+        // The set instance of the singleton
+        Instance = this;
+    }
+
+    // The current camera of the camera controller
+    private Camera currentCamera;
+
+    // Contants
+    private const float CAMERA_BIAS = 1.9f;
+    private const float LERP_SPEED = 1.5f;
 
     // The field of view of the camera
-    public float FOV = 60;
+    public float FOV = 60f;
 
-    [Range(0.0f, 6.0f)]
-    public float sizeOnScreen = 5.3f;
+    // The size of the ship on the screen
+    [Range(0.0f, 6.0f)] public float sizeOnScreen = 4.8f;
 
     public void Awake()
     {
-        // Set the current camera to the main camera
-        Camera.SetupCurrent(Camera.main);
+        // Set the current camera
+        currentCamera = GetComponent<Camera>();
 
         // Set the field of view of the current camera
-        Camera.current.fieldOfView = FOV;
-
-        ZoomCamera(new Vector2(11, 11), true);
-    }
-
-    public void Start()
-    {
-        StartLerpZoom(new Vector2(5, 5));
+        currentCamera.fieldOfView = FOV;
     }
 
     public void Update()
     {
+        // Update the lerp
         LerpZoom();
     }
 
+    // Lerp variables
     private float startTime;
     private float length;
     private Vector3 startPosition;
     private Vector3 endPosition;
 
-    public void StartLerpZoom(Vector2 toPosition)
+    /// <summary>
+    /// Starts to lerp towards the position of the size of the vector2
+    /// </summary>
+    /// <param name="size">The size of the grid</param>
+    public void StartLerpZoom(Vector2 size)
     {
-        startPosition = Camera.current.transform.position;
-        endPosition = ZoomCamera(toPosition);
+        startPosition = currentCamera.transform.position;
+        endPosition = ZoomCamera(size);
 
         startTime = Time.time;
         length = Vector3.Distance(startPosition, endPosition);
     }
 
+    /// <summary>
+    /// Update the lerp towards the target
+    /// </summary>
     public void LerpZoom()
     {
-        float distCovered = (Time.time - startTime) * lerpSpeed;
-        float fraction = distCovered / length;
+        // Calculate the current distance covered in the lerp
+        float distCovered = (Time.time - startTime) * LERP_SPEED;
 
-        Camera.main.transform.position = Vector3.Lerp(startPosition, endPosition, fraction);
+        // Set the position of the current camera to respect the lerp
+        currentCamera.transform.position = Vector3.Lerp(startPosition, endPosition, distCovered);
     }
 
-    public Vector3 ZoomCamera(Vector2 shipSize, bool setPosition)
+    /// <summary>
+    /// Zoom the camera
+    /// </summary>
+    /// <param name="size">The size of the grid</param>
+    /// <param name="setPosition">Set the position or just return the new position</param>
+    /// <returns>The vector of the new position of the camera</returns>
+    public Vector3 ZoomCamera(Vector2 size, bool setPosition)
     {
-        float biggest = shipSize.x > shipSize.y ? shipSize.x : shipSize.y;
+        // Calculate the biggest value in the vector
+        float biggest = size.x > size.y ? size.x : size.y;
 
-        float posZ = -biggest * (cameraBias * (6f - Math.Abs(sizeOnScreen)));
+        // Calculate the new z position
+        float posZ = -biggest * (CAMERA_BIAS * (6f - Math.Abs(sizeOnScreen)));
 
-        Vector3 currentPosition = Camera.current.transform.position;
+        // Set the new position
+        Vector3 currentPosition = currentCamera.transform.position;
         currentPosition.z = posZ;
 
         if(setPosition)
-            Camera.current.transform.position = currentPosition;
+            currentCamera.transform.position = currentPosition;
 
         return currentPosition;
     }
 
-    public Vector3 ZoomCamera(Vector2 shipSize)
+    /// <summary>
+    /// Zoom the camera
+    /// </summary>
+    /// <param name="size">The size of the grid</param>
+    /// <returns>The vector of the new position of the camera</returns>
+    public Vector3 ZoomCamera(Vector2 size)
     {
-        return ZoomCamera(shipSize, false);
+        return ZoomCamera(size, false);
     }
 }

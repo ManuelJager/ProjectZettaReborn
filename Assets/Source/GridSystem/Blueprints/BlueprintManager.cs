@@ -166,7 +166,7 @@ namespace Blueprints
         [RuntimeInitializeOnLoadMethod]
         public static void createTestBlueprint()
         {
-            Blueprint testBp = CreateTestBlueprint(5);
+            Blueprint testBp = CreateTestBlueprint(30);
 
             DEFAULT_BLUEPRINT = Export(testBp);
             if (ValidateBlueprint(testBp).Count <= 0)
