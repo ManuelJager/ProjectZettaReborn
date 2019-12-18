@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GridSystem;
 using Blueprints;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,5 +22,6 @@ public class GameManager : MonoBehaviour
     {
         // Create an instance of the blueprint instantiator
         bpInstantiator = GetComponent<BlueprintInstantiator>();
+        SceneManager.LoadSceneAsync("UIScene", LoadSceneMode.Additive);
     }
 }
