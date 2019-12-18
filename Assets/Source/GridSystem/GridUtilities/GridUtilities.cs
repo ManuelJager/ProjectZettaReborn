@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Extensions;
 
 public static partial class GridUtilities
 {
@@ -12,7 +13,7 @@ public static partial class GridUtilities
     /// <param name="turningRate">Speed at which the object should turn to any side</param>
     public static Quaternion MouseLookAtRotation(Transform target, float turningRate, Camera camera = null)
     {
-        camera = camera ?? Camera.main;
+        camera = camera ?? CameraExtensions.GetMainOrthgraphicCamera();
         Quaternion q = GetMouseWorldPos(target, camera);
         var zStep = CalculateZStep(target.rotation.eulerAngles, q.eulerAngles, turningRate);
         return Quaternion.Euler(target.rotation.eulerAngles + new Vector3(0f, 0f, zStep));
