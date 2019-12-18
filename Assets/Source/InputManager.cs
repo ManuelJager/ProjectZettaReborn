@@ -23,7 +23,6 @@ public partial class InputManager : MonoBehaviour
     public InputManager()
     {
         Instance = this;
-        var controller = new PlayerController();
     }
 
     void OnGUI()

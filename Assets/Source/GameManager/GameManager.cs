@@ -22,9 +22,4 @@ public class GameManager : MonoBehaviour
         // Create an instance of the blueprint instantiator
         bpInstantiator = GetComponent<BlueprintInstantiator>();
     }
-
-    public void Start()
-    {
-        Ship.InstantiateShip();
-    }
 }
