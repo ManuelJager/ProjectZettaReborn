@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     // Contants
     private const float CAMERA_BIAS = 1.9f;
-    private const float LERP_SPEED = 1.5f;
+    private const float LERP_TIME = 1.5f;
 
     // The field of view of the camera
     public float FOV = 60f;
@@ -38,41 +39,33 @@ public class CameraController : MonoBehaviour
         currentCamera.fieldOfView = FOV;
     }
 
-    public void Update()
-    {
-        // Update the lerp
-        LerpZoom();
-    }
-
-    // Lerp variables
-    private float startTime;
-    private float length;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-
     /// <summary>
     /// Starts to lerp towards the position of the size of the vector2
     /// </summary>
     /// <param name="size">The size of the grid</param>
     public void StartLerpZoom(Vector2 size)
     {
-        startPosition = currentCamera.transform.position;
-        endPosition = ZoomCamera(size);
-
-        startTime = Time.time;
-        length = Vector3.Distance(startPosition, endPosition);
+        StartCoroutine(LerpZoom(currentCamera.transform.position, ZoomCamera(size), LERP_TIME));
     }
 
     /// <summary>
-    /// Update the lerp towards the target
+    /// Lerp towards the target
     /// </summary>
-    public void LerpZoom()
+    public IEnumerator LerpZoom(Vector3 startPosition, Vector3 endPosition, float time)
     {
-        // Calculate the current distance covered in the lerp
-        float distCovered = (Time.time - startTime) * LERP_SPEED;
+        float elapsedTime = 0;
 
-        // Set the position of the current camera to respect the lerp
-        currentCamera.transform.position = Vector3.Lerp(startPosition, endPosition, distCovered);
+        // Run till the time is elapsed
+        while (elapsedTime < time)
+        {
+            // Update the position to respect the lerp
+            currentCamera.transform.position = Vector3.Lerp(startPosition, endPosition, (elapsedTime / time));
+
+            elapsedTime += Time.deltaTime;
+
+            // Yield a new frame if this frame is done
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     /// <summary>
