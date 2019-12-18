@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         var inputRotation = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
         inputRotation += q.eulerAngles.z + 270f;
         inputRotation %= 360f;
-        input = GridUtilities.DegreeToVector2(inputRotation);
+        input = GridUtilities.DegreeToVector2(inputRotation) * 2;
         ship.rb2d.AddForce(input);
     }
 }

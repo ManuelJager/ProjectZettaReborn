@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Events;
 
 namespace GridSystem
 {
@@ -45,6 +46,10 @@ namespace GridSystem
         public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
         {
             uBlockList = GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
+
+            var ev = new GridSpawnEvent(this);
+            Events.EventHandler.Fire(ev);
+
             return uBlockList;
         }
     }
