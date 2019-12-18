@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GridSystem;
+using Extensions;
 
 /// <summary>
 /// Takes it input from global events from <see cref="InputManager"/>
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [System.NonSerialized]
-    public Ship ship;
+    [System.NonSerialized] public Ship ship;
 
     private Quaternion q;
-
+    private Camera orthographicCamera;
     public void Awake()
     {
         InputManager.InputAxis += OnAxis;
@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         ship = Ship.InstantiateShip();
+        orthographicCamera = CameraExtensions.GetMainOrthgraphicCamera();
+        orthographicCamera.enabled = false;
     }
 
     void Update()
     {
-        q = GridUtilities.GetMouseWorldPos(ship.transform, Camera.main);
+        q = GridUtilities.GetMouseWorldPos(ship.transform, orthographicCamera);
         ship.transform.rotation = GridUtilities.MouseLookAtRotation(ship.transform, 100);
     }
 
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="input"></param>
     public void OnAxis(Vector2 input)
     {
-        var inputRotation = (Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg + 360f) % 360f;
+        var inputRotation = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
         inputRotation += q.eulerAngles.z + 270f;
         inputRotation %= 360f;
         input = GridUtilities.DegreeToVector2(inputRotation);
