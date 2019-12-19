@@ -9,23 +9,55 @@ using Extensions;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [System.NonSerialized] public Ship ship;
+    private Ship ship;
+    public Ship Ship
+    {
+        get => ship;
+        set
+        {
+            Enabled = value != null;
+            ship = value;
+        }
+    }
+    public bool Enabled
+    {
+        get => enabled;
+        set
+        {
+            gameObject.SetActive(value);
+            UIManager.Instance.healthDrawBar.gameObject.SetActive(value);
+            UIManager.Instance.powerDrawBar.gameObject.SetActive(value);
+            if (value)
+            {
+                InputManager.InputAxis += OnAxis;
+                InputManager.UpdateEvent += RotateShipToCursor;
+            }
+            else
+            {
+                InputManager.InputAxis -= OnAxis;
+                InputManager.UpdateEvent -= RotateShipToCursor;
+            }
+        }
+    }
+
+    public static PlayerController Instance;
 
     private Quaternion q;
     private Camera orthographicCamera;
-    public void Awake()
+
+    public PlayerController()
     {
-        InputManager.InputAxis += OnAxis;
+        Instance = this;
     }
 
     public void Start()
     {
-        ship = Ship.InstantiateShip();
         orthographicCamera = CameraExtensions.GetMainOrthgraphicCamera();
         orthographicCamera.enabled = false;
+        Enabled = false;
     }
 
-    void Update()
+    void RotateShipToCursor()
     {
         q = GridUtilities.GetMouseWorldPos(ship.transform, orthographicCamera);
         ship.transform.rotation = GridUtilities.MouseLookAtRotation(ship.transform, 100);
