@@ -9,7 +9,7 @@ namespace GridSystem
     public partial class BlockGrid : MonoBehaviour
     {
         // Unordered list of references to all blocks in grid
-        public List<GridBlockBase> uBlockList = null;
+        public List<GridBlockBase> blockList = null;
 
         // The size of the grid
         public Vector2 Size
@@ -34,7 +34,7 @@ namespace GridSystem
 
         public void Awake()
         {
-            GridSizeChanged += UpdateCenterOfMass;
+            BlockGridSizeChangedEvent += UpdateCenterOfMass;
         }
 
         /// <summary>
@@ -42,10 +42,12 @@ namespace GridSystem
         /// </summary>
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <returns>The objects instantiated</returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
+        public void InstantiateBlueprint(Blueprint blueprint)
         {
-            uBlockList = GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
-            return uBlockList;
+            blockList = GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
+
+            // Fire the block grid instantiated event
+            BlockGridInstantiatedEvent?.Invoke(this);
         }
     }
 }

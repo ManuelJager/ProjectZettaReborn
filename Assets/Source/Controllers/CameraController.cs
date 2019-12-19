@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     // Contants
     private const float CAMERA_BIAS = 1.9f;
-    private const float LERP_TIME = 1.5f;
+    private const float LERP_TIME = 0.8f;
 
     // The field of view of the camera
     public float FOV = 60f;

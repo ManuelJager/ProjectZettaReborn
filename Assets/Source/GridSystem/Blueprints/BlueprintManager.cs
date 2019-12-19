@@ -164,9 +164,9 @@ namespace Blueprints
 
         //TODO Remove this later when don't need it anymore
         [RuntimeInitializeOnLoadMethod]
-        public static void createTestBlueprint()
+        public static Blueprint createTestBlueprint()
         {
-            Blueprint testBp = CreateTestBlueprint(5);
+            Blueprint testBp = TestShip();
 
             DEFAULT_BLUEPRINT = Export(testBp);
             if (ValidateBlueprint(testBp).Count <= 0)
@@ -177,6 +177,8 @@ namespace Blueprints
             {
                 Debug.Log("Invalid Test Ship");
             }
+
+            return testBp;
         }
     }
 }

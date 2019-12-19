@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public PrefabProviderInstance prefabProvider = new PrefabProviderInstance();
 
+    public GameObject playerBasePrefab;
+    public GameObject shipBasePrefab;
+
+
     [System.NonSerialized]
     public BlueprintInstantiator bpInstantiator;
 

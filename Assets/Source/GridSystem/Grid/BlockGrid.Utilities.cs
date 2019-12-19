@@ -13,10 +13,10 @@ namespace GridSystem
             var y = 0f;
             // add weighted mass to vector
             // weighted mass is calculated with distance by mass 
-            for (int i = 0; i < uBlockList.Count; i++)
+            for (int i = 0; i < blockList.Count; i++)
             {
-                var local = uBlockList[i].transform.localPosition;
-                var mass = uBlockList[i].Mass;
+                var local = blockList[i].transform.localPosition;
+                var mass = blockList[i].Mass;
                 x += mass * local.x;
                 y += mass * local.y;
             }
