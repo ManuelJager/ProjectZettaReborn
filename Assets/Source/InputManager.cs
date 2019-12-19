@@ -10,9 +10,13 @@ public partial class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
+    public delegate void UpdateDelegate();
+    public static UpdateDelegate UpdateEvent;
+
     public delegate void ButtonActionClickDelegate();
     public static event ButtonActionClickDelegate ClickShift;
     public static event ButtonActionClickDelegate ClickEsc;
+    public static event ButtonActionClickDelegate ClickF10;
 
     public delegate void ButtonKeypressClickDelegate(char keyPressed);
     public static event ButtonKeypressClickDelegate ClickKeypress;
@@ -43,12 +47,14 @@ public partial class InputManager : MonoBehaviour
                     key = char.ToUpper(key);
                 }
                 ClickKeypress?.Invoke(key);
-            }    
+            }
         }
     }
 
     void Update()
     {
+        UpdateEvent?.Invoke();
+
         // ButtonPresses
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -58,6 +64,10 @@ public partial class InputManager : MonoBehaviour
         {
             ClickEsc?.Invoke();
         }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            ClickF10?.Invoke();
+        }
 
         // Axis input
         var horizontalAxis = Input.GetAxisRaw("Horizontal");
@@ -66,5 +76,6 @@ public partial class InputManager : MonoBehaviour
         {
             InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
         }
+
     }
 }

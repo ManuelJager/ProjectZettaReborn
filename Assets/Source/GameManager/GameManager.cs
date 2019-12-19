@@ -22,6 +22,5 @@ public class GameManager : MonoBehaviour
     {
         // Create an instance of the blueprint instantiator
         bpInstantiator = GetComponent<BlueprintInstantiator>();
-        SceneManager.LoadSceneAsync("UIScene", LoadSceneMode.Additive);
     }
 }

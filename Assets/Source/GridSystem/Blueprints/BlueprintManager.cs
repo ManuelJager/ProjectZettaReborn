@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Blueprints
 {
-    public static class BlueprintManager
+    public static partial class BlueprintManager
     {
         // The default blueprint
         public static string DEFAULT_BLUEPRINT = "{\"Name\":\"Default Ship\",\"Blocks\":[{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-4.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":2.0},\"Rotation\":0}]}";
@@ -163,7 +163,7 @@ namespace Blueprints
         }
 
         //TODO Remove this later when don't need it anymore
-        [RuntimeInitializeOnLoadMethod]
+        // [RuntimeInitializeOnLoadMethod]
         public static void createTestBlueprint()
         {
             Blueprint testBp = CreateTestBlueprint(5);

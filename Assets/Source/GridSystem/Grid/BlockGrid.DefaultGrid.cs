@@ -7,6 +7,7 @@ namespace GridSystem
 {
     public partial class BlockGrid
     {
+        [System.Obsolete]
         /// <summary>
         /// Instantiates the default grid
         /// </summary>
@@ -18,7 +19,6 @@ namespace GridSystem
                 Blueprint defaultBlueprint = BlueprintManager.Import(BlueprintManager.DEFAULT_BLUEPRINT);
                 return InstantiateBlueprint(defaultBlueprint);
             }
-
         }
     }
 }
