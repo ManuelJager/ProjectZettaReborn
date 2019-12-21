@@ -4,14 +4,14 @@ public partial class UIManager
 {
     public bool GameplayLayerActiveState
     {
-        get => gameplayLayer.activeSelf;
-        set => gameplayLayer.SetActive(value);
+        get => Instance.gameplayLayer.gameObject.activeSelf;
+        set => Instance.gameplayLayer.gameObject.SetActive(value);
     }
 
     public bool DebuggerLayerActiveState
     {
-        get => debuggerLayer.activeSelf;
-        set => debuggerLayer.SetActive(value);
+        get => Instance.debuggerLayer.gameObject.activeSelf;
+        set => Instance.debuggerLayer.gameObject.SetActive(value);
     }
 
     public void ToggleDebuggerLayer()

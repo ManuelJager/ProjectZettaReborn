@@ -25,17 +25,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             gameObject.SetActive(value);
-            UIManager.Instance.gameplayLayer.SetActive(value);
-            if (value)
-            {
-                InputManager.InputAxis += OnAxis;
-                InputManager.UpdateEvent += RotateShipToCursor;
-            }
-            else
-            {
-                InputManager.InputAxis -= OnAxis;
-                InputManager.UpdateEvent -= RotateShipToCursor;
-            }
+            UIManager.Instance.GameplayLayerActiveState = value;
         }
     }
 
@@ -73,5 +63,17 @@ public class PlayerController : MonoBehaviour
         inputRotation %= 360f;
         input = GridUtilities.DegreeToVector2(inputRotation);
         ship.rb2d.AddForce(input);
+    }
+
+    private void OnEnable()
+    {
+        InputManager.InputAxis += OnAxis;
+        InputManager.UpdateEvent += RotateShipToCursor;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputAxis -= OnAxis;
+        InputManager.UpdateEvent -= RotateShipToCursor;
     }
 }

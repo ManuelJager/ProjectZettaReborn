@@ -6,12 +6,8 @@ using UnityEngine.UI;
 
 public partial class UIManager : MonoBehaviour
 {
-    public List<GameObject> UIObjectPrefabManager;
-    public PowerDrawBar powerDrawBar;
-    public IntegrityDrawBar integrityDrawBar;
-
-    public GameObject debuggerLayer;
-    public GameObject gameplayLayer;
+    public GameplayLayer gameplayLayer;
+    public DebuggerLayer debuggerLayer;
 
     public static UIManager Instance;
 

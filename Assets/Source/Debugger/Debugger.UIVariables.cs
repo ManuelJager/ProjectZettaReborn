@@ -9,7 +9,7 @@ public static partial class Debugger
         float value;
         if (float.TryParse(input, out value)) 
         {
-            UIManager.Instance.powerDrawBar.max = value;
+            UIManager.Instance.gameplayLayer.statLayer.powerDrawBar.max = value;
         }
         else
         {
@@ -22,7 +22,7 @@ public static partial class Debugger
         float value;
         if (float.TryParse(input, out value))
         {
-            UIManager.Instance.integrityDrawBar.max = value;
+            UIManager.Instance.gameplayLayer.statLayer.integrityDrawBar.max = value;
         }
         else
         {

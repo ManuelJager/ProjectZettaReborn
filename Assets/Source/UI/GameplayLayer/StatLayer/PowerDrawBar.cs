@@ -30,7 +30,7 @@ public class PowerDrawBar : MonoBehaviour, IStatLayerReportable
     {
         barRect.localScale = new Vector3(Mathf.Clamp01(displayValue / displayMax), 1, 1);
         drawRect.anchoredPosition = new Vector2(-(capacityRect.sizeDelta.x + 10), 0);
-        capacityText.text = $"/{Mathf.Round(displayMax)}";
+        capacityText.text = $"/{Mathf.Round(displayMax)} KW";
         drawText.text = Mathf.Round(displayValue).ToString();
     }
 
