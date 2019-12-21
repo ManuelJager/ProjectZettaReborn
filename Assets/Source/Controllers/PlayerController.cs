@@ -25,8 +25,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             gameObject.SetActive(value);
-            UIManager.Instance.healthDrawBar.gameObject.SetActive(value);
-            UIManager.Instance.powerDrawBar.gameObject.SetActive(value);
+            UIManager.Instance.gameplayLayer.SetActive(value);
             if (value)
             {
                 InputManager.InputAxis += OnAxis;
