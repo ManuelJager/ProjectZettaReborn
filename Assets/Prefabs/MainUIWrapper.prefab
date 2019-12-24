@@ -509,7 +509,7 @@ MonoBehaviour:
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 3
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   powerDrawBar: {fileID: 681560482917555913}
   integrityDrawBar: {fileID: 8618704311821303332}
   speedDisplayer: {fileID: 4804601530900528456}
-  batteryDisplayer: {fileID: 4607761017055363938}
+  batteryDisplayer: {fileID: 3842631847849703721}
   remainingFuelDisplayer: {fileID: 69077208051831918}
 --- !u!1 &2801490315932020982
 GameObject:
@@ -1569,7 +1569,7 @@ MonoBehaviour:
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 3
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -2142,8 +2142,8 @@ GameObject:
   m_Component:
   - component: {fileID: 816016311437728604}
   - component: {fileID: 9126775482274081917}
-  - component: {fileID: 1649479934303779257}
-  - component: {fileID: 4607761017055363938}
+  - component: {fileID: 3842631847849703721}
+  - component: {fileID: 8554438388160116880}
   m_Layer: 5
   m_Name: BatteryDisplayer
   m_TagString: Untagged
@@ -2178,7 +2178,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6049849263962917131}
   m_CullTransparentMesh: 0
---- !u!114 &1649479934303779257
+--- !u!114 &3842631847849703721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049849263962917131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9460ca8a87ac50a4aacf47c09eebd804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayImage: {fileID: 8554438388160116880}
+  sprites:
+  - {fileID: -6477251122619830443, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: 660006495283681914, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: -8662185199693457826, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: 596112138077474402, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: -5625353437029982257, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: 3683230302381515785, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: -3066340514930262408, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: 3898101740832880975, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+  - {fileID: -7840339281730526773, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
+--- !u!114 &8554438388160116880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2191,7 +2214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2207,29 +2230,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4607761017055363938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6049849263962917131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9460ca8a87ac50a4aacf47c09eebd804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayImage: {fileID: 1649479934303779257}
-  sprites:
-  - {fileID: -6477251122619830443, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: 660006495283681914, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: -8662185199693457826, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: 596112138077474402, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: -5625353437029982257, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: 3683230302381515785, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: -3066340514930262408, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: 3898101740832880975, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
-  - {fileID: -7840339281730526773, guid: 800b467add499314aa0ebf7d1e3a2e4f, type: 3}
 --- !u!1 &6163021506547461860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2290,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5028339571732752538}
   - component: {fileID: 3534000111936913506}
-  - component: {fileID: 4287090423047118475}
   - component: {fileID: 4804601530900528456}
   m_Layer: 5
   m_Name: SpeedDisplayer
@@ -2326,7 +2325,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6481510596799029897}
   m_CullTransparentMesh: 0
---- !u!114 &4287090423047118475
+--- !u!114 &4804601530900528456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2335,7 +2334,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6481510596799029897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: a1d10fd500492c144a2581a4009493c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -2358,19 +2357,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 50 M/s
---- !u!114 &4804601530900528456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6481510596799029897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d10fd500492c144a2581a4009493c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpeedDisplayText: {fileID: 4287090423047118475}
 --- !u!1 &6626806430509861655
 GameObject:
   m_ObjectHideFlags: 0

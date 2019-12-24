@@ -5,11 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class SpeedDisplayer : MonoBehaviour
+public class SpeedDisplayer : Text
 {
-    [SerializeField] private Text SpeedDisplayText;
     public void UpdateDisplayValue(float value)
     {
-        SpeedDisplayText.text = $"{Math.Round(value, 1)} M/S";
+        text = $"{Math.Round(value, 1)} M/S";
     }
 }

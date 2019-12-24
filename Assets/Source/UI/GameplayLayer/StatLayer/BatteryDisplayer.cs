@@ -7,7 +7,7 @@ public class BatteryDisplayer : MonoBehaviour
 {
     public Image displayImage;
     public List<Sprite> sprites;
-    
+
     public void UpdateDisplayValue(float percentageValue)
     {
         var index = GetIndex(percentageValue);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class LazySingleton<T> : MonoBehaviour where T : MonoBehaviour
+public class LazySingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static readonly Lazy<T> LazyInstance = new Lazy<T>(CreateSingleton);
 

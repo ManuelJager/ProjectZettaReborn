@@ -25,5 +25,36 @@ namespace Blueprints
             this.name = name;
             this.blocks = blocks;
         }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            var other = (Blueprint)obj;
+            return GetHashCode() == other.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            var properties = new List<int> 
+            { 
+                name.GetHashCode(), 
+                blocks.GetHashCodeAggregate() 
+            };
+
+            return properties.GetHashCodeAggregate();
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+
+        public bool IsValid
+        {
+            get => BlueprintManager.ValidateBlueprint(this).Count <= 0;
+        }
     }
 }

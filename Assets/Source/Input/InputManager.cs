@@ -6,10 +6,8 @@ using System;
 /// <summary>
 /// Global event driven inputManager
 /// </summary>
-public partial class InputManager : MonoBehaviour
+public partial class InputManager : LazySingleton<InputManager>
 {
-    public static InputManager Instance;
-
     public delegate void UpdateDelegate();
     public static UpdateDelegate UpdateEvent;
 
@@ -23,11 +21,6 @@ public partial class InputManager : MonoBehaviour
 
     public delegate void InputAxisDelegate(Vector2 input);
     public static event InputAxisDelegate InputAxis;
-
-    public InputManager()
-    {
-        Instance = this;
-    }
 
     void OnGUI()
     {
@@ -76,6 +69,8 @@ public partial class InputManager : MonoBehaviour
         {
             InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
         }
-
     }
+
+    [RuntimeInitializeOnLoadMethod]
+    public static void EchoThis() => Echo();
 }
