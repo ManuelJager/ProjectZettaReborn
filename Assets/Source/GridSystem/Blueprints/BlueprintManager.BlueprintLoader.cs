@@ -29,11 +29,12 @@ namespace Blueprints
                 {
                     var json = File.ReadAllText(savePath);
                     var unverifiedBlueprints = JsonConvert.DeserializeObject<List<Blueprint>>(json);
-                    // Get a list of blueprints that are valid
-                    return unverifiedBlueprints.Where(x => x.IsValid).ToList();
+                    // Return a list of blueprints that are valid and unique
+                    return unverifiedBlueprints.Distinct().Where(x => x.IsValid).ToList();
                 }
                 catch
                 {
+                    Debug.LogWarning("Failed to serialize blueprints");
                     // if error, return an empty list
                     return new List<Blueprint>();
                 }

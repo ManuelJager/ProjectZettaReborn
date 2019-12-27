@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Blueprints
 {
     public class Blueprint
     {
+        [JsonIgnore]
+        private int? cachedHash;
+
         protected string name;
         public string Name
         {
@@ -36,15 +40,23 @@ namespace Blueprints
             return GetHashCode() == other.GetHashCode();
         }
 
-        public override int GetHashCode()
+        private int GenerateHashCode()
         {
-            var properties = new List<int> 
-            { 
-                name.GetHashCode(), 
-                blocks.GetHashCodeAggregate() 
+            var properties = new List<int>
+            {
+                name.GetHashCode(),
+                blocks.GetHashCodeAggregate()
             };
 
-            return properties.GetHashCodeAggregate();
+            var hash = properties.GetHashCodeAggregate();
+            cachedHash = hash;
+
+            return hash;
+        }
+
+        public override int GetHashCode()
+        {
+            return cachedHash ?? GenerateHashCode();
         }
 
         public override string ToString()
@@ -52,6 +64,7 @@ namespace Blueprints
             return name;
         }
 
+        [JsonIgnore]
         public bool IsValid
         {
             get => BlueprintManager.ValidateBlueprint(this).Count <= 0;
