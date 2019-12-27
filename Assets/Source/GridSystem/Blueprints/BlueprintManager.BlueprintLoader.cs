@@ -92,7 +92,7 @@ namespace Blueprints
                 }
                 else
                 {
-                    Debug.Log("Duplicate ship");
+                    throw new DuplicateBlueprintException();
                 }
             }
         }
@@ -102,7 +102,18 @@ namespace Blueprints
         [RuntimeInitializeOnLoadMethod]
         public static void AddDefaultShipToLoadedBlueprints()
         {
-            loadedBlueprints.Add(Import(DEFAULT_BLUEPRINT));
+            try
+            {
+                loadedBlueprints.Add(Import(DEFAULT_BLUEPRINT));
+            }
+            catch (DuplicateBlueprintException)
+            {
+                 
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
     }
 }

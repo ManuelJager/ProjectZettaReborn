@@ -13,7 +13,7 @@ public static partial class Debugger
         }
         else
         {
-            Debug.LogWarning($"Blueprint {name} not found");
+            Debug.LogWarning($"Blueprint \"{name}\" not found");
         }        
     }
 }
