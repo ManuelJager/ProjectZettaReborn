@@ -7,7 +7,7 @@ using Extensions;
 /// <summary>
 /// Takes it input from global events from <see cref="InputManager"/>
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : LazySingleton<PlayerController>
 {
     private Ship ship;
     public Ship Ship
@@ -29,15 +29,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public static PlayerController Instance;
-
     private Quaternion q;
     private Camera orthographicCamera;
-
-    public PlayerController()
-    {
-        Instance = this;
-    }
 
     public void Start()
     {
@@ -76,4 +69,7 @@ public class PlayerController : MonoBehaviour
         InputManager.InputAxis -= OnAxis;
         InputManager.UpdateEvent -= RotateShipToCursor;
     }
+
+    [RuntimeInitializeOnLoadMethod]
+    public static void EchoThis() => Echo();
 }

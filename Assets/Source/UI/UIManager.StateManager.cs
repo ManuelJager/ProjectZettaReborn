@@ -17,5 +17,7 @@ public partial class UIManager
     public void ToggleDebuggerLayer()
     {
         DebuggerLayerActiveState = !DebuggerLayerActiveState;
+        var statusString = DebuggerLayerActiveState ? "ON" : "OFF";
+        UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
     }
 }

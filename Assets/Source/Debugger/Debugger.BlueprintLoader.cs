@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GridSystem;
+using UI;
 
 public static partial class Debugger
 {
@@ -13,6 +14,7 @@ public static partial class Debugger
         }
         else
         {
+            NoticeManager.Instance.Prompt($"Blueprint \"{name}\" not found");
             Debug.LogWarning($"Blueprint \"{name}\" not found");
         }        
     }

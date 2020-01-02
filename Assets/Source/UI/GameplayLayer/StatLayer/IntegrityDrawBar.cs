@@ -31,13 +31,13 @@ public class IntegrityDrawBar : MonoBehaviour, IStatLayerReportable
 
     public void Update()
     {
-        displayValue = MathExtensions.MixedInterpolate(
+        displayValue = Zetta.Math.MixedInterpolate(
             displayValue, 
             value,
             multiplier,
             step);
 
-        displayMax = MathExtensions.MixedInterpolate(
+        displayMax = Zetta.Math.MixedInterpolate(
             displayMax, 
             max,
             multiplier,
