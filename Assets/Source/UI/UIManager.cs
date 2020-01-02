@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public partial class UIManager : MonoBehaviour
 {
-    public List<GameObject> UIObjectPrefabManager;
-    public PowerDrawBar powerDrawBar;
-    public HealthDrawBar healthDrawBar;
-    public GameObject debugLayer;
+    public GameplayLayer gameplayLayer;
+    public DebuggerLayer debuggerLayer;
 
     public static UIManager Instance;
 
@@ -23,18 +21,7 @@ public class UIManager : MonoBehaviour
     public void Awake()
     {
         canvas.worldCamera = Camera.main;
-        DebugLayerActiveState = false;
-        InputManager.ClickF10 += ToggleDebugger;
-    }
-
-    public bool DebugLayerActiveState
-    {
-        get => debugLayer.activeSelf;
-        set => debugLayer.SetActive(value);
-    }
-
-    public void ToggleDebugger()
-    {
-        DebugLayerActiveState = !DebugLayerActiveState;
+        DebuggerLayerActiveState = false;
+        InputManager.ClickF10 += ToggleDebuggerLayer;
     }
 }

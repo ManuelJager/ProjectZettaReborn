@@ -7,7 +7,7 @@ using Extensions;
 /// <summary>
 /// Takes it input from global events from <see cref="InputManager"/>
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : LazySingleton<PlayerController>
 {
     private Ship ship;
     public Ship Ship
@@ -25,30 +25,12 @@ public class PlayerController : MonoBehaviour
         set
         {
             gameObject.SetActive(value);
-            UIManager.Instance.healthDrawBar.gameObject.SetActive(value);
-            UIManager.Instance.powerDrawBar.gameObject.SetActive(value);
-            if (value)
-            {
-                InputManager.InputAxis += OnAxis;
-                InputManager.UpdateEvent += RotateShipToCursor;
-            }
-            else
-            {
-                InputManager.InputAxis -= OnAxis;
-                InputManager.UpdateEvent -= RotateShipToCursor;
-            }
+            UIManager.Instance.GameplayLayerActiveState = value;
         }
     }
 
-    public static PlayerController Instance;
-
     private Quaternion q;
     private Camera orthographicCamera;
-
-    public PlayerController()
-    {
-        Instance = this;
-    }
 
     public void Start()
     {
@@ -75,4 +57,19 @@ public class PlayerController : MonoBehaviour
         input = GridUtilities.DegreeToVector2(inputRotation);
         ship.rb2d.AddForce(input);
     }
+
+    private void OnEnable()
+    {
+        InputManager.InputAxis += OnAxis;
+        InputManager.UpdateEvent += RotateShipToCursor;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputAxis -= OnAxis;
+        InputManager.UpdateEvent -= RotateShipToCursor;
+    }
+
+    [RuntimeInitializeOnLoadMethod]
+    public static void EchoThis() => Echo();
 }

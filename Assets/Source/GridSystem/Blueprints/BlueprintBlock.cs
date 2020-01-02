@@ -64,5 +64,11 @@ namespace Blueprints
             this.position = position;
             this.rotation = rotation;
         }
+
+        public override int GetHashCode()
+        {
+            var propertyList = new List<object> { blockTypeID, position, rotation };
+            return EnumerableExtensions.GetHashCodeAggregate(propertyList);
+        }
     }
 }

@@ -8,9 +8,14 @@ namespace Exceptions
 {
     public class PrefabNotFoundException : Exception
     {
-        public PrefabNotFoundException() {}
+        public PrefabNotFoundException() 
+        {
+        }
 
-        public PrefabNotFoundException(string index) : base($"Prefab with index {index} not found.") { }
+        public PrefabNotFoundException(string index) 
+            : base($"Prefab with index {index} not found.") 
+        { 
+        }
     }
 }
 
