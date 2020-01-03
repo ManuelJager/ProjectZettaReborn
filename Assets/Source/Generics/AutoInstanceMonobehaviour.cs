@@ -2,60 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AutoInstanceMonoBehaviour<T> : MonoBehaviour
-    where T : AutoInstanceMonoBehaviour<T>
+namespace Zetta.Generics
 {
-    public static bool destroyed { get; private set; }
-
-    private static T instance;
-
-    public static T Instance
+    public abstract class AutoInstanceMonoBehaviour<T> : MonoBehaviour
+        where T : AutoInstanceMonoBehaviour<T>
     {
-        get
+        public static bool destroyed { get; private set; }
+
+        private static T instance;
+
+        public static T Instance
         {
-            if (instance)
+            get
             {
+                if (instance)
+                {
+                    return instance;
+                }
+
+                instance = GetAutoMonoBehaviour(dontDestroyOnLoad: true);
+                destroyed = false;
                 return instance;
             }
-
-            instance = GetAutoMonoBehaviour(dontDestroyOnLoad: true);
-            destroyed = false;
-            return instance;
         }
-    }
 
-    protected void Awake()
-    {
-        if (!instance || destroyed)
+        protected void Awake()
         {
-            instance = (T)this;
-            destroyed = false;
+            if (!instance || destroyed)
+            {
+                instance = (T)this;
+                destroyed = false;
+            }
         }
-    }
 
-    protected void OnDestroy()
-    {
-        if (ReferenceEquals(this, instance))
+        protected void OnDestroy()
         {
-            destroyed = true;
+            if (ReferenceEquals(this, instance))
+            {
+                destroyed = true;
+            }
         }
-    }
 
-    public static T GetAutoMonoBehaviour(bool dontDestroyOnLoad = false)
-    {
-        var result = FindObjectOfType<T>();
-        if (!result)
+        public static T GetAutoMonoBehaviour(bool dontDestroyOnLoad = false)
         {
-            result = new GameObject(
-                $"Auto instance: {typeof(T).Name}"
-            ).AddComponent<T>();
-        }
+            var result = FindObjectOfType<T>();
+            if (!result)
+            {
+                result = new GameObject(
+                    $"Auto instance: {typeof(T).Name}"
+                ).AddComponent<T>();
+            }
 
-        if (dontDestroyOnLoad)
-        {
-            DontDestroyOnLoad(result.gameObject);
-        }
+            if (dontDestroyOnLoad)
+            {
+                DontDestroyOnLoad(result.gameObject);
+            }
 
-        return result;
+            return result;
+        }
     }
 }

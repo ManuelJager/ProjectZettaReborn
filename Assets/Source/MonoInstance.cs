@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zetta.Generics;
 
-public class MonoInstance : AutoInstanceMonoBehaviour<MonoInstance>
+namespace Zetta
 {
+    public class MonoInstance : AutoInstanceMonoBehaviour<MonoInstance>
+    {
+    }
 }

@@ -2410,6 +2410,7 @@ MonoBehaviour:
   NoticeTextBoxPrefab: {fileID: 7242017232788310727, guid: a6ab49e94aba68141bb1c1dd5b137b47,
     type: 3}
   fadeTime: 0.3
+  extendFadeTimeOnContent: 1
 --- !u!1 &6626806430509861655
 GameObject:
   m_ObjectHideFlags: 0

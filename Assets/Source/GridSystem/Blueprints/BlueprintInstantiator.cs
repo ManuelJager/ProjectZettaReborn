@@ -1,13 +1,15 @@
-﻿using Exceptions;
-using GridSystem;
+﻿using Zetta.Exceptions;
+using Zetta.GridSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Zetta.GridSystem.Blocks;
+using Zetta;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintInstantiator : MonoBehaviour
     {
@@ -22,11 +24,11 @@ namespace Blueprints
         private Vector2 GetBlockPosition(Vector2 original, Vector2 size)
         {
             // Check if the x size is even
-            if (size.x != 0 && Math.Abs(size.x) % 2 == 0)
+            if (size.x != 0 && System.Math.Abs(size.x) % 2 == 0)
                 original.x += 0.5f;
 
             // Check if the x size is even
-            if (size.y != 0 && Math.Abs(size.y) % 2 == 0)
+            if (size.y != 0 && System.Math.Abs(size.y) % 2 == 0)
                 original.y -= 0.5f;
             return original;
         }
@@ -47,7 +49,7 @@ namespace Blueprints
                 // Instantiate the block by prefab block type
                 try
                 {
-                    var block = Instantiate(PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID));
+                    var block = Instantiate(GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID));
                     GridBlockBase blockBase = (GridBlockBase)block.GetComponent(typeof(GridBlockBase));
                     // Set the parent of the block
                     block.transform.SetParent(parent);

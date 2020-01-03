@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayLayer : MonoBehaviour
+
+namespace Zetta.UI.Controllers
 {
-    public StatLayer statLayer;
+    public class GameplayLayer : MonoBehaviour
+    {
+        public StatLayer statLayer;
+    }
 }

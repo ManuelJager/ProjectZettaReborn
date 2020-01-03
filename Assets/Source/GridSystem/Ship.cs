@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zetta.GridSystem.Blocks;
 
-namespace GridSystem
+namespace Zetta.GridSystem
 {
     public class Ship : BlockGrid
     {

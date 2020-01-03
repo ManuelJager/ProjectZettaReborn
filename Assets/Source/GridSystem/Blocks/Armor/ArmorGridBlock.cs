@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public class ArmorGridBlock : GridBlockBase, IPhysicalGridBlock
     {

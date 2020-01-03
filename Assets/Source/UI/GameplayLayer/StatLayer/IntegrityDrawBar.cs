@@ -5,44 +5,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IntegrityDrawBar : MonoBehaviour, IStatLayerReportable
+namespace Zetta.UI.Controllers.ValueDisplayers
 {
-    [SerializeField] private RectTransform barRect;
-    [SerializeField] private Text drawText;
-
-    public float value { get; set; } = 1f;
-    public float displayValue { get; set; } = 1f;
-    public float max { get; set; } = 1f;
-    public float displayMax { get; set; } = 1f;
-    public float multiplier { get; set; } = 0.02f;
-    public float step { get; set; } = 0.01f;
-
-    public void RefreshDisplayFields()
+    public class IntegrityDrawBar : MonoBehaviour, IStatLayerReportable
     {
-        displayValue = value;
-        displayMax = max;
-    }
+        [SerializeField] private RectTransform barRect;
+        [SerializeField] private Text drawText;
 
-    public void UpdateBar(float displayValue, float displayMax)
-    {
-        barRect.localScale = new Vector3(Mathf.Clamp01(displayValue / displayMax), 1, 1);
-        drawText.text = $"{Mathf.Round(displayValue / displayMax * 100)}%";
-    }
+        public float value { get; set; } = 1f;
+        public float displayValue { get; set; } = 1f;
+        public float max { get; set; } = 1f;
+        public float displayMax { get; set; } = 1f;
+        public float multiplier { get; set; } = 0.02f;
+        public float step { get; set; } = 0.01f;
 
-    public void Update()
-    {
-        displayValue = Zetta.Math.MixedInterpolate(
-            displayValue, 
-            value,
-            multiplier,
-            step);
+        public void RefreshDisplayFields()
+        {
+            displayValue = value;
+            displayMax = max;
+        }
 
-        displayMax = Zetta.Math.MixedInterpolate(
-            displayMax, 
-            max,
-            multiplier,
-            step);
+        public void UpdateBar(float displayValue, float displayMax)
+        {
+            barRect.localScale = new Vector3(Mathf.Clamp01(displayValue / displayMax), 1, 1);
+            drawText.text = $"{Mathf.Round(displayValue / displayMax * 100)}%";
+        }
 
-        UpdateBar(displayValue, displayMax);
+        public void Update()
+        {
+            displayValue = Zetta.Math.Interpolationf.MixedInterpolate(
+                displayValue,
+                value,
+                multiplier,
+                step);
+
+            displayMax = Zetta.Math.Interpolationf.MixedInterpolate(
+                displayMax,
+                max,
+                multiplier,
+                step);
+
+            UpdateBar(displayValue, displayMax);
+        }
     }
 }

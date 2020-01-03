@@ -1,10 +1,11 @@
-﻿using Blueprints;
+﻿using Zetta.GridSystem.Blueprints;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zetta.GridSystem.Blocks;
 
-namespace GridSystem
+namespace Zetta.GridSystem
 {
     public partial class BlockGrid : MonoBehaviour
     {
@@ -27,8 +28,8 @@ namespace GridSystem
                     bounds.Encapsulate(renderer.bounds);
                 }
                 return new Vector2(
-                    (float)Math.Floor(bounds.size.x),
-                    (float)Math.Floor(bounds.size.y));
+                    (float)System.Math.Floor(bounds.size.x),
+                    (float)System.Math.Floor(bounds.size.y));
             }
         }
 

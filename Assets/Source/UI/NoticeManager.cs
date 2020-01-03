@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zetta;
 using UniRx.Async;
+using Zetta.Math.Curves;
+using Zetta.UI.Controllers;
 
 namespace Zetta.UI
 {
@@ -21,7 +23,7 @@ namespace Zetta.UI
         [SerializeField] private bool extendFadeTimeOnContent;
         private float maxHeight;
         private Dictionary<RectTransform, NoticeStatus> notices = new Dictionary<RectTransform, NoticeStatus>();
-        private Curves.BezierCurve fadeCurve = new Curves.BezierCurve(
+        private BezierCurve fadeCurve = new BezierCurve(
             new Vector2(0.29f, 0.95f),
             new Vector2(0.29f, 0.95f));
 
@@ -98,7 +100,7 @@ namespace Zetta.UI
                 if (status.targetYPos != rect.anchoredPosition.y)
                 {
                     var currPos = rect.anchoredPosition.y;
-                    var nextPos = Math.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
+                    var nextPos = Math.Interpolationf.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
 
                     rect.anchoredPosition = new Vector2(0, nextPos);
                 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Exceptions;
-using GridSystem;
+using Zetta.Exceptions;
+using Zetta.GridSystem;
 using Newtonsoft.Json;
 using UnityEngine;
 using System.IO;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public static partial class BlueprintManager
     {

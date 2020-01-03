@@ -2,42 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zetta;
 
-public class DebuggerLayer : MonoBehaviour
+namespace Zetta.UI.Controllers
 {
-    public Button loadBlueprintButton;
-    public InputField loadBlueprintInputField;
-    public Button loadDefaultBlueprintButton;
-    public Button setMaxPowerButton;
-    public InputField setMaxPowerInputField;
-    public Button setMaxIntegrityButton;
-    public InputField setMaxIntegrityInputField;
-
-    public void Awake()
+    public class DebuggerLayer : MonoBehaviour
     {
-        loadBlueprintButton.onClick.AddListener(SpawnShip);
-        setMaxPowerButton.onClick.AddListener(SetMaxPower);
-        setMaxIntegrityButton.onClick.AddListener(SetMaxIntegrity);
-        loadDefaultBlueprintButton.onClick.AddListener(SpawnDefaultShip);
-    }
+        public Button loadBlueprintButton;
+        public InputField loadBlueprintInputField;
+        public Button loadDefaultBlueprintButton;
+        public Button setMaxPowerButton;
+        public InputField setMaxPowerInputField;
+        public Button setMaxIntegrityButton;
+        public InputField setMaxIntegrityInputField;
 
-    public void SpawnShip()
-    {
-        Debugger.SpawnShipByName(loadBlueprintInputField.text);
-    }
+        public void Awake()
+        {
+            loadBlueprintButton.onClick.AddListener(SpawnShip);
+            setMaxPowerButton.onClick.AddListener(SetMaxPower);
+            setMaxIntegrityButton.onClick.AddListener(SetMaxIntegrity);
+            loadDefaultBlueprintButton.onClick.AddListener(SpawnDefaultShip);
+        }
 
-    public void SetMaxPower()
-    {
-        Debugger.SetMaxPower(setMaxPowerInputField.text);
-    }
+        public void SpawnShip()
+        {
+            Debugger.SpawnShipByName(loadBlueprintInputField.text);
+        }
 
-    public void SetMaxIntegrity()
-    {
-        Debugger.SetMaxIntegrity(setMaxIntegrityInputField.text);
-    }
+        public void SetMaxPower()
+        {
+            Debugger.SetMaxPower(setMaxPowerInputField.text);
+        }
 
-    public void SpawnDefaultShip()
-    {
-        Debugger.SpawnShipByName("Default Ship");
+        public void SetMaxIntegrity()
+        {
+            Debugger.SetMaxIntegrity(setMaxIntegrityInputField.text);
+        }
+
+        public void SpawnDefaultShip()
+        {
+            Debugger.SpawnShipByName("Default Ship");
+        }
     }
 }

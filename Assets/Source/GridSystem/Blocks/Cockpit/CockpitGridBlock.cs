@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public class CockpitGridBlock : GridBlockBase
     {

@@ -1,31 +1,38 @@
-﻿using Exceptions;
+﻿using Zetta.Exceptions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zetta.Generics;
 
-public static class PrefabProvider
+namespace Zetta
 {
-    public static GameObject GetPrefab(string index)
+    public partial class GameManager
     {
-        try
+        public static class PrefabProvider
         {
-            return PrefabProviderInstance.Instance[index];
+            public static GameObject GetPrefab(string index)
+            {
+                try
+                {
+                    return PrefabProviderInstance.Instance[index];
+                }
+                catch (KeyNotFoundException)
+                {
+                    throw new PrefabNotFoundException(index);
+                }
+            }
         }
-        catch (KeyNotFoundException)
+
+        [System.Serializable]
+        public class PrefabProviderInstance : SerializableDictionary<string, GameObject>
         {
-            throw new PrefabNotFoundException(index);
+            public static PrefabProviderInstance Instance;
+
+            public PrefabProviderInstance()
+            {
+                Instance = this;
+            }
         }
-    }
-}
-
-[System.Serializable]
-public class PrefabProviderInstance : SerializableDictionary<string, GameObject>
-{
-    public static PrefabProviderInstance Instance;
-
-    public PrefabProviderInstance()
-    {
-        Instance = this;
     }
 }
 

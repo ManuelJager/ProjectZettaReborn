@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Zetta.Extensions;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public class Blueprint
     {

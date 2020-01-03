@@ -5,10 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class SpeedDisplayer : Text
+namespace Zetta.UI.Controllers.ValueDisplayers
 {
-    public void UpdateDisplayValue(float value)
+    public class SpeedDisplayer : Text
     {
-        text = $"{Math.Round(value, 1)} M/S";
+        public void UpdateDisplayValue(float value)
+        {
+            text = $"{System.Math.Round(value, 1)} M/S";
+        }
     }
 }

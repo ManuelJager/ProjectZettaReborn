@@ -1,24 +1,27 @@
 ﻿#pragma warning disable CS0649
 #pragma warning disable CS4014
 
-public partial class UIManager
+namespace Zetta.UI
 {
-    public bool GameplayLayerActiveState
+    public partial class UIManager
     {
-        get => Instance.gameplayLayer.gameObject.activeSelf;
-        set => Instance.gameplayLayer.gameObject.SetActive(value);
-    }
+        public bool GameplayLayerActiveState
+        {
+            get => Instance.gameplayLayer.gameObject.activeSelf;
+            set => Instance.gameplayLayer.gameObject.SetActive(value);
+        }
 
-    public bool DebuggerLayerActiveState
-    {
-        get => Instance.debuggerLayer.gameObject.activeSelf;
-        set => Instance.debuggerLayer.gameObject.SetActive(value);
-    }
+        public bool DebuggerLayerActiveState
+        {
+            get => Instance.debuggerLayer.gameObject.activeSelf;
+            set => Instance.debuggerLayer.gameObject.SetActive(value);
+        }
 
-    public void ToggleDebuggerLayer()
-    {
-        DebuggerLayerActiveState = !DebuggerLayerActiveState;
-        var statusString = DebuggerLayerActiveState ? "ON" : "OFF";
-        Zetta.UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
+        public void ToggleDebuggerLayer()
+        {
+            DebuggerLayerActiveState = !DebuggerLayerActiveState;
+            var statusString = DebuggerLayerActiveState ? "ON" : "OFF";
+            Zetta.UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
+        }
     }
 }

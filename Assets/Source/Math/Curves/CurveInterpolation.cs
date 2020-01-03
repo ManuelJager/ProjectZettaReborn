@@ -4,7 +4,7 @@ using UniRx.Async;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zetta.Curves
+namespace Zetta.Math.Curves
 {
     public static class CurveInterpolation
     {

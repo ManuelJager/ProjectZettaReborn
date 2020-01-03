@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Zetta
+namespace Zetta.Math
 {
-    public partial struct Math
+    public partial struct Interpolationf
     {
         public static float MixedInterpolate(
             float from, 

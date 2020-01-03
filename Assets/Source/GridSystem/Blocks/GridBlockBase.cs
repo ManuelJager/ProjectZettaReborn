@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Entities;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public class GridBlockBase : MonoBehaviour
     {

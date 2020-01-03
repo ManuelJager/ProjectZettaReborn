@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public interface IPhysicalGridBlock
     {

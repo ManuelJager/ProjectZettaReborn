@@ -1,22 +1,27 @@
 ﻿#pragma warning disable CS4014
 using UnityEngine;
 using System.Collections;
-using GridSystem;
+using Zetta.GridSystem;
 using Zetta.UI;
+using Zetta.GridSystem.Blueprints;
+using Zetta.Controllers;
 
-public static partial class Debugger
+namespace Zetta
 {
-    public static void SpawnShipByName(string name)
+    public static partial class Debugger
     {
-        var blueprint = Blueprints.BlueprintManager.loadedBlueprints.GetFirstWithName(name);
-        if (blueprint != default)
+        public static void SpawnShipByName(string name)
         {
-            PlayerController.Instance.Ship = Ship.InstantiateShip(blueprint);
+            var blueprint = BlueprintManager.loadedBlueprints.GetFirstWithName(name);
+            if (blueprint != default)
+            {
+                PlayerController.Instance.Ship = Ship.InstantiateShip(blueprint);
+            }
+            else
+            {
+                NoticeManager.Instance.Prompt($"Blueprint \"{name}\" not found");
+                Debug.LogWarning($"Blueprint \"{name}\" not found");
+            }
         }
-        else
-        {
-            NoticeManager.Instance.Prompt($"Blueprint \"{name}\" not found");
-            Debug.LogWarning($"Blueprint \"{name}\" not found");
-        }        
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Extensions
+namespace Zetta.Extensions
 {
     public static class CameraExtensions
     {

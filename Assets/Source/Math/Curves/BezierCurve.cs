@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Zetta.Curves
+namespace Zetta.Math.Curves
 {
     public class BezierCurve : ICurveProvider
     {

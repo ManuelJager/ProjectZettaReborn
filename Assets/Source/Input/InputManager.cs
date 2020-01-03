@@ -2,75 +2,79 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zetta.Generics;
 
-/// <summary>
-/// Global event driven inputManager
-/// </summary>
-public partial class InputManager : LazySingleton<InputManager>
+namespace Zetta.InputWrapper
 {
-    public delegate void UpdateDelegate();
-    public static UpdateDelegate UpdateEvent;
-
-    public delegate void ButtonActionClickDelegate();
-    public static event ButtonActionClickDelegate ClickShift;
-    public static event ButtonActionClickDelegate ClickEsc;
-    public static event ButtonActionClickDelegate ClickF10;
-
-    public delegate void ButtonKeypressClickDelegate(char keyPressed);
-    public static event ButtonKeypressClickDelegate ClickKeypress;
-
-    public delegate void InputAxisDelegate(Vector2 input);
-    public static event InputAxisDelegate InputAxis;
-
-    void OnGUI()
+    /// <summary>
+    /// Global event driven inputManager
+    /// </summary>
+    public partial class InputManager : LazySingleton<InputManager>
     {
-        var currentEvent = Event.current;
-        if (currentEvent.isKey && currentEvent.type == EventType.KeyDown)
+        public delegate void UpdateDelegate();
+        public static UpdateDelegate UpdateEvent;
+
+        public delegate void ButtonActionClickDelegate();
+        public static event ButtonActionClickDelegate ClickShift;
+        public static event ButtonActionClickDelegate ClickEsc;
+        public static event ButtonActionClickDelegate ClickF10;
+
+        public delegate void ButtonKeypressClickDelegate(char keyPressed);
+        public static event ButtonKeypressClickDelegate ClickKeypress;
+
+        public delegate void InputAxisDelegate(Vector2 input);
+        public static event InputAxisDelegate InputAxis;
+
+        void OnGUI()
         {
-            var keyCode = currentEvent.keyCode;
-            if (keyCode == KeyCode.None)
+            var currentEvent = Event.current;
+            if (currentEvent.isKey && currentEvent.type == EventType.KeyDown)
             {
-                return;
-            }
-            char key;
-            if (TryParseKeycode(keyCode, out key))
-            {
-                if (Input.GetKey(KeyCode.LeftShift))
+                var keyCode = currentEvent.keyCode;
+                if (keyCode == KeyCode.None)
                 {
-                    key = char.ToUpper(key);
+                    return;
                 }
-                ClickKeypress?.Invoke(key);
+                char key;
+                if (TryParseKeycode(keyCode, out key))
+                {
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        key = char.ToUpper(key);
+                    }
+                    ClickKeypress?.Invoke(key);
+                }
             }
         }
+
+        void Update()
+        {
+            UpdateEvent?.Invoke();
+
+            // ButtonPresses
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                ClickShift?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ClickEsc?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                ClickF10?.Invoke();
+            }
+
+            // Axis input
+            var horizontalAxis = Input.GetAxisRaw("Horizontal");
+            var verticalAxis = Input.GetAxisRaw("Vertical");
+            if (horizontalAxis != 0f || verticalAxis != 0f)
+            {
+                InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
+            }
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        public static void EchoThis() => Echo();
     }
-
-    void Update()
-    {
-        UpdateEvent?.Invoke();
-
-        // ButtonPresses
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            ClickShift?.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ClickEsc?.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
-            ClickF10?.Invoke();
-        }
-
-        // Axis input
-        var horizontalAxis = Input.GetAxisRaw("Horizontal");
-        var verticalAxis = Input.GetAxisRaw("Vertical");
-        if (horizontalAxis != 0f || verticalAxis != 0f)
-        {
-            InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
-        }
-    }
-
-    [RuntimeInitializeOnLoadMethod]
-    public static void EchoThis() => Echo();
 }

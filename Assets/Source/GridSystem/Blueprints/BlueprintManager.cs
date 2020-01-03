@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Exceptions;
-using GridSystem;
+using Zetta.Exceptions;
+using Zetta.GridSystem;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zetta.GridSystem.Blocks;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public static partial class BlueprintManager
     {
@@ -88,7 +89,7 @@ namespace Blueprints
                 try
                 {
                     // Get the prefab
-                    GameObject prefab = PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID);
+                    GameObject prefab = GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID);
 
                     // Get the blockbase script
                     GridBlockBase blockBase = (GridBlockBase)prefab.GetComponent(typeof(GridBlockBase));

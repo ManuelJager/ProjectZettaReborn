@@ -6,47 +6,50 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextWrapController : MonoBehaviour
+namespace Zetta.UI.Controllers
 {
-    [SerializeField]
-    private Text text;
-
-    public int separateAt;
-
-    public string Text
+    public class TextWrapController : MonoBehaviour
     {
-        set
-        {
-            text.text = AddNewlinesAt(value);
-        }
-    }
+        [SerializeField]
+        private Text text;
 
-    private string AddNewlinesAt(string input)
-    {
-        var words = input.Split(' ');
-        var sb = new StringBuilder();
-        var currentSentenceLength = 0;
-        var wordAmount = words.Length;
-        for (int i = 0; i < wordAmount; i++)
+        public int separateAt;
+
+        public string Text
         {
-            var word = words[i];
-            var wordLength = word.Length;
-            sb.Append(word);
-            if (currentSentenceLength + wordLength > separateAt)
+            set
             {
-                sb.Append("\n");
-                currentSentenceLength = 0;
+                text.text = AddNewlinesAt(value);
             }
-            else
+        }
+
+        private string AddNewlinesAt(string input)
+        {
+            var words = input.Split(' ');
+            var sb = new StringBuilder();
+            var currentSentenceLength = 0;
+            var wordAmount = words.Length;
+            for (int i = 0; i < wordAmount; i++)
             {
-                if (i != wordAmount - 1)
+                var word = words[i];
+                var wordLength = word.Length;
+                sb.Append(word);
+                if (currentSentenceLength + wordLength > separateAt)
                 {
-                    sb.Append(" ");
+                    sb.Append("\n");
+                    currentSentenceLength = 0;
                 }
-                currentSentenceLength += wordLength;
+                else
+                {
+                    if (i != wordAmount - 1)
+                    {
+                        sb.Append(" ");
+                    }
+                    currentSentenceLength += wordLength;
+                }
             }
+            sb.Append('\n');
+            return sb.ToString();
         }
-        sb.Append('\n');
-        return sb.ToString();
     }
 }
