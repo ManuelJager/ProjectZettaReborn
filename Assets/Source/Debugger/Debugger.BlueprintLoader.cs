@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿#pragma warning disable CS4014
+using UnityEngine;
 using System.Collections;
 using GridSystem;
-using UI;
+using Zetta.UI;
 
 public static partial class Debugger
 {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Zetta
+namespace Zetta.Curves
 {
-    public interface CurveProvider
+    public interface ICurveProvider
     {
         float GetY(float x);
     }

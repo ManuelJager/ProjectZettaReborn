@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS0649
+#pragma warning disable CS4014
 
 public partial class UIManager
 {
@@ -18,6 +19,6 @@ public partial class UIManager
     {
         DebuggerLayerActiveState = !DebuggerLayerActiveState;
         var statusString = DebuggerLayerActiveState ? "ON" : "OFF";
-        UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
+        Zetta.UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
     }
 }
