@@ -6,6 +6,7 @@ using Zetta.Extensions;
 using Zetta.InputWrapper;
 using Zetta.Generics;
 using Zetta.UI;
+using Zetta;
 
 namespace Zetta.Controllers
 {
@@ -59,7 +60,7 @@ namespace Zetta.Controllers
             var inputRotation = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
             inputRotation += q.eulerAngles.z + 270f;
             inputRotation %= 360f;
-            input = GridUtilities.DegreeToVector2(inputRotation);
+            input = Math.Vectorf.DegreeToVector2(inputRotation);
             ship.rb2d.AddForce(input);
         }
 

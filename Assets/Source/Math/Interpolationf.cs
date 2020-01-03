@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Zetta.Math
 {
-    public partial struct Interpolationf
+    public class Interpolationf
     {
         public static float MixedInterpolate(
             float from, 
