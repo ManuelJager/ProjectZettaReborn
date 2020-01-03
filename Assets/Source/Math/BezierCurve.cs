@@ -6,7 +6,7 @@ namespace Zetta
 {
     public partial struct Math
     {
-        public class BezierCurve
+        public class BezierCurve : CurveProvider
         {
             public BezierCurve(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
             {

@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS0649
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading;
+using System.Threading.Tasks;
+using Zetta;
 
 namespace UI
 {
@@ -13,7 +17,7 @@ namespace UI
         [SerializeField] private GameObject NoticeTextBoxPrefab;
         private float maxHeight;
         private Dictionary<RectTransform, NoticeStatus> notices = new Dictionary<RectTransform, NoticeStatus>();
-        private Zetta.Math.BezierCurve fadeCurve = new Zetta.Math.BezierCurve(
+        private Math.BezierCurve fadeCurve = new Math.BezierCurve(
             new Vector2(0.29f, 0.95f),
             new Vector2(0.29f, 0.95f));
 
@@ -32,6 +36,7 @@ namespace UI
             // Hide component for now
             // Cannot unable gameobject because the gameobject needs to be active for the layout group to calculate
             rect.anchoredPosition = new Vector2(0, -1000);
+
             // Unhide and set pos of element after layout group calculated element height
             StartCoroutine(LatePrompt(rect, duration));
         }
@@ -56,8 +61,12 @@ namespace UI
                 if ((rect.anchoredPosition.y >= maxHeight || status.lifetimeRemaining < 0.3f) && !status.fading)
                 {
                     status.fading = true;
-                    Zetta.UI.FadingUtilities.FadeOut(status.group, fadeCurve, 0.3f);
+                    fadeCurve.DeltaCurveInterpolate(0.3f, 
+                        (float value) => {
+                            status.group.alpha = 1f - value;
+                        });
                 }
+
                 if (status.lifetimeRemaining < 0f)
                 {
                     notices.Remove(rect);
@@ -68,7 +77,7 @@ namespace UI
                 if (status.targetYPos != rect.anchoredPosition.y)
                 {
                     var currPos = rect.anchoredPosition.y;
-                    var nextPos = Zetta.Math.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
+                    var nextPos = Math.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
 
                     rect.anchoredPosition = new Vector2(0, nextPos);
                 }
@@ -80,7 +89,7 @@ namespace UI
             yield return new WaitForEndOfFrame();
             
             var rectHeight = rect.rect.height;
-            rect.anchoredPosition = new Vector2(0, -rectHeight);
+            rect.anchoredPosition = new Vector2(0, -(rectHeight + padding));
 
             foreach (var notice in notices)
             {
@@ -88,7 +97,7 @@ namespace UI
             }
 
             notices[rect] = new NoticeStatus(
-                padding, 
+                0f, 
                 duration, 
                 rect.gameObject.GetComponent<CanvasGroup>());
         }
