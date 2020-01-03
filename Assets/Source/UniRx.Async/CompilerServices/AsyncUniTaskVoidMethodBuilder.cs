@@ -11,7 +11,7 @@ namespace UniRx.Async.CompilerServices
 {
     public struct AsyncUniTaskVoidMethodBuilder
     {
-        Action moveNext;
+        private Action moveNext;
 
         // 1. Static Create method.
         [DebuggerHidden]

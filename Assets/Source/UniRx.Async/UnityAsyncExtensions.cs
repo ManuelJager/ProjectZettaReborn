@@ -161,9 +161,9 @@ namespace UniRx.Async
 
         public struct AsyncOperationAwaiter : IAwaiter
         {
-            AsyncOperation asyncOperation;
-            Action<AsyncOperation> continuationAction;
-            AwaiterStatus status;
+            private AsyncOperation asyncOperation;
+            private Action<AsyncOperation> continuationAction;
+            private AwaiterStatus status;
 
             public AsyncOperationAwaiter(AsyncOperation asyncOperation)
             {
@@ -217,13 +217,13 @@ namespace UniRx.Async
             }
         }
 
-        class AsyncOperationConfiguredAwaiter : IAwaiter, IPlayerLoopItem
+        private class AsyncOperationConfiguredAwaiter : IAwaiter, IPlayerLoopItem
         {
-            AsyncOperation asyncOperation;
-            IProgress<float> progress;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
+            private AsyncOperation asyncOperation;
+            private IProgress<float> progress;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
 
             public AsyncOperationConfiguredAwaiter(AsyncOperation asyncOperation, IProgress<float> progress, CancellationToken cancellationToken)
             {
@@ -280,7 +280,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;
@@ -309,10 +309,10 @@ namespace UniRx.Async
 
         public struct ResourceRequestAwaiter : IAwaiter<UnityEngine.Object>
         {
-            ResourceRequest asyncOperation;
-            Action<AsyncOperation> continuationAction;
-            AwaiterStatus status;
-            UnityEngine.Object result;
+            private ResourceRequest asyncOperation;
+            private Action<AsyncOperation> continuationAction;
+            private AwaiterStatus status;
+            private UnityEngine.Object result;
 
             public ResourceRequestAwaiter(ResourceRequest asyncOperation)
             {
@@ -373,14 +373,14 @@ namespace UniRx.Async
             }
         }
 
-        class ResourceRequestConfiguredAwaiter : IAwaiter<UnityEngine.Object>, IPlayerLoopItem
+        private class ResourceRequestConfiguredAwaiter : IAwaiter<UnityEngine.Object>, IPlayerLoopItem
         {
-            ResourceRequest asyncOperation;
-            IProgress<float> progress;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
-            UnityEngine.Object result;
+            private ResourceRequest asyncOperation;
+            private IProgress<float> progress;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
+            private UnityEngine.Object result;
 
             public ResourceRequestConfiguredAwaiter(ResourceRequest asyncOperation, IProgress<float> progress, CancellationToken cancellationToken)
             {
@@ -402,6 +402,7 @@ namespace UniRx.Async
 
             public bool IsCompleted => status.IsCompleted();
             public AwaiterStatus Status => status;
+
             void IAwaiter.GetResult() => GetResult();
 
             public UnityEngine.Object GetResult()
@@ -439,7 +440,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;
@@ -469,10 +470,10 @@ namespace UniRx.Async
 
         public struct AssetBundleRequestAwaiter : IAwaiter<UnityEngine.Object>
         {
-            AssetBundleRequest asyncOperation;
-            Action<AsyncOperation> continuationAction;
-            AwaiterStatus status;
-            UnityEngine.Object result;
+            private AssetBundleRequest asyncOperation;
+            private Action<AsyncOperation> continuationAction;
+            private AwaiterStatus status;
+            private UnityEngine.Object result;
 
             public AssetBundleRequestAwaiter(AssetBundleRequest asyncOperation)
             {
@@ -533,14 +534,14 @@ namespace UniRx.Async
             }
         }
 
-        class AssetBundleRequestConfiguredAwaiter : IAwaiter<UnityEngine.Object>, IPlayerLoopItem
+        private class AssetBundleRequestConfiguredAwaiter : IAwaiter<UnityEngine.Object>, IPlayerLoopItem
         {
-            AssetBundleRequest asyncOperation;
-            IProgress<float> progress;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
-            UnityEngine.Object result;
+            private AssetBundleRequest asyncOperation;
+            private IProgress<float> progress;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
+            private UnityEngine.Object result;
 
             public AssetBundleRequestConfiguredAwaiter(AssetBundleRequest asyncOperation, IProgress<float> progress, CancellationToken cancellationToken)
             {
@@ -562,6 +563,7 @@ namespace UniRx.Async
 
             public bool IsCompleted => status.IsCompleted();
             public AwaiterStatus Status => status;
+
             void IAwaiter.GetResult() => GetResult();
 
             public UnityEngine.Object GetResult()
@@ -599,7 +601,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;
@@ -633,13 +635,13 @@ namespace UniRx.Async
 #pragma warning disable CS0618
 #endif
 
-        class WWWConfiguredAwaiter : IAwaiter, IPlayerLoopItem
+        private class WWWConfiguredAwaiter : IAwaiter, IPlayerLoopItem
         {
-            WWW asyncOperation;
-            IProgress<float> progress;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
+            private WWW asyncOperation;
+            private IProgress<float> progress;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
 
             public WWWConfiguredAwaiter(WWW asyncOperation, IProgress<float> progress, CancellationToken cancellationToken)
             {
@@ -696,7 +698,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;
@@ -733,10 +735,10 @@ namespace UniRx.Async
 
         public struct UnityWebRequestAsyncOperationAwaiter : IAwaiter<UnityWebRequest>
         {
-            UnityWebRequestAsyncOperation asyncOperation;
-            Action<AsyncOperation> continuationAction;
-            AwaiterStatus status;
-            UnityWebRequest result;
+            private UnityWebRequestAsyncOperation asyncOperation;
+            private Action<AsyncOperation> continuationAction;
+            private AwaiterStatus status;
+            private UnityWebRequest result;
 
             public UnityWebRequestAsyncOperationAwaiter(UnityWebRequestAsyncOperation asyncOperation)
             {
@@ -779,7 +781,6 @@ namespace UniRx.Async
                     asyncOperation = null; // remove reference.
                 }
 
-
                 return this.result;
             }
 
@@ -798,14 +799,14 @@ namespace UniRx.Async
             }
         }
 
-        class UnityWebRequestAsyncOperationConfiguredAwaiter : IAwaiter<UnityWebRequest>, IPlayerLoopItem
+        private class UnityWebRequestAsyncOperationConfiguredAwaiter : IAwaiter<UnityWebRequest>, IPlayerLoopItem
         {
-            UnityWebRequestAsyncOperation asyncOperation;
-            IProgress<float> progress;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
-            UnityWebRequest result;
+            private UnityWebRequestAsyncOperation asyncOperation;
+            private IProgress<float> progress;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
+            private UnityWebRequest result;
 
             public UnityWebRequestAsyncOperationConfiguredAwaiter(UnityWebRequestAsyncOperation asyncOperation, IProgress<float> progress, CancellationToken cancellationToken)
             {
@@ -827,6 +828,7 @@ namespace UniRx.Async
 
             public bool IsCompleted => status.IsCompleted();
             public AwaiterStatus Status => status;
+
             void IAwaiter.GetResult() => GetResult();
 
             public UnityWebRequest GetResult()
@@ -864,7 +866,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;
@@ -895,4 +897,5 @@ namespace UniRx.Async
 #endif
     }
 }
+
 #endif

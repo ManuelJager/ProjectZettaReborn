@@ -58,7 +58,9 @@ namespace UniRx.Async
                 }
             }
 
-            public void GetResult() { }
+            public void GetResult()
+            {
+            }
 
             public void OnCompleted(Action continuation)
             {
@@ -78,10 +80,13 @@ namespace UniRx.Async
 
         public struct Awaiter : ICriticalNotifyCompletion
         {
-            static readonly WaitCallback switchToCallback = Callback;
+            private static readonly WaitCallback switchToCallback = Callback;
 
             public bool IsCompleted => false;
-            public void GetResult() { }
+
+            public void GetResult()
+            {
+            }
 
             public void OnCompleted(Action continuation)
             {
@@ -93,7 +98,7 @@ namespace UniRx.Async
                 ThreadPool.UnsafeQueueUserWorkItem(switchToCallback, continuation);
             }
 
-            static void Callback(object state)
+            private static void Callback(object state)
             {
                 var continuation = (Action)state;
                 continuation();
@@ -107,10 +112,13 @@ namespace UniRx.Async
 
         public struct Awaiter : ICriticalNotifyCompletion
         {
-            static readonly Action<object> switchToCallback = Callback;
+            private static readonly Action<object> switchToCallback = Callback;
 
             public bool IsCompleted => false;
-            public void GetResult() { }
+
+            public void GetResult()
+            {
+            }
 
             public void OnCompleted(Action continuation)
             {
@@ -122,7 +130,7 @@ namespace UniRx.Async
                 Task.Factory.StartNew(switchToCallback, continuation, CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskScheduler.Default);
             }
 
-            static void Callback(object state)
+            private static void Callback(object state)
             {
                 var continuation = (Action)state;
                 continuation();
@@ -132,7 +140,7 @@ namespace UniRx.Async
 
     public struct SwitchToSynchronizationContextAwaitable
     {
-        readonly SynchronizationContext synchronizationContext;
+        private readonly SynchronizationContext synchronizationContext;
 
         public SwitchToSynchronizationContextAwaitable(SynchronizationContext synchronizationContext)
         {
@@ -143,8 +151,8 @@ namespace UniRx.Async
 
         public struct Awaiter : ICriticalNotifyCompletion
         {
-            static readonly SendOrPostCallback switchToCallback = Callback;
-            readonly SynchronizationContext synchronizationContext;
+            private static readonly SendOrPostCallback switchToCallback = Callback;
+            private readonly SynchronizationContext synchronizationContext;
 
             public Awaiter(SynchronizationContext synchronizationContext)
             {
@@ -152,7 +160,10 @@ namespace UniRx.Async
             }
 
             public bool IsCompleted => false;
-            public void GetResult() { }
+
+            public void GetResult()
+            {
+            }
 
             public void OnCompleted(Action continuation)
             {
@@ -164,7 +175,7 @@ namespace UniRx.Async
                 synchronizationContext.Post(switchToCallback, continuation);
             }
 
-            static void Callback(object state)
+            private static void Callback(object state)
             {
                 var continuation = (Action)state;
                 continuation();

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zetta.UI
 {
@@ -9,6 +8,7 @@ namespace Zetta.UI
         public float lifetimeRemaining;
         public CanvasGroup group;
         public bool fading;
+
         public NoticeStatus(float targetYPos, float lifetimeRemaining, CanvasGroup group)
         {
             this.targetYPos = targetYPos;

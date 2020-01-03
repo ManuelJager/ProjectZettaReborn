@@ -8,10 +8,10 @@ namespace UniRx.Async.Triggers
     [DisallowMultipleComponent]
     public class AsyncAwakeTrigger : MonoBehaviour
     {
-        bool called = false;
-        UniTaskCompletionSource promise;
+        private bool called = false;
+        private UniTaskCompletionSource promise;
 
-        void Awake()
+        private void Awake()
         {
             called = true;
             promise?.TrySetResult();
@@ -29,9 +29,9 @@ namespace UniRx.Async.Triggers
             promise?.TrySetCanceled();
         }
 
-        class AwakeMonitor : IPlayerLoopItem
+        private class AwakeMonitor : IPlayerLoopItem
         {
-            readonly AsyncAwakeTrigger trigger;
+            private readonly AsyncAwakeTrigger trigger;
 
             public AwakeMonitor(AsyncAwakeTrigger trigger)
             {

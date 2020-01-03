@@ -1,8 +1,6 @@
-﻿using Zetta.GridSystem.Blueprints;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Zetta.GridSystem.Blocks;
+using Zetta.GridSystem.Blueprints;
 
 namespace Zetta.GridSystem
 {

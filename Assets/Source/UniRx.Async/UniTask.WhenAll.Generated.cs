@@ -40,15 +40,15 @@ namespace UniRx.Async
             return await new WhenAllPromise<T1, T2, T3, T4, T5, T6, T7>(task1, task2, task3, task4, task5, task6, task7);
         }
 
-        class WhenAllPromise<T1, T2>
+        private class WhenAllPromise<T1, T2>
         {
-            const int MaxCount = 2;
+            private const int MaxCount = 2;
 
-            T1 result1;
-            T2 result2;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2)
             {
@@ -62,7 +62,7 @@ namespace UniRx.Async
                 RunTask2(task2);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -71,7 +71,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -98,7 +98,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -118,7 +118,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -145,7 +145,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -165,7 +165,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -173,7 +172,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2> parent;
+                private WhenAllPromise<T1, T2> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2> parent)
                 {
@@ -218,16 +217,16 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise<T1, T2, T3>
+        private class WhenAllPromise<T1, T2, T3>
         {
-            const int MaxCount = 3;
+            private const int MaxCount = 3;
 
-            T1 result1;
-            T2 result2;
-            T3 result3;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private T3 result3;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2, UniTask<T3> task3)
             {
@@ -243,7 +242,7 @@ namespace UniRx.Async
                 RunTask3(task3);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -252,7 +251,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -279,7 +278,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -299,7 +298,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -326,7 +325,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -346,7 +345,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask3(UniTask<T3> task)
+            private void RunTask3(UniTask<T3> task)
             {
                 if (task.IsCompleted)
                 {
@@ -373,7 +372,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask3Async(UniTask<T3> task)
+            private async UniTaskVoid RunTask3Async(UniTask<T3> task)
             {
                 try
                 {
@@ -393,7 +392,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -401,7 +399,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2, T3> parent;
+                private WhenAllPromise<T1, T2, T3> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2, T3> parent)
                 {
@@ -446,17 +444,17 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise<T1, T2, T3, T4>
+        private class WhenAllPromise<T1, T2, T3, T4>
         {
-            const int MaxCount = 4;
+            private const int MaxCount = 4;
 
-            T1 result1;
-            T2 result2;
-            T3 result3;
-            T4 result4;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private T3 result3;
+            private T4 result4;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2, UniTask<T3> task3, UniTask<T4> task4)
             {
@@ -474,7 +472,7 @@ namespace UniRx.Async
                 RunTask4(task4);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -483,7 +481,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -510,7 +508,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -530,7 +528,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -557,7 +555,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -577,7 +575,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask3(UniTask<T3> task)
+            private void RunTask3(UniTask<T3> task)
             {
                 if (task.IsCompleted)
                 {
@@ -604,7 +602,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask3Async(UniTask<T3> task)
+            private async UniTaskVoid RunTask3Async(UniTask<T3> task)
             {
                 try
                 {
@@ -624,7 +622,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask4(UniTask<T4> task)
+            private void RunTask4(UniTask<T4> task)
             {
                 if (task.IsCompleted)
                 {
@@ -651,7 +649,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask4Async(UniTask<T4> task)
+            private async UniTaskVoid RunTask4Async(UniTask<T4> task)
             {
                 try
                 {
@@ -671,7 +669,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -679,7 +676,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2, T3, T4> parent;
+                private WhenAllPromise<T1, T2, T3, T4> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2, T3, T4> parent)
                 {
@@ -724,18 +721,18 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise<T1, T2, T3, T4, T5>
+        private class WhenAllPromise<T1, T2, T3, T4, T5>
         {
-            const int MaxCount = 5;
+            private const int MaxCount = 5;
 
-            T1 result1;
-            T2 result2;
-            T3 result3;
-            T4 result4;
-            T5 result5;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private T3 result3;
+            private T4 result4;
+            private T5 result5;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2, UniTask<T3> task3, UniTask<T4> task4, UniTask<T5> task5)
             {
@@ -755,7 +752,7 @@ namespace UniRx.Async
                 RunTask5(task5);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -764,7 +761,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -791,7 +788,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -811,7 +808,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -838,7 +835,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -858,7 +855,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask3(UniTask<T3> task)
+            private void RunTask3(UniTask<T3> task)
             {
                 if (task.IsCompleted)
                 {
@@ -885,7 +882,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask3Async(UniTask<T3> task)
+            private async UniTaskVoid RunTask3Async(UniTask<T3> task)
             {
                 try
                 {
@@ -905,7 +902,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask4(UniTask<T4> task)
+            private void RunTask4(UniTask<T4> task)
             {
                 if (task.IsCompleted)
                 {
@@ -932,7 +929,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask4Async(UniTask<T4> task)
+            private async UniTaskVoid RunTask4Async(UniTask<T4> task)
             {
                 try
                 {
@@ -952,7 +949,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask5(UniTask<T5> task)
+            private void RunTask5(UniTask<T5> task)
             {
                 if (task.IsCompleted)
                 {
@@ -979,7 +976,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask5Async(UniTask<T5> task)
+            private async UniTaskVoid RunTask5Async(UniTask<T5> task)
             {
                 try
                 {
@@ -999,7 +996,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -1007,7 +1003,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2, T3, T4, T5> parent;
+                private WhenAllPromise<T1, T2, T3, T4, T5> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2, T3, T4, T5> parent)
                 {
@@ -1052,19 +1048,19 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise<T1, T2, T3, T4, T5, T6>
+        private class WhenAllPromise<T1, T2, T3, T4, T5, T6>
         {
-            const int MaxCount = 6;
+            private const int MaxCount = 6;
 
-            T1 result1;
-            T2 result2;
-            T3 result3;
-            T4 result4;
-            T5 result5;
-            T6 result6;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private T3 result3;
+            private T4 result4;
+            private T5 result5;
+            private T6 result6;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2, UniTask<T3> task3, UniTask<T4> task4, UniTask<T5> task5, UniTask<T6> task6)
             {
@@ -1086,7 +1082,7 @@ namespace UniRx.Async
                 RunTask6(task6);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -1095,7 +1091,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1122,7 +1118,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -1142,7 +1138,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1169,7 +1165,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -1189,7 +1185,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask3(UniTask<T3> task)
+            private void RunTask3(UniTask<T3> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1216,7 +1212,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask3Async(UniTask<T3> task)
+            private async UniTaskVoid RunTask3Async(UniTask<T3> task)
             {
                 try
                 {
@@ -1236,7 +1232,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask4(UniTask<T4> task)
+            private void RunTask4(UniTask<T4> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1263,7 +1259,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask4Async(UniTask<T4> task)
+            private async UniTaskVoid RunTask4Async(UniTask<T4> task)
             {
                 try
                 {
@@ -1283,7 +1279,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask5(UniTask<T5> task)
+            private void RunTask5(UniTask<T5> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1310,7 +1306,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask5Async(UniTask<T5> task)
+            private async UniTaskVoid RunTask5Async(UniTask<T5> task)
             {
                 try
                 {
@@ -1330,7 +1326,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask6(UniTask<T6> task)
+            private void RunTask6(UniTask<T6> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1357,7 +1353,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask6Async(UniTask<T6> task)
+            private async UniTaskVoid RunTask6Async(UniTask<T6> task)
             {
                 try
                 {
@@ -1377,7 +1373,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -1385,7 +1380,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2, T3, T4, T5, T6> parent;
+                private WhenAllPromise<T1, T2, T3, T4, T5, T6> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2, T3, T4, T5, T6> parent)
                 {
@@ -1430,20 +1425,20 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise<T1, T2, T3, T4, T5, T6, T7>
+        private class WhenAllPromise<T1, T2, T3, T4, T5, T6, T7>
         {
-            const int MaxCount = 7;
+            private const int MaxCount = 7;
 
-            T1 result1;
-            T2 result2;
-            T3 result3;
-            T4 result4;
-            T5 result5;
-            T6 result6;
-            T7 result7;
-            ExceptionDispatchInfo exception;
-            int completeCount;
-            Action whenComplete;
+            private T1 result1;
+            private T2 result2;
+            private T3 result3;
+            private T4 result4;
+            private T5 result5;
+            private T6 result6;
+            private T7 result7;
+            private ExceptionDispatchInfo exception;
+            private int completeCount;
+            private Action whenComplete;
 
             public WhenAllPromise(UniTask<T1> task1, UniTask<T2> task2, UniTask<T3> task3, UniTask<T4> task4, UniTask<T5> task5, UniTask<T6> task6, UniTask<T7> task7)
             {
@@ -1467,7 +1462,7 @@ namespace UniRx.Async
                 RunTask7(task7);
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -1476,7 +1471,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask1(UniTask<T1> task)
+            private void RunTask1(UniTask<T1> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1503,7 +1498,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1Async(UniTask<T1> task)
+            private async UniTaskVoid RunTask1Async(UniTask<T1> task)
             {
                 try
                 {
@@ -1523,7 +1518,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask2(UniTask<T2> task)
+            private void RunTask2(UniTask<T2> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1550,7 +1545,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask2Async(UniTask<T2> task)
+            private async UniTaskVoid RunTask2Async(UniTask<T2> task)
             {
                 try
                 {
@@ -1570,7 +1565,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask3(UniTask<T3> task)
+            private void RunTask3(UniTask<T3> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1597,7 +1592,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask3Async(UniTask<T3> task)
+            private async UniTaskVoid RunTask3Async(UniTask<T3> task)
             {
                 try
                 {
@@ -1617,7 +1612,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask4(UniTask<T4> task)
+            private void RunTask4(UniTask<T4> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1644,7 +1639,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask4Async(UniTask<T4> task)
+            private async UniTaskVoid RunTask4Async(UniTask<T4> task)
             {
                 try
                 {
@@ -1664,7 +1659,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask5(UniTask<T5> task)
+            private void RunTask5(UniTask<T5> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1691,7 +1686,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask5Async(UniTask<T5> task)
+            private async UniTaskVoid RunTask5Async(UniTask<T5> task)
             {
                 try
                 {
@@ -1711,7 +1706,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask6(UniTask<T6> task)
+            private void RunTask6(UniTask<T6> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1738,7 +1733,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask6Async(UniTask<T6> task)
+            private async UniTaskVoid RunTask6Async(UniTask<T6> task)
             {
                 try
                 {
@@ -1758,7 +1753,7 @@ namespace UniRx.Async
                 }
             }
 
-            void RunTask7(UniTask<T7> task)
+            private void RunTask7(UniTask<T7> task)
             {
                 if (task.IsCompleted)
                 {
@@ -1785,7 +1780,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask7Async(UniTask<T7> task)
+            private async UniTaskVoid RunTask7Async(UniTask<T7> task)
             {
                 try
                 {
@@ -1805,7 +1800,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -1813,7 +1807,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T1, T2, T3, T4, T5, T6, T7> parent;
+                private WhenAllPromise<T1, T2, T3, T4, T5, T6, T7> parent;
 
                 public Awaiter(WhenAllPromise<T1, T2, T3, T4, T5, T6, T7> parent)
                 {
@@ -1857,7 +1851,7 @@ namespace UniRx.Async
                 }
             }
         }
-
     }
 }
+
 #endif

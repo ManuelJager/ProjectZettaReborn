@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Zetta.Controllers
@@ -24,6 +19,7 @@ namespace Zetta.Controllers
 
         // Contants
         private const float CAMERA_BIAS = 1.9f;
+
         private const float LERP_TIME = 1.5f;
 
         // The field of view of the camera

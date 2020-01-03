@@ -33,9 +33,9 @@ namespace UniRx.Async
                 : new WaitUntilValueChangedStandardObjectPromise<T, U>(target, monitorFunction, equalityComparer, monitorTiming, cancellationToken).Task;
         }
 
-        class WaitUntilPromise : PlayerLoopReusablePromiseBase
+        private class WaitUntilPromise : PlayerLoopReusablePromiseBase
         {
-            readonly Func<bool> predicate;
+            private readonly Func<bool> predicate;
 
             public WaitUntilPromise(Func<bool> predicate, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 1)
@@ -79,9 +79,9 @@ namespace UniRx.Async
             }
         }
 
-        class WaitWhilePromise : PlayerLoopReusablePromiseBase
+        private class WaitWhilePromise : PlayerLoopReusablePromiseBase
         {
-            readonly Func<bool> predicate;
+            private readonly Func<bool> predicate;
 
             public WaitWhilePromise(Func<bool> predicate, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 1)
@@ -126,12 +126,12 @@ namespace UniRx.Async
         }
 
         // where T : UnityEngine.Object, can not add constraint
-        class WaitUntilValueChangedUnityObjectPromise<T, U> : PlayerLoopReusablePromiseBase<U>
+        private class WaitUntilValueChangedUnityObjectPromise<T, U> : PlayerLoopReusablePromiseBase<U>
         {
-            readonly T target;
-            readonly Func<T, U> monitorFunction;
-            readonly IEqualityComparer<U> equalityComparer;
-            U currentValue;
+            private readonly T target;
+            private readonly Func<T, U> monitorFunction;
+            private readonly IEqualityComparer<U> equalityComparer;
+            private U currentValue;
 
             public WaitUntilValueChangedUnityObjectPromise(T target, Func<T, U> monitorFunction, IEqualityComparer<U> equalityComparer, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 1)
@@ -178,13 +178,13 @@ namespace UniRx.Async
             }
         }
 
-        class WaitUntilValueChangedStandardObjectPromise<T, U> : PlayerLoopReusablePromiseBase<U>
+        private class WaitUntilValueChangedStandardObjectPromise<T, U> : PlayerLoopReusablePromiseBase<U>
             where T : class
         {
-            readonly WeakReference<T> target;
-            readonly Func<T, U> monitorFunction;
-            readonly IEqualityComparer<U> equalityComparer;
-            U currentValue;
+            private readonly WeakReference<T> target;
+            private readonly Func<T, U> monitorFunction;
+            private readonly IEqualityComparer<U> equalityComparer;
+            private U currentValue;
 
             public WaitUntilValueChangedStandardObjectPromise(T target, Func<T, U> monitorFunction, IEqualityComparer<U> equalityComparer, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 1)
@@ -232,4 +232,5 @@ namespace UniRx.Async
         }
     }
 }
+
 #endif

@@ -1,9 +1,6 @@
 ﻿#pragma warning disable CS0649
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using UnityEngine.UI;
-using System;
 
 namespace Zetta.UI.Controllers.ValueDisplayers
 {

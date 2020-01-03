@@ -1,15 +1,14 @@
 ﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-using UnityEngine;
-using UnityEditor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System;
-using UnityEditor.IMGUI.Controls;
-using UniRx.Async.Internal;
 using System.Text;
+using UniRx.Async.Internal;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using UnityEngine;
 
 namespace UniRx.Async.Editor
 {
@@ -19,7 +18,8 @@ namespace UniRx.Async.Editor
         public string Elapsed { get; set; }
         public string Status { get; set; }
 
-        string position;
+        private string position;
+
         public string Position
         {
             get { return position; }
@@ -32,7 +32,7 @@ namespace UniRx.Async.Editor
 
         public string PositionFirstLine { get; private set; }
 
-        static string GetFirstLine(string str)
+        private static string GetFirstLine(string str)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < str.Length; i++)
@@ -48,13 +48,12 @@ namespace UniRx.Async.Editor
 
         public UniTaskTrackerViewItem(int id) : base(id)
         {
-
         }
     }
 
     public class UniTaskTrackerTreeView : TreeView
     {
-        const string sortedColumnIndexStateKey = "UniTaskTrackerTreeView_sortedColumnIndex";
+        private const string sortedColumnIndexStateKey = "UniTaskTrackerTreeView_sortedColumnIndex";
 
         public IReadOnlyList<TreeViewItem> CurrentBindingItems;
 
@@ -69,7 +68,7 @@ namespace UniRx.Async.Editor
         {
         }
 
-        UniTaskTrackerTreeView(TreeViewState state, MultiColumnHeader header)
+        private UniTaskTrackerTreeView(TreeViewState state, MultiColumnHeader header)
             : base(state, header)
         {
             rowHeight = 20;
@@ -105,15 +104,19 @@ namespace UniRx.Async.Editor
                 case 0:
                     orderedEnumerable = ascending ? items.OrderBy(item => item.TaskType) : items.OrderByDescending(item => item.TaskType);
                     break;
+
                 case 1:
                     orderedEnumerable = ascending ? items.OrderBy(item => double.Parse(item.Elapsed)) : items.OrderByDescending(item => double.Parse(item.Elapsed));
                     break;
+
                 case 2:
                     orderedEnumerable = ascending ? items.OrderBy(item => item.Status) : items.OrderByDescending(item => item.Elapsed);
                     break;
+
                 case 3:
                     orderedEnumerable = ascending ? items.OrderBy(item => item.Position) : items.OrderByDescending(item => item.PositionFirstLine);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(index), index, null);
             }
@@ -159,22 +162,25 @@ namespace UniRx.Async.Editor
                     case 0:
                         EditorGUI.LabelField(rect, item.TaskType, labelStyle);
                         break;
+
                     case 1:
                         EditorGUI.LabelField(rect, item.Elapsed, labelStyle);
                         break;
+
                     case 2:
                         EditorGUI.LabelField(rect, item.Status, labelStyle);
                         break;
+
                     case 3:
                         EditorGUI.LabelField(rect, item.PositionFirstLine, labelStyle);
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException(nameof(columnIndex), columnIndex, null);
                 }
             }
         }
     }
-
 }
 
 #endif

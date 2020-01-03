@@ -58,7 +58,7 @@ namespace UniRx.Async
                 : new DelayPromise(delayTimeSpan, delayTiming, cancellationToken).Task;
         }
 
-        class YieldPromise : PlayerLoopReusablePromiseBase
+        private class YieldPromise : PlayerLoopReusablePromiseBase
         {
             public YieldPromise(PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 2)
@@ -85,10 +85,10 @@ namespace UniRx.Async
             }
         }
 
-        class DelayFramePromise : PlayerLoopReusablePromiseBase<int>
+        private class DelayFramePromise : PlayerLoopReusablePromiseBase<int>
         {
-            readonly int delayFrameCount;
-            int currentFrameCount;
+            private readonly int delayFrameCount;
+            private int currentFrameCount;
 
             public DelayFramePromise(int delayFrameCount, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 2)
@@ -123,10 +123,10 @@ namespace UniRx.Async
             }
         }
 
-        class DelayPromise : PlayerLoopReusablePromiseBase
+        private class DelayPromise : PlayerLoopReusablePromiseBase
         {
-            readonly float delayFrameTimeSpan;
-            float elapsed;
+            private readonly float delayFrameTimeSpan;
+            private float elapsed;
 
             public DelayPromise(TimeSpan delayFrameTimeSpan, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 2)
@@ -160,10 +160,10 @@ namespace UniRx.Async
             }
         }
 
-        class DelayIgnoreTimeScalePromise : PlayerLoopReusablePromiseBase
+        private class DelayIgnoreTimeScalePromise : PlayerLoopReusablePromiseBase
         {
-            readonly float delayFrameTimeSpan;
-            float elapsed;
+            private readonly float delayFrameTimeSpan;
+            private float elapsed;
 
             public DelayIgnoreTimeScalePromise(TimeSpan delayFrameTimeSpan, PlayerLoopTiming timing, CancellationToken cancellationToken)
                 : base(timing, cancellationToken, 2)
@@ -201,7 +201,7 @@ namespace UniRx.Async
 
     public struct YieldAwaitable
     {
-        readonly PlayerLoopTiming timing;
+        private readonly PlayerLoopTiming timing;
 
         public YieldAwaitable(PlayerLoopTiming timing)
         {
@@ -220,7 +220,7 @@ namespace UniRx.Async
 
         public struct Awaiter : ICriticalNotifyCompletion
         {
-            readonly PlayerLoopTiming timing;
+            private readonly PlayerLoopTiming timing;
 
             public Awaiter(PlayerLoopTiming timing)
             {
@@ -229,7 +229,9 @@ namespace UniRx.Async
 
             public bool IsCompleted => false;
 
-            public void GetResult() { }
+            public void GetResult()
+            {
+            }
 
             public void OnCompleted(Action continuation)
             {
@@ -243,4 +245,5 @@ namespace UniRx.Async
         }
     }
 }
+
 #endif

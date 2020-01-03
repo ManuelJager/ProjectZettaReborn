@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zetta.GridSystem;
+﻿using UnityEngine;
 using Zetta.Extensions;
-using Zetta.InputWrapper;
 using Zetta.Generics;
+using Zetta.GridSystem;
+using Zetta.InputWrapper;
 using Zetta.UI;
-using Zetta;
 
 namespace Zetta.Controllers
 {
@@ -16,6 +13,7 @@ namespace Zetta.Controllers
     public class PlayerController : LazySingleton<PlayerController>
     {
         private Ship ship;
+
         public Ship Ship
         {
             get => ship;
@@ -25,6 +23,7 @@ namespace Zetta.Controllers
                 ship = value;
             }
         }
+
         public bool Enabled
         {
             get => enabled;
@@ -45,7 +44,7 @@ namespace Zetta.Controllers
             Enabled = false;
         }
 
-        void RotateShipToCursor()
+        private void RotateShipToCursor()
         {
             q = GridUtilities.GetMouseWorldPos(ship.transform, orthographicCamera);
             ship.transform.rotation = GridUtilities.MouseLookAtRotation(ship.transform, 100);

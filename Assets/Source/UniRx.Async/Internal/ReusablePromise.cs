@@ -2,7 +2,6 @@
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using System;
-using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 
@@ -12,9 +11,9 @@ namespace UniRx.Async.Internal
 
     public abstract class ReusablePromise : IAwaiter
     {
-        ExceptionDispatchInfo exception;
-        object continuation; // Action or Queue<Action>
-        AwaiterStatus status;
+        private ExceptionDispatchInfo exception;
+        private object continuation; // Action or Queue<Action>
+        private AwaiterStatus status;
 
         public UniTask Task => new UniTask(this);
 
@@ -27,9 +26,11 @@ namespace UniRx.Async.Internal
             {
                 case AwaiterStatus.Succeeded:
                     return;
+
                 case AwaiterStatus.Faulted:
                     exception.Throw();
                     break;
+
                 case AwaiterStatus.Canceled:
                     throw new OperationCanceledException();
                 default:
@@ -92,7 +93,7 @@ namespace UniRx.Async.Internal
             return false;
         }
 
-        void TryInvokeContinuation()
+        private void TryInvokeContinuation()
         {
             if (continuation == null) return;
 
@@ -145,10 +146,10 @@ namespace UniRx.Async.Internal
 
     public abstract class ReusablePromise<T> : IAwaiter<T>
     {
-        T result;
-        ExceptionDispatchInfo exception;
-        object continuation; // Action or Queue<Action>
-        AwaiterStatus status;
+        private T result;
+        private ExceptionDispatchInfo exception;
+        private object continuation; // Action or Queue<Action>
+        private AwaiterStatus status;
 
         public UniTask<T> Task => new UniTask<T>(this);
 
@@ -168,9 +169,11 @@ namespace UniRx.Async.Internal
             {
                 case AwaiterStatus.Succeeded:
                     return result;
+
                 case AwaiterStatus.Faulted:
                     exception.Throw();
                     break;
+
                 case AwaiterStatus.Canceled:
                     throw new OperationCanceledException();
                 default:
@@ -287,12 +290,12 @@ namespace UniRx.Async.Internal
 
     public abstract class PlayerLoopReusablePromiseBase : ReusablePromise, IPlayerLoopItem
     {
-        readonly PlayerLoopTiming timing;
+        private readonly PlayerLoopTiming timing;
         protected readonly CancellationToken cancellationToken;
-        bool isRunning = false;
+        private bool isRunning = false;
 
 #if UNITY_EDITOR
-        string capturedStackTraceForDebugging;
+        private string capturedStackTraceForDebugging;
 #endif
 
         public PlayerLoopReusablePromiseBase(PlayerLoopTiming timing, CancellationToken cancellationToken, int skipTrackFrameCountAdditive)
@@ -340,12 +343,12 @@ namespace UniRx.Async.Internal
 
     public abstract class PlayerLoopReusablePromiseBase<T> : ReusablePromise<T>, IPlayerLoopItem
     {
-        readonly PlayerLoopTiming timing;
+        private readonly PlayerLoopTiming timing;
         protected readonly CancellationToken cancellationToken;
-        bool isRunning = false;
+        private bool isRunning = false;
 
 #if UNITY_EDITOR
-        string capturedStackTraceForDebugging;
+        private string capturedStackTraceForDebugging;
 #endif
 
         public PlayerLoopReusablePromiseBase(PlayerLoopTiming timing, CancellationToken cancellationToken, int skipTrackFrameCountAdditive)
@@ -390,6 +393,6 @@ namespace UniRx.Async.Internal
 
         public abstract bool MoveNext();
     }
-
 }
+
 #endif

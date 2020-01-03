@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UniRx.Async;
 using UnityEngine;
 using Zetta.Math.Curves;
-using System.Threading;
-using System.Threading.Tasks;
-using UniRx.Async;
 
 namespace Zetta.UI
 {
@@ -26,8 +22,8 @@ namespace Zetta.UI
         }
 
         public static async UniTask FadeOut(
-            CanvasGroup group, 
-            ICurveProvider curve, 
+            CanvasGroup group,
+            ICurveProvider curve,
             float fadeTime,
             System.Action onEnd)
         {

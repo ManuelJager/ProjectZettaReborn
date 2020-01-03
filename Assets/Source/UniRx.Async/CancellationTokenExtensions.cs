@@ -8,7 +8,7 @@ namespace UniRx.Async
 {
     public static class CancellationTokenExtensions
     {
-        static readonly Action<object> cancellationTokenCallback = Callback;
+        private static readonly Action<object> cancellationTokenCallback = Callback;
 
         public static (UniTask, CancellationTokenRegistration) ToUniTask(this CancellationToken cts)
         {
@@ -21,7 +21,7 @@ namespace UniRx.Async
             return (promise.Task, cts.RegisterWithoutCaptureExecutionContext(cancellationTokenCallback, promise));
         }
 
-        static void Callback(object state)
+        private static void Callback(object state)
         {
             var promise = (UniTaskCompletionSource<AsyncUnit>)state;
             promise.TrySetResult(AsyncUnit.Default);

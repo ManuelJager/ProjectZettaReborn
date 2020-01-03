@@ -1,7 +1,6 @@
-﻿using Zetta.Exceptions;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Zetta.Exceptions;
 using Zetta.Generics;
 
 namespace Zetta
@@ -35,4 +34,3 @@ namespace Zetta
         }
     }
 }
-

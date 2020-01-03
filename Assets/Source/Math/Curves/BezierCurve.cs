@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zetta.Math.Curves
 {
@@ -150,6 +148,4 @@ namespace Zetta.Math.Curves
             return System.Math.Pow(f, 1.0 / 3.0);
         }
     }
-
 }
-

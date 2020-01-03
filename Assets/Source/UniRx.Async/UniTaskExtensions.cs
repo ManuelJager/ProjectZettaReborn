@@ -37,12 +37,15 @@ namespace UniRx.Async
                     case TaskStatus.Canceled:
                         p.TrySetCanceled();
                         break;
+
                     case TaskStatus.Faulted:
                         p.TrySetException(x.Exception);
                         break;
+
                     case TaskStatus.RanToCompletion:
                         p.TrySetResult(x.Result);
                         break;
+
                     default:
                         throw new NotSupportedException();
                 }
@@ -67,12 +70,15 @@ namespace UniRx.Async
                     case TaskStatus.Canceled:
                         p.TrySetCanceled();
                         break;
+
                     case TaskStatus.Faulted:
                         p.TrySetException(x.Exception);
                         break;
+
                     case TaskStatus.RanToCompletion:
                         p.TrySetResult(default(AsyncUnit));
                         break;
+
                     default:
                         throw new NotSupportedException();
                 }
@@ -138,7 +144,6 @@ namespace UniRx.Async
             return v.IsTimeout;
         }
 
-
         /// <summary>
         /// Timeout with suppress OperationCanceledException. Returns (bool IsTimeout, T Result).
         /// </summary>
@@ -193,12 +198,12 @@ namespace UniRx.Async
         }
 
         // UniTask to UniTaskVoid
-        static async UniTaskVoid ForgetCore(UniTask task)
+        private static async UniTaskVoid ForgetCore(UniTask task)
         {
             await task;
         }
 
-        static async UniTaskVoid ForgetCoreWithCatch(UniTask task, Action<Exception> exceptionHandler, bool handleExceptionOnMainThread)
+        private static async UniTaskVoid ForgetCoreWithCatch(UniTask task, Action<Exception> exceptionHandler, bool handleExceptionOnMainThread)
         {
             try
             {
@@ -239,12 +244,12 @@ namespace UniRx.Async
         }
 
         // UniTask to UniTaskVoid
-        static async UniTaskVoid ForgetCore<T>(UniTask<T> task)
+        private static async UniTaskVoid ForgetCore<T>(UniTask<T> task)
         {
             await task;
         }
 
-        static async UniTaskVoid ForgetCoreWithCatch<T>(UniTask<T> task, Action<Exception> exceptionHandler, bool handleExceptionOnMainThread)
+        private static async UniTaskVoid ForgetCoreWithCatch<T>(UniTask<T> task, Action<Exception> exceptionHandler, bool handleExceptionOnMainThread)
         {
             try
             {
@@ -347,13 +352,13 @@ namespace UniRx.Async
             await await task;
         }
 
-        class ToCoroutineEnumerator : IEnumerator
+        private class ToCoroutineEnumerator : IEnumerator
         {
-            bool completed;
-            UniTask task;
-            Action<Exception> exceptionHandler = null;
-            bool isStarted = false;
-            ExceptionDispatchInfo exception;
+            private bool completed;
+            private UniTask task;
+            private Action<Exception> exceptionHandler = null;
+            private bool isStarted = false;
+            private ExceptionDispatchInfo exception;
 
             public ToCoroutineEnumerator(UniTask task, Action<Exception> exceptionHandler)
             {
@@ -362,7 +367,7 @@ namespace UniRx.Async
                 this.task = task;
             }
 
-            async UniTaskVoid RunTask(UniTask task)
+            private async UniTaskVoid RunTask(UniTask task)
             {
                 try
                 {
@@ -410,15 +415,15 @@ namespace UniRx.Async
             }
         }
 
-        class ToCoroutineEnumerator<T> : IEnumerator
+        private class ToCoroutineEnumerator<T> : IEnumerator
         {
-            bool completed;
-            Action<T> resultHandler = null;
-            Action<Exception> exceptionHandler = null;
-            bool isStarted = false;
-            UniTask<T> task;
-            object current = null;
-            ExceptionDispatchInfo exception;
+            private bool completed;
+            private Action<T> resultHandler = null;
+            private Action<Exception> exceptionHandler = null;
+            private bool isStarted = false;
+            private UniTask<T> task;
+            private object current = null;
+            private ExceptionDispatchInfo exception;
 
             public ToCoroutineEnumerator(UniTask<T> task, Action<T> resultHandler, Action<Exception> exceptionHandler)
             {
@@ -428,7 +433,7 @@ namespace UniRx.Async
                 this.exceptionHandler = exceptionHandler;
             }
 
-            async UniTaskVoid RunTask(UniTask<T> task)
+            private async UniTaskVoid RunTask(UniTask<T> task)
             {
                 try
                 {

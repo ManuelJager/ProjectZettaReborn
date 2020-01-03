@@ -46,12 +46,12 @@ namespace UniRx.Async
             await promise;
         }
 
-        class WhenAllPromise<T>
+        private class WhenAllPromise<T>
         {
-            readonly T[] result;
-            int completeCount;
-            Action whenComplete;
-            ExceptionDispatchInfo exception;
+            private readonly T[] result;
+            private int completeCount;
+            private Action whenComplete;
+            private ExceptionDispatchInfo exception;
 
             public WhenAllPromise(UniTask<T>[] tasks, int tasksLength)
             {
@@ -90,7 +90,7 @@ namespace UniRx.Async
                 }
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -99,7 +99,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask(UniTask<T> task, int index)
+            private async UniTaskVoid RunTask(UniTask<T> task, int index)
             {
                 T value = default(T);
                 try
@@ -128,7 +128,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise<T> parent;
+                private WhenAllPromise<T> parent;
 
                 public Awaiter(WhenAllPromise<T> parent)
                 {
@@ -173,12 +173,12 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAllPromise
+        private class WhenAllPromise
         {
-            int completeCount;
-            int resultLength;
-            Action whenComplete;
-            ExceptionDispatchInfo exception;
+            private int completeCount;
+            private int resultLength;
+            private Action whenComplete;
+            private ExceptionDispatchInfo exception;
 
             public WhenAllPromise(UniTask[] tasks, int tasksLength)
             {
@@ -215,7 +215,7 @@ namespace UniRx.Async
                 }
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -224,7 +224,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask(UniTask task, int index)
+            private async UniTaskVoid RunTask(UniTask task, int index)
             {
                 try
                 {
@@ -251,7 +251,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAllPromise parent;
+                private WhenAllPromise parent;
 
                 public Awaiter(WhenAllPromise parent)
                 {
@@ -295,4 +295,5 @@ namespace UniRx.Async
         }
     }
 }
+
 #endif

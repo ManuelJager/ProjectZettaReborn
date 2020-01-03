@@ -13,7 +13,7 @@ namespace UniRx.Async.Internal
             return new Action<T>(action.Invoke);
         }
 
-        static void Invoke<T>(this Action action, T unused)
+        private static void Invoke<T>(this Action action, T unused)
         {
             action();
         }

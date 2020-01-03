@@ -14,7 +14,7 @@ namespace UniRx.Async.Internal
     {
 #if UNITY_EDITOR
 
-        static int trackingId = 0;
+        private static int trackingId = 0;
 
         public const string EnableAutoReloadKey = "UniTaskTrackerWindow_EnableAutoReloadKey";
         public const string EnableTrackingKey = "UniTaskTrackerWindow_EnableTrackingKey";
@@ -22,7 +22,8 @@ namespace UniRx.Async.Internal
 
         public static class EditorEnableState
         {
-            static bool enableAutoReload;
+            private static bool enableAutoReload;
+
             public static bool EnableAutoReload
             {
                 get { return enableAutoReload; }
@@ -33,7 +34,8 @@ namespace UniRx.Async.Internal
                 }
             }
 
-            static bool enableTracking;
+            private static bool enableTracking;
+
             public static bool EnableTracking
             {
                 get { return enableTracking; }
@@ -44,7 +46,8 @@ namespace UniRx.Async.Internal
                 }
             }
 
-            static bool enableStackTrace;
+            private static bool enableStackTrace;
+
             public static bool EnableStackTrace
             {
                 get { return enableStackTrace; }
@@ -58,10 +61,9 @@ namespace UniRx.Async.Internal
 
 #endif
 
+        private static List<KeyValuePair<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>> listPool = new List<KeyValuePair<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>>();
 
-        static List<KeyValuePair<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>> listPool = new List<KeyValuePair<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>>();
-
-        static readonly WeakDictionary<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)> tracking = new WeakDictionary<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>();
+        private static readonly WeakDictionary<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)> tracking = new WeakDictionary<IAwaiter, (int trackingId, DateTime addTime, string stackTrace)>();
 
         [Conditional("UNITY_EDITOR")]
         public static void TrackActiveTask(IAwaiter task, int skipFrame = 1)
@@ -105,7 +107,7 @@ namespace UniRx.Async.Internal
 #endif
         }
 
-        static bool dirty;
+        private static bool dirty;
 
         public static bool CheckAndResetDirty()
         {

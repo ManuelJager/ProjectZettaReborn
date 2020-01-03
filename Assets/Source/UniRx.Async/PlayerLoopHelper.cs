@@ -10,7 +10,9 @@ using System.Threading;
 #if UNITY_2019_3_OR_NEWER
 using UnityEngine.LowLevel;
 #else
+
 using UnityEngine.Experimental.LowLevel;
+
 #endif
 
 namespace UniRx.Async
@@ -18,21 +20,33 @@ namespace UniRx.Async
     public static class UniTaskLoopRunners
     {
         public struct UniTaskLoopRunnerInitialization { };
+
         public struct UniTaskLoopRunnerEarlyUpdate { };
+
         public struct UniTaskLoopRunnerFixedUpdate { };
+
         public struct UniTaskLoopRunnerPreUpdate { };
+
         public struct UniTaskLoopRunnerUpdate { };
+
         public struct UniTaskLoopRunnerPreLateUpdate { };
+
         public struct UniTaskLoopRunnerPostLateUpdate { };
 
         // Yield
 
         public struct UniTaskLoopRunnerYieldInitialization { };
+
         public struct UniTaskLoopRunnerYieldEarlyUpdate { };
+
         public struct UniTaskLoopRunnerYieldFixedUpdate { };
+
         public struct UniTaskLoopRunnerYieldPreUpdate { };
+
         public struct UniTaskLoopRunnerYieldUpdate { };
+
         public struct UniTaskLoopRunnerYieldPreLateUpdate { };
+
         public struct UniTaskLoopRunnerYieldPostLateUpdate { };
     }
 
@@ -57,12 +71,12 @@ namespace UniRx.Async
         public static SynchronizationContext UnitySynchronizationContext => unitySynchronizationContetext;
         public static int MainThreadId => mainThreadId;
 
-        static int mainThreadId;
-        static SynchronizationContext unitySynchronizationContetext;
-        static ContinuationQueue[] yielders;
-        static PlayerLoopRunner[] runners;
+        private static int mainThreadId;
+        private static SynchronizationContext unitySynchronizationContetext;
+        private static ContinuationQueue[] yielders;
+        private static PlayerLoopRunner[] runners;
 
-        static PlayerLoopSystem[] InsertRunner(PlayerLoopSystem loopSystem, Type loopRunnerYieldType, ContinuationQueue cq, Type loopRunnerType, PlayerLoopRunner runner)
+        private static PlayerLoopSystem[] InsertRunner(PlayerLoopSystem loopSystem, Type loopRunnerYieldType, ContinuationQueue cq, Type loopRunnerType, PlayerLoopRunner runner)
         {
             var yieldLoop = new PlayerLoopSystem
             {
@@ -104,7 +118,7 @@ namespace UniRx.Async
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void Init()
+        private static void Init()
         {
             // capture default(unity) sync-context.
             unitySynchronizationContetext = SynchronizationContext.Current;

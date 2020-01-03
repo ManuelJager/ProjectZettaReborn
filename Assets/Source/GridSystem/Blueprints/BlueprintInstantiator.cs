@@ -1,19 +1,12 @@
-﻿using Zetta.Exceptions;
-using Zetta.GridSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Zetta.Exceptions;
 using Zetta.GridSystem.Blocks;
-using Zetta;
 
 namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintInstantiator : MonoBehaviour
     {
-
         /// <summary>
         /// Calculates the new block position
         /// If the size is even, there is no middle so it adds 0.5 to the position
@@ -73,6 +66,5 @@ namespace Zetta.GridSystem.Blueprints
 
             return blocks;
         }
-
     }
 }

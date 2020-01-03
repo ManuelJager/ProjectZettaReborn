@@ -16,9 +16,9 @@ namespace UniRx.Async
     [AsyncMethodBuilder(typeof(AsyncUniTaskMethodBuilder))]
     public partial struct UniTask : IEquatable<UniTask>
     {
-        static readonly UniTask<AsyncUnit> DefaultAsyncUnitTask = new UniTask<AsyncUnit>(AsyncUnit.Default);
+        private static readonly UniTask<AsyncUnit> DefaultAsyncUnitTask = new UniTask<AsyncUnit>(AsyncUnit.Default);
 
-        readonly IAwaiter awaiter;
+        private readonly IAwaiter awaiter;
 
         [DebuggerHidden]
         public UniTask(IAwaiter awaiter)
@@ -131,9 +131,9 @@ namespace UniRx.Async
             }
         }
 
-        class AsyncUnitAwaiter : IAwaiter<AsyncUnit>
+        private class AsyncUnitAwaiter : IAwaiter<AsyncUnit>
         {
-            readonly IAwaiter awaiter;
+            private readonly IAwaiter awaiter;
 
             public AsyncUnitAwaiter(IAwaiter awaiter)
             {
@@ -166,9 +166,9 @@ namespace UniRx.Async
             }
         }
 
-        class IsCanceledAwaiter : IAwaiter<bool>
+        private class IsCanceledAwaiter : IAwaiter<bool>
         {
-            readonly IAwaiter awaiter;
+            private readonly IAwaiter awaiter;
 
             public IsCanceledAwaiter(IAwaiter awaiter)
             {
@@ -207,7 +207,7 @@ namespace UniRx.Async
 
         public struct Awaiter : IAwaiter
         {
-            readonly UniTask task;
+            private readonly UniTask task;
 
             [DebuggerHidden]
             public Awaiter(UniTask task)
@@ -258,8 +258,8 @@ namespace UniRx.Async
     [AsyncMethodBuilder(typeof(AsyncUniTaskMethodBuilder<>))]
     public struct UniTask<T> : IEquatable<UniTask<T>>
     {
-        readonly T result;
-        readonly IAwaiter<T> awaiter;
+        private readonly T result;
+        private readonly IAwaiter<T> awaiter;
 
         [DebuggerHidden]
         public UniTask(T result)
@@ -387,9 +387,9 @@ namespace UniRx.Async
             }
         }
 
-        class IsCanceledAwaiter : IAwaiter<(bool, T)>
+        private class IsCanceledAwaiter : IAwaiter<(bool, T)>
         {
-            readonly IAwaiter<T> awaiter;
+            private readonly IAwaiter<T> awaiter;
 
             public IsCanceledAwaiter(IAwaiter<T> awaiter)
             {
@@ -427,7 +427,7 @@ namespace UniRx.Async
 
         public struct Awaiter : IAwaiter<T>
         {
-            readonly UniTask<T> task;
+            private readonly UniTask<T> task;
 
             [DebuggerHidden]
             public Awaiter(UniTask<T> task)

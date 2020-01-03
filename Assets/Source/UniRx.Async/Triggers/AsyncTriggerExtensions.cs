@@ -10,7 +10,7 @@ namespace UniRx.Async.Triggers
     {
         // Util.
 
-        static T GetOrAddComponent<T>(GameObject gameObject)
+        private static T GetOrAddComponent<T>(GameObject gameObject)
             where T : Component
         {
             var component = gameObject.GetComponent<T>();

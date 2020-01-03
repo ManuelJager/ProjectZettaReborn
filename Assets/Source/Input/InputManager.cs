@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 using Zetta.Generics;
 
 namespace Zetta.InputWrapper
@@ -12,20 +9,26 @@ namespace Zetta.InputWrapper
     public partial class InputManager : LazySingleton<InputManager>
     {
         public delegate void UpdateDelegate();
+
         public static UpdateDelegate UpdateEvent;
 
         public delegate void ButtonActionClickDelegate();
+
         public static event ButtonActionClickDelegate ClickShift;
+
         public static event ButtonActionClickDelegate ClickEsc;
+
         public static event ButtonActionClickDelegate ClickF10;
 
         public delegate void ButtonKeypressClickDelegate(char keyPressed);
+
         public static event ButtonKeypressClickDelegate ClickKeypress;
 
         public delegate void InputAxisDelegate(Vector2 input);
+
         public static event InputAxisDelegate InputAxis;
 
-        void OnGUI()
+        private void OnGUI()
         {
             var currentEvent = Event.current;
             if (currentEvent.isKey && currentEvent.type == EventType.KeyDown)
@@ -47,7 +50,7 @@ namespace Zetta.InputWrapper
             }
         }
 
-        void Update()
+        private void Update()
         {
             UpdateEvent?.Invoke();
 

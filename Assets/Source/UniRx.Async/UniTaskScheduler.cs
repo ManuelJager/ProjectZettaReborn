@@ -29,7 +29,7 @@ namespace UniRx.Async
         public static bool DispatchUnityMainThread = true;
 
         // cache delegate.
-        static readonly SendOrPostCallback handleExceptionInvoke = InvokeUnobservedTaskException;
+        private static readonly SendOrPostCallback handleExceptionInvoke = InvokeUnobservedTaskException;
 
         internal static void PublishUnobservedTaskException(Exception ex)
         {
@@ -65,18 +65,23 @@ namespace UniRx.Async
                         case UnityEngine.LogType.Error:
                             UnityEngine.Debug.LogError(msg);
                             break;
+
                         case UnityEngine.LogType.Assert:
                             UnityEngine.Debug.LogAssertion(msg);
                             break;
+
                         case UnityEngine.LogType.Warning:
                             UnityEngine.Debug.LogWarning(msg);
                             break;
+
                         case UnityEngine.LogType.Log:
                             UnityEngine.Debug.Log(msg);
                             break;
+
                         case UnityEngine.LogType.Exception:
                             UnityEngine.Debug.LogException(ex);
                             break;
+
                         default:
                             break;
                     }
@@ -84,7 +89,7 @@ namespace UniRx.Async
             }
         }
 
-        static void InvokeUnobservedTaskException(object state)
+        private static void InvokeUnobservedTaskException(object state)
         {
             UnobservedTaskException((Exception)state);
         }

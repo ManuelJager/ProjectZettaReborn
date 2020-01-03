@@ -28,15 +28,15 @@ namespace UniRx.Async
             return await new WhenAnyPromise(tasks);
         }
 
-        class UnitWhenAnyPromise<T0>
+        private class UnitWhenAnyPromise<T0>
         {
-            T0 result0;
-            ExceptionDispatchInfo exception;
-            Action whenComplete;
-            int completeCount;
-            int winArgumentIndex;
+            private T0 result0;
+            private ExceptionDispatchInfo exception;
+            private Action whenComplete;
+            private int completeCount;
+            private int winArgumentIndex;
 
-            bool IsCompleted => exception != null || Volatile.Read(ref winArgumentIndex) != -1;
+            private bool IsCompleted => exception != null || Volatile.Read(ref winArgumentIndex) != -1;
 
             public UnitWhenAnyPromise(UniTask<T0> task0, UniTask task1)
             {
@@ -50,7 +50,7 @@ namespace UniRx.Async
                 RunTask1(task1).Forget();
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -59,7 +59,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask0(UniTask<T0> task)
+            private async UniTaskVoid RunTask0(UniTask<T0> task)
             {
                 T0 value;
                 try
@@ -82,7 +82,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask1(UniTask task)
+            private async UniTaskVoid RunTask1(UniTask task)
             {
                 try
                 {
@@ -103,7 +103,6 @@ namespace UniRx.Async
                 }
             }
 
-
             public Awaiter GetAwaiter()
             {
                 return new Awaiter(this);
@@ -111,7 +110,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                UnitWhenAnyPromise<T0> parent;
+                private UnitWhenAnyPromise<T0> parent;
 
                 public Awaiter(UnitWhenAnyPromise<T0> parent)
                 {
@@ -156,14 +155,13 @@ namespace UniRx.Async
             }
         }
 
-
-        class WhenAnyPromise<T>
+        private class WhenAnyPromise<T>
         {
-            T result;
-            int completeCount;
-            int winArgumentIndex;
-            Action whenComplete;
-            ExceptionDispatchInfo exception;
+            private T result;
+            private int completeCount;
+            private int winArgumentIndex;
+            private Action whenComplete;
+            private ExceptionDispatchInfo exception;
 
             public bool IsComplete => exception != null || Volatile.Read(ref winArgumentIndex) != -1;
 
@@ -181,7 +179,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask(UniTask<T> task, int index)
+            private async UniTaskVoid RunTask(UniTask<T> task, int index)
             {
                 T value;
                 try
@@ -204,7 +202,7 @@ namespace UniRx.Async
                 }
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -220,7 +218,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAnyPromise<T> parent;
+                private WhenAnyPromise<T> parent;
 
                 public Awaiter(WhenAnyPromise<T> parent)
                 {
@@ -265,12 +263,12 @@ namespace UniRx.Async
             }
         }
 
-        class WhenAnyPromise
+        private class WhenAnyPromise
         {
-            int completeCount;
-            int winArgumentIndex;
-            Action whenComplete;
-            ExceptionDispatchInfo exception;
+            private int completeCount;
+            private int winArgumentIndex;
+            private Action whenComplete;
+            private ExceptionDispatchInfo exception;
 
             public bool IsComplete => exception != null || Volatile.Read(ref winArgumentIndex) != -1;
 
@@ -287,7 +285,7 @@ namespace UniRx.Async
                 }
             }
 
-            async UniTaskVoid RunTask(UniTask task, int index)
+            private async UniTaskVoid RunTask(UniTask task, int index)
             {
                 try
                 {
@@ -308,7 +306,7 @@ namespace UniRx.Async
                 }
             }
 
-            void TryCallContinuation()
+            private void TryCallContinuation()
             {
                 var action = Interlocked.Exchange(ref whenComplete, null);
                 if (action != null)
@@ -324,7 +322,7 @@ namespace UniRx.Async
 
             public struct Awaiter : ICriticalNotifyCompletion
             {
-                WhenAnyPromise parent;
+                private WhenAnyPromise parent;
 
                 public Awaiter(WhenAnyPromise parent)
                 {

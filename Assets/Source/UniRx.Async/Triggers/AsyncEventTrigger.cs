@@ -1,4 +1,3 @@
-
 #if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -12,253 +11,216 @@ namespace UniRx.Async.Triggers
     [DisallowMultipleComponent]
     public class AsyncEventTrigger : AsyncTriggerBase
     {
-        AsyncTriggerPromise<BaseEventData> onDeselect;
-        AsyncTriggerPromiseDictionary<BaseEventData> onDeselects;
-        AsyncTriggerPromise<AxisEventData> onMove;
-        AsyncTriggerPromiseDictionary<AxisEventData> onMoves;
-        AsyncTriggerPromise<PointerEventData> onPointerDown;
-        AsyncTriggerPromiseDictionary<PointerEventData> onPointerDowns;
-        AsyncTriggerPromise<PointerEventData> onPointerEnter;
-        AsyncTriggerPromiseDictionary<PointerEventData> onPointerEnters;
-        AsyncTriggerPromise<PointerEventData> onPointerExit;
-        AsyncTriggerPromiseDictionary<PointerEventData> onPointerExits;
-        AsyncTriggerPromise<PointerEventData> onPointerUp;
-        AsyncTriggerPromiseDictionary<PointerEventData> onPointerUps;
-        AsyncTriggerPromise<BaseEventData> onSelect;
-        AsyncTriggerPromiseDictionary<BaseEventData> onSelects;
-        AsyncTriggerPromise<PointerEventData> onPointerClick;
-        AsyncTriggerPromiseDictionary<PointerEventData> onPointerClicks;
-        AsyncTriggerPromise<BaseEventData> onSubmit;
-        AsyncTriggerPromiseDictionary<BaseEventData> onSubmits;
-        AsyncTriggerPromise<PointerEventData> onDrag;
-        AsyncTriggerPromiseDictionary<PointerEventData> onDrags;
-        AsyncTriggerPromise<PointerEventData> onBeginDrag;
-        AsyncTriggerPromiseDictionary<PointerEventData> onBeginDrags;
-        AsyncTriggerPromise<PointerEventData> onEndDrag;
-        AsyncTriggerPromiseDictionary<PointerEventData> onEndDrags;
-        AsyncTriggerPromise<PointerEventData> onDrop;
-        AsyncTriggerPromiseDictionary<PointerEventData> onDrops;
-        AsyncTriggerPromise<BaseEventData> onUpdateSelected;
-        AsyncTriggerPromiseDictionary<BaseEventData> onUpdateSelecteds;
-        AsyncTriggerPromise<PointerEventData> onInitializePotentialDrag;
-        AsyncTriggerPromiseDictionary<PointerEventData> onInitializePotentialDrags;
-        AsyncTriggerPromise<BaseEventData> onCancel;
-        AsyncTriggerPromiseDictionary<BaseEventData> onCancels;
-        AsyncTriggerPromise<PointerEventData> onScroll;
-        AsyncTriggerPromiseDictionary<PointerEventData> onScrolls;
-
+        private AsyncTriggerPromise<BaseEventData> onDeselect;
+        private AsyncTriggerPromiseDictionary<BaseEventData> onDeselects;
+        private AsyncTriggerPromise<AxisEventData> onMove;
+        private AsyncTriggerPromiseDictionary<AxisEventData> onMoves;
+        private AsyncTriggerPromise<PointerEventData> onPointerDown;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onPointerDowns;
+        private AsyncTriggerPromise<PointerEventData> onPointerEnter;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onPointerEnters;
+        private AsyncTriggerPromise<PointerEventData> onPointerExit;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onPointerExits;
+        private AsyncTriggerPromise<PointerEventData> onPointerUp;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onPointerUps;
+        private AsyncTriggerPromise<BaseEventData> onSelect;
+        private AsyncTriggerPromiseDictionary<BaseEventData> onSelects;
+        private AsyncTriggerPromise<PointerEventData> onPointerClick;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onPointerClicks;
+        private AsyncTriggerPromise<BaseEventData> onSubmit;
+        private AsyncTriggerPromiseDictionary<BaseEventData> onSubmits;
+        private AsyncTriggerPromise<PointerEventData> onDrag;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onDrags;
+        private AsyncTriggerPromise<PointerEventData> onBeginDrag;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onBeginDrags;
+        private AsyncTriggerPromise<PointerEventData> onEndDrag;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onEndDrags;
+        private AsyncTriggerPromise<PointerEventData> onDrop;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onDrops;
+        private AsyncTriggerPromise<BaseEventData> onUpdateSelected;
+        private AsyncTriggerPromiseDictionary<BaseEventData> onUpdateSelecteds;
+        private AsyncTriggerPromise<PointerEventData> onInitializePotentialDrag;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onInitializePotentialDrags;
+        private AsyncTriggerPromise<BaseEventData> onCancel;
+        private AsyncTriggerPromiseDictionary<BaseEventData> onCancels;
+        private AsyncTriggerPromise<PointerEventData> onScroll;
+        private AsyncTriggerPromiseDictionary<PointerEventData> onScrolls;
 
         protected override IEnumerable<ICancelablePromise> GetPromises()
         {
             return Concat(onDeselect, onDeselects, onMove, onMoves, onPointerDown, onPointerDowns, onPointerEnter, onPointerEnters, onPointerExit, onPointerExits, onPointerUp, onPointerUps, onSelect, onSelects, onPointerClick, onPointerClicks, onSubmit, onSubmits, onDrag, onDrags, onBeginDrag, onBeginDrags, onEndDrag, onEndDrags, onDrop, onDrops, onUpdateSelected, onUpdateSelecteds, onInitializePotentialDrag, onInitializePotentialDrags, onCancel, onCancels, onScroll, onScrolls);
         }
 
-        void OnDeselect(BaseEventData eventData)
+        private void OnDeselect(BaseEventData eventData)
         {
             TrySetResult(onDeselect, onDeselects, eventData);
         }
-
 
         public UniTask<BaseEventData> OnDeselectAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onDeselect, ref onDeselects, cancellationToken);
         }
 
-
-        void OnMove(AxisEventData eventData)
+        private void OnMove(AxisEventData eventData)
         {
             TrySetResult(onMove, onMoves, eventData);
         }
-
 
         public UniTask<AxisEventData> OnMoveAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onMove, ref onMoves, cancellationToken);
         }
 
-
-        void OnPointerDown(PointerEventData eventData)
+        private void OnPointerDown(PointerEventData eventData)
         {
             TrySetResult(onPointerDown, onPointerDowns, eventData);
         }
-
 
         public UniTask<PointerEventData> OnPointerDownAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onPointerDown, ref onPointerDowns, cancellationToken);
         }
 
-
-        void OnPointerEnter(PointerEventData eventData)
+        private void OnPointerEnter(PointerEventData eventData)
         {
             TrySetResult(onPointerEnter, onPointerEnters, eventData);
         }
-
 
         public UniTask<PointerEventData> OnPointerEnterAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onPointerEnter, ref onPointerEnters, cancellationToken);
         }
 
-
-        void OnPointerExit(PointerEventData eventData)
+        private void OnPointerExit(PointerEventData eventData)
         {
             TrySetResult(onPointerExit, onPointerExits, eventData);
         }
-
 
         public UniTask<PointerEventData> OnPointerExitAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onPointerExit, ref onPointerExits, cancellationToken);
         }
 
-
-        void OnPointerUp(PointerEventData eventData)
+        private void OnPointerUp(PointerEventData eventData)
         {
             TrySetResult(onPointerUp, onPointerUps, eventData);
         }
-
 
         public UniTask<PointerEventData> OnPointerUpAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onPointerUp, ref onPointerUps, cancellationToken);
         }
 
-
-        void OnSelect(BaseEventData eventData)
+        private void OnSelect(BaseEventData eventData)
         {
             TrySetResult(onSelect, onSelects, eventData);
         }
-
 
         public UniTask<BaseEventData> OnSelectAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onSelect, ref onSelects, cancellationToken);
         }
 
-
-        void OnPointerClick(PointerEventData eventData)
+        private void OnPointerClick(PointerEventData eventData)
         {
             TrySetResult(onPointerClick, onPointerClicks, eventData);
         }
-
 
         public UniTask<PointerEventData> OnPointerClickAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onPointerClick, ref onPointerClicks, cancellationToken);
         }
 
-
-        void OnSubmit(BaseEventData eventData)
+        private void OnSubmit(BaseEventData eventData)
         {
             TrySetResult(onSubmit, onSubmits, eventData);
         }
-
 
         public UniTask<BaseEventData> OnSubmitAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onSubmit, ref onSubmits, cancellationToken);
         }
 
-
-        void OnDrag(PointerEventData eventData)
+        private void OnDrag(PointerEventData eventData)
         {
             TrySetResult(onDrag, onDrags, eventData);
         }
-
 
         public UniTask<PointerEventData> OnDragAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onDrag, ref onDrags, cancellationToken);
         }
 
-
-        void OnBeginDrag(PointerEventData eventData)
+        private void OnBeginDrag(PointerEventData eventData)
         {
             TrySetResult(onBeginDrag, onBeginDrags, eventData);
         }
-
 
         public UniTask<PointerEventData> OnBeginDragAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onBeginDrag, ref onBeginDrags, cancellationToken);
         }
 
-
-        void OnEndDrag(PointerEventData eventData)
+        private void OnEndDrag(PointerEventData eventData)
         {
             TrySetResult(onEndDrag, onEndDrags, eventData);
         }
-
 
         public UniTask<PointerEventData> OnEndDragAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onEndDrag, ref onEndDrags, cancellationToken);
         }
 
-
-        void OnDrop(PointerEventData eventData)
+        private void OnDrop(PointerEventData eventData)
         {
             TrySetResult(onDrop, onDrops, eventData);
         }
-
 
         public UniTask<PointerEventData> OnDropAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onDrop, ref onDrops, cancellationToken);
         }
 
-
-        void OnUpdateSelected(BaseEventData eventData)
+        private void OnUpdateSelected(BaseEventData eventData)
         {
             TrySetResult(onUpdateSelected, onUpdateSelecteds, eventData);
         }
-
 
         public UniTask<BaseEventData> OnUpdateSelectedAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onUpdateSelected, ref onUpdateSelecteds, cancellationToken);
         }
 
-
-        void OnInitializePotentialDrag(PointerEventData eventData)
+        private void OnInitializePotentialDrag(PointerEventData eventData)
         {
             TrySetResult(onInitializePotentialDrag, onInitializePotentialDrags, eventData);
         }
-
 
         public UniTask<PointerEventData> OnInitializePotentialDragAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onInitializePotentialDrag, ref onInitializePotentialDrags, cancellationToken);
         }
 
-
-        void OnCancel(BaseEventData eventData)
+        private void OnCancel(BaseEventData eventData)
         {
             TrySetResult(onCancel, onCancels, eventData);
         }
-
 
         public UniTask<BaseEventData> OnCancelAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onCancel, ref onCancels, cancellationToken);
         }
 
-
-        void OnScroll(PointerEventData eventData)
+        private void OnScroll(PointerEventData eventData)
         {
             TrySetResult(onScroll, onScrolls, eventData);
         }
-
 
         public UniTask<PointerEventData> OnScrollAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetOrAddPromise(ref onScroll, ref onScrolls, cancellationToken);
         }
-
-
     }
 }
 
 #endif
-

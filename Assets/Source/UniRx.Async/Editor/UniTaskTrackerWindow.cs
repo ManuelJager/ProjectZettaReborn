@@ -1,22 +1,19 @@
 ﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-using UnityEngine;
-using UnityEditor;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System;
-using UnityEditor.IMGUI.Controls;
+using System.Linq;
 using UniRx.Async.Internal;
+using UnityEditor;
+using UnityEngine;
 
 namespace UniRx.Async.Editor
 {
     public class UniTaskTrackerWindow : EditorWindow
     {
-        static int interval;
+        private static int interval;
 
-        static UniTaskTrackerWindow window;
+        private static UniTaskTrackerWindow window;
 
         [MenuItem("Window/UniRx/UniTask Tracker")]
         public static void OpenWindow()
@@ -30,12 +27,12 @@ namespace UniRx.Async.Editor
             GetWindow<UniTaskTrackerWindow>("UniTask Tracker").Show();
         }
 
-        static readonly GUILayoutOption[] EmptyLayoutOption = new GUILayoutOption[0];
+        private static readonly GUILayoutOption[] EmptyLayoutOption = new GUILayoutOption[0];
 
-        UniTaskTrackerTreeView treeView;
-        object splitterState;
+        private UniTaskTrackerTreeView treeView;
+        private object splitterState;
 
-        void OnEnable()
+        private void OnEnable()
         {
             window = this; // set singleton.
             splitterState = SplitterGUILayout.CreateSplitterState(new float[] { 75f, 25f }, new int[] { 32, 32 }, null);
@@ -45,7 +42,7 @@ namespace UniRx.Async.Editor
             TaskTracker.EditorEnableState.EnableStackTrace = EditorPrefs.GetBool(TaskTracker.EnableStackTraceKey, false);
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             // Head
             RenderHeadPanel();
@@ -67,14 +64,14 @@ namespace UniRx.Async.Editor
         public static bool EnableAutoReload => TaskTracker.EditorEnableState.EnableAutoReload;
         public static bool EnableTracking => TaskTracker.EditorEnableState.EnableTracking;
         public static bool EnableStackTrace => TaskTracker.EditorEnableState.EnableStackTrace;
-        static readonly GUIContent EnableAutoReloadHeadContent = EditorGUIUtility.TrTextContent("Enable AutoReload", "Reload automatically.", (Texture)null);
-        static readonly GUIContent ReloadHeadContent = EditorGUIUtility.TrTextContent("Reload", "Reload View.", (Texture)null);
-        static readonly GUIContent GCHeadContent = EditorGUIUtility.TrTextContent("GC.Collect", "Invoke GC.Collect.", (Texture)null);
-        static readonly GUIContent EnableTrackingHeadContent = EditorGUIUtility.TrTextContent("Enable Tracking", "Start to track async/await UniTask. Performance impact: low", (Texture)null);
-        static readonly GUIContent EnableStackTraceHeadContent = EditorGUIUtility.TrTextContent("Enable StackTrace", "Capture StackTrace when task is started. Performance impact: high", (Texture)null);
+        private static readonly GUIContent EnableAutoReloadHeadContent = EditorGUIUtility.TrTextContent("Enable AutoReload", "Reload automatically.", (Texture)null);
+        private static readonly GUIContent ReloadHeadContent = EditorGUIUtility.TrTextContent("Reload", "Reload View.", (Texture)null);
+        private static readonly GUIContent GCHeadContent = EditorGUIUtility.TrTextContent("GC.Collect", "Invoke GC.Collect.", (Texture)null);
+        private static readonly GUIContent EnableTrackingHeadContent = EditorGUIUtility.TrTextContent("Enable Tracking", "Start to track async/await UniTask. Performance impact: low", (Texture)null);
+        private static readonly GUIContent EnableStackTraceHeadContent = EditorGUIUtility.TrTextContent("Enable StackTrace", "Capture StackTrace when task is started. Performance impact: high", (Texture)null);
 
         // [Enable Tracking] | [Enable StackTrace]
-        void RenderHeadPanel()
+        private void RenderHeadPanel()
         {
             EditorGUILayout.BeginVertical(EmptyLayoutOption);
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar, EmptyLayoutOption);
@@ -112,14 +109,14 @@ namespace UniRx.Async.Editor
             EditorGUILayout.EndVertical();
         }
 
-        #endregion
+        #endregion HeadPanel
 
         #region TableColumn
 
-        Vector2 tableScroll;
-        GUIStyle tableListStyle;
+        private Vector2 tableScroll;
+        private GUIStyle tableListStyle;
 
-        void RenderTable()
+        private void RenderTable()
         {
             if (tableListStyle == null)
             {
@@ -140,7 +137,6 @@ namespace UniRx.Async.Editor
                 GUILayout.ExpandHeight(true),
                 GUILayout.ExpandWidth(true)
             });
-
 
             treeView?.OnGUI(controlRect);
 
@@ -163,14 +159,14 @@ namespace UniRx.Async.Editor
             }
         }
 
-        #endregion
+        #endregion TableColumn
 
         #region Details
 
-        static GUIStyle detailsStyle;
-        Vector2 detailsScroll;
+        private static GUIStyle detailsStyle;
+        private Vector2 detailsScroll;
 
-        void RenderDetailsPanel()
+        private void RenderDetailsPanel()
         {
             if (detailsStyle == null)
             {
@@ -204,7 +200,7 @@ namespace UniRx.Async.Editor
             EditorGUILayout.EndScrollView();
         }
 
-        #endregion
+        #endregion Details
     }
 }
 

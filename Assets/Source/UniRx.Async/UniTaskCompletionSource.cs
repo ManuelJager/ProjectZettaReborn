@@ -13,8 +13,8 @@ namespace UniRx.Async
 {
     internal class ExceptionHolder
     {
-        ExceptionDispatchInfo exception;
-        bool calledGet = false;
+        private ExceptionDispatchInfo exception;
+        private bool calledGet = false;
 
         public ExceptionHolder(ExceptionDispatchInfo exception)
         {
@@ -68,15 +68,16 @@ namespace UniRx.Async
     public class UniTaskCompletionSource : IAwaiter, IPromise
     {
         // State(= AwaiterStatus)
-        const int Pending = 0;
-        const int Succeeded = 1;
-        const int Faulted = 2;
-        const int Canceled = 3;
+        private const int Pending = 0;
 
-        int state = 0;
-        bool handled = false;
-        ExceptionHolder exception;
-        object continuation; // action or list
+        private const int Succeeded = 1;
+        private const int Faulted = 2;
+        private const int Canceled = 3;
+
+        private int state = 0;
+        private bool handled = false;
+        private ExceptionHolder exception;
+        private object continuation; // action or list
 
         AwaiterStatus IAwaiter.Status => (AwaiterStatus)state;
 
@@ -163,7 +164,7 @@ namespace UniRx.Async
             }
         }
 
-        void TryInvokeContinuation()
+        private void TryInvokeContinuation()
         {
             var c = Interlocked.Exchange(ref continuation, null);
             if (c != null)
@@ -235,16 +236,17 @@ namespace UniRx.Async
     public class UniTaskCompletionSource<T> : IAwaiter<T>, IPromise<T>
     {
         // State(= AwaiterStatus)
-        const int Pending = 0;
-        const int Succeeded = 1;
-        const int Faulted = 2;
-        const int Canceled = 3;
+        private const int Pending = 0;
 
-        int state = 0;
-        T value;
-        bool handled = false;
-        ExceptionHolder exception;
-        object continuation; // action or list
+        private const int Succeeded = 1;
+        private const int Faulted = 2;
+        private const int Canceled = 3;
+
+        private int state = 0;
+        private T value;
+        private bool handled = false;
+        private ExceptionHolder exception;
+        private object continuation; // action or list
 
         bool IAwaiter.IsCompleted => state != Pending;
 
@@ -334,7 +336,7 @@ namespace UniRx.Async
             }
         }
 
-        void TryInvokeContinuation()
+        private void TryInvokeContinuation()
         {
             var c = Interlocked.Exchange(ref continuation, null);
             if (c != null)

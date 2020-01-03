@@ -10,13 +10,13 @@ namespace UniRx.Async.Internal
     // optimized version of Standard Queue<T>.
     internal class MinimumQueue<T>
     {
-        const int MinimumGrow = 4;
-        const int GrowFactor = 200;
+        private const int MinimumGrow = 4;
+        private const int GrowFactor = 200;
 
-        T[] array;
-        int head;
-        int tail;
-        int size;
+        private T[] array;
+        private int head;
+        private int tail;
+        private int size;
 
         public MinimumQueue(int capacity)
         {
@@ -28,7 +28,7 @@ namespace UniRx.Async.Internal
         public int Count
         {
 #if NET_4_6 || NET_STANDARD_2_0
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
             get { return size; }
         }
@@ -40,6 +40,7 @@ namespace UniRx.Async.Internal
         }
 
 #if NET_4_6 || NET_STANDARD_2_0
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public void Enqueue(T item)
@@ -55,6 +56,7 @@ namespace UniRx.Async.Internal
         }
 
 #if NET_4_6 || NET_STANDARD_2_0
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public T Dequeue()
@@ -70,7 +72,7 @@ namespace UniRx.Async.Internal
             return removed;
         }
 
-        void Grow()
+        private void Grow()
         {
             int newcapacity = (int)((long)array.Length * (long)GrowFactor / 100);
             if (newcapacity < array.Length + MinimumGrow)
@@ -80,7 +82,7 @@ namespace UniRx.Async.Internal
             SetCapacity(newcapacity);
         }
 
-        void SetCapacity(int capacity)
+        private void SetCapacity(int capacity)
         {
             T[] newarray = new T[capacity];
             if (size > 0)
@@ -102,7 +104,9 @@ namespace UniRx.Async.Internal
         }
 
 #if NET_4_6 || NET_STANDARD_2_0
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private
 #endif
         void MoveNext(ref int index)
         {
@@ -114,7 +118,7 @@ namespace UniRx.Async.Internal
             index = tmp;
         }
 
-        void ThrowForEmptyQueue()
+        private void ThrowForEmptyQueue()
         {
             throw new InvalidOperationException("EmptyQueue");
         }

@@ -11,8 +11,8 @@ namespace UniRx.Async.CompilerServices
 {
     public struct AsyncUniTaskMethodBuilder
     {
-        UniTaskCompletionSource promise;
-        Action moveNext;
+        private UniTaskCompletionSource promise;
+        private Action moveNext;
 
         // 1. Static Create method.
         [DebuggerHidden]
@@ -138,12 +138,11 @@ namespace UniRx.Async.CompilerServices
         }
     }
 
-
     public struct AsyncUniTaskMethodBuilder<T>
     {
-        T result;
-        UniTaskCompletionSource<T> promise;
-        Action moveNext;
+        private T result;
+        private UniTaskCompletionSource<T> promise;
+        private Action moveNext;
 
         // 1. Static Create method.
         [DebuggerHidden]

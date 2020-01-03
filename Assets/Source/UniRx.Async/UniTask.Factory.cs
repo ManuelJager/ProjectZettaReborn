@@ -8,13 +8,13 @@ namespace UniRx.Async
 {
     public partial struct UniTask
     {
-        static readonly UniTask CanceledUniTask = new Func<UniTask>(() =>
-        {
-            var promise = new UniTaskCompletionSource<AsyncUnit>();
-            promise.TrySetCanceled();
-            promise.MarkHandled();
-            return new UniTask(promise);
-        })();
+        private static readonly UniTask CanceledUniTask = new Func<UniTask>(() =>
+           {
+               var promise = new UniTaskCompletionSource<AsyncUnit>();
+               promise.TrySetCanceled();
+               promise.MarkHandled();
+               return new UniTask(promise);
+           })();
 
         public static UniTask CompletedTask
         {
@@ -95,7 +95,7 @@ namespace UniRx.Async
             asyncAction(state).Forget();
         }
 
-        static class CanceledUniTaskCache<T>
+        private static class CanceledUniTaskCache<T>
         {
             public static readonly UniTask<T> Task;
 
@@ -118,4 +118,5 @@ namespace UniRx.Async
         public static readonly UniTask<int> One = UniTask.FromResult(1);
     }
 }
+
 #endif

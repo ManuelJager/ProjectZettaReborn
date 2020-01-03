@@ -18,11 +18,11 @@ namespace UniRx.Async
 {
     public static class DiagnosticsExtensions
     {
-        static bool displayFilenames = true;
+        private static bool displayFilenames = true;
 
-        static readonly Regex typeBeautifyRegex = new Regex("`.+$", RegexOptions.Compiled);
+        private static readonly Regex typeBeautifyRegex = new Regex("`.+$", RegexOptions.Compiled);
 
-        static readonly Dictionary<Type, string> builtInTypeNames = new Dictionary<Type, string>
+        private static readonly Dictionary<Type, string> builtInTypeNames = new Dictionary<Type, string>
         {
             { typeof(void), "void" },
             { typeof(bool), "bool" },
@@ -152,15 +152,14 @@ namespace UniRx.Async
             return sb.ToString();
         }
 
-
-        static bool IsAsync(MethodBase methodInfo)
+        private static bool IsAsync(MethodBase methodInfo)
         {
             var declareType = methodInfo.DeclaringType;
             return typeof(IAsyncStateMachine).IsAssignableFrom(declareType);
         }
 
         // code from Ben.Demystifier/EnhancedStackTrace.Frame.cs
-        static bool TryResolveStateMachineMethod(ref MethodBase method, out Type declaringType)
+        private static bool TryResolveStateMachineMethod(ref MethodBase method, out Type declaringType)
         {
             declaringType = method.DeclaringType;
 
@@ -200,7 +199,7 @@ namespace UniRx.Async
             return false;
         }
 
-        static string BeautifyType(Type t, bool shortName)
+        private static string BeautifyType(Type t, bool shortName)
         {
             if (builtInTypeNames.TryGetValue(t, out var builtin))
             {
@@ -225,7 +224,7 @@ namespace UniRx.Async
             return typeBeautifyRegex.Replace(genericType, "") + "<" + innerFormat + ">";
         }
 
-        static bool IgnoreLine(MethodBase methodInfo)
+        private static bool IgnoreLine(MethodBase methodInfo)
         {
             var declareType = methodInfo.DeclaringType.FullName;
             if (declareType == "System.Threading.ExecutionContext")
@@ -252,7 +251,7 @@ namespace UniRx.Async
             return false;
         }
 
-        static string SimplifyPath(string path)
+        private static string SimplifyPath(string path)
         {
             var fi = new FileInfo(path);
             if (fi.Directory == null)

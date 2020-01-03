@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zetta.Exceptions;
-using Zetta.GridSystem;
-using Newtonsoft.Json;
 using UnityEngine;
+using Zetta.Exceptions;
 using Zetta.GridSystem.Blocks;
 
 namespace Zetta.GridSystem.Blueprints
@@ -23,7 +19,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <returns>The blueprint string</returns>
         public static string Export(Blueprint blueprint)
         {
-            // Creates the data 
+            // Creates the data
             var jsonData = new Dictionary<string, object>
             {
                 { "Name", blueprint.Name },
@@ -44,7 +40,7 @@ namespace Zetta.GridSystem.Blueprints
         public static Blueprint Import(string json)
         {
             Blueprint blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
-            
+
             return blueprint;
         }
 
@@ -67,7 +63,7 @@ namespace Zetta.GridSystem.Blueprints
         private static List<Vector2> FindDuplicates(List<Vector2> list)
         {
             var duplicates = new List<Vector2>();
-            foreach(Vector2 item in list)
+            foreach (Vector2 item in list)
                 if (CountOccurenceOfValue(list, item) > 1 && !duplicates.Contains(item))
                     duplicates.Add(item);
 
@@ -84,7 +80,7 @@ namespace Zetta.GridSystem.Blueprints
             var positions = new List<Vector2>();
 
             // Add all position blocks of the blueprint to the positions list
-            foreach(BlueprintBlock blueprintBlock in blueprint.Blocks)
+            foreach (BlueprintBlock blueprintBlock in blueprint.Blocks)
             {
                 try
                 {
@@ -112,7 +108,6 @@ namespace Zetta.GridSystem.Blueprints
 
         private static Blueprint CreateTestBlueprint(int size)
         {
-
             List<BlueprintBlock> blocks = new List<BlueprintBlock>();
             blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 0)));
 

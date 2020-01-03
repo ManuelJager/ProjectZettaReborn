@@ -10,10 +10,10 @@ namespace UniRx.Async.Triggers
     [DisallowMultipleComponent]
     public class AsyncDestroyTrigger : MonoBehaviour
     {
-        bool called = false;
-        UniTaskCompletionSource promise;
-        CancellationTokenSource cancellationTokenSource; // main cancellation
-        object canellationTokenSourceOrQueue;            // external from AddCancellationTriggerOnDestory
+        private bool called = false;
+        private UniTaskCompletionSource promise;
+        private CancellationTokenSource cancellationTokenSource; // main cancellation
+        private object canellationTokenSourceOrQueue;            // external from AddCancellationTriggerOnDestory
 
         public CancellationToken CancellationToken
         {
@@ -28,7 +28,7 @@ namespace UniRx.Async.Triggers
         }
 
         /// <summary>This function is called when the MonoBehaviour will be destroyed.</summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
             called = true;
             promise?.TrySetResult();

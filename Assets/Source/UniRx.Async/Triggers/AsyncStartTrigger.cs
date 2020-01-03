@@ -8,16 +8,16 @@ namespace UniRx.Async.Triggers
     [DisallowMultipleComponent]
     public class AsyncStartTrigger : MonoBehaviour
     {
-        bool awakeCalled = false;
-        bool called = false;
-        UniTaskCompletionSource promise;
+        private bool awakeCalled = false;
+        private bool called = false;
+        private UniTaskCompletionSource promise;
 
-        void Awake()
+        private void Awake()
         {
             awakeCalled = true;
         }
 
-        void Start()
+        private void Start()
         {
             called = true;
             promise?.TrySetResult();
@@ -38,9 +38,9 @@ namespace UniRx.Async.Triggers
             promise?.TrySetCanceled();
         }
 
-        class AwakeMonitor : IPlayerLoopItem
+        private class AwakeMonitor : IPlayerLoopItem
         {
-            readonly AsyncStartTrigger trigger;
+            private readonly AsyncStartTrigger trigger;
 
             public AwakeMonitor(AsyncStartTrigger trigger)
             {

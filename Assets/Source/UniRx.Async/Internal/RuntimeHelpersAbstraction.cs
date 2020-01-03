@@ -14,7 +14,7 @@ namespace UniRx.Async.Internal
             return WellKnownNoReferenceContainsType<T>.IsWellKnownType;
         }
 
-        static bool WellKnownNoReferenceContainsTypeInitialize(Type t)
+        private static bool WellKnownNoReferenceContainsTypeInitialize(Type t)
         {
             // The primitive types are Boolean, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Char, Double, and Single.
             if (t.IsPrimitive) return true;
@@ -45,7 +45,7 @@ namespace UniRx.Async.Internal
             return false;
         }
 
-        static class WellKnownNoReferenceContainsType<T>
+        private static class WellKnownNoReferenceContainsType<T>
         {
             public static readonly bool IsWellKnownType;
 

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 
 namespace Zetta.Generics
@@ -10,17 +10,17 @@ namespace Zetta.Generics
     [Serializable, DebuggerDisplay("Count = {Count}")]
     public class SerializableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        [SerializeField, HideInInspector] int[] _Buckets;
-        [SerializeField, HideInInspector] int[] _HashCodes;
-        [SerializeField, HideInInspector] int[] _Next;
-        [SerializeField, HideInInspector] int _Count;
-        [SerializeField, HideInInspector] int _Version;
-        [SerializeField, HideInInspector] int _FreeList;
-        [SerializeField, HideInInspector] int _FreeCount;
-        [SerializeField, HideInInspector] TKey[] _Keys;
-        [SerializeField, HideInInspector] TValue[] _Values;
+        [SerializeField, HideInInspector] private int[] _Buckets;
+        [SerializeField, HideInInspector] private int[] _HashCodes;
+        [SerializeField, HideInInspector] private int[] _Next;
+        [SerializeField, HideInInspector] private int _Count;
+        [SerializeField, HideInInspector] private int _Version;
+        [SerializeField, HideInInspector] private int _FreeList;
+        [SerializeField, HideInInspector] private int _FreeCount;
+        [SerializeField, HideInInspector] private TKey[] _Keys;
+        [SerializeField, HideInInspector] private TValue[] _Values;
 
-        readonly IEqualityComparer<TKey> _Comparer;
+        private readonly IEqualityComparer<TKey> _Comparer;
 
         // Mainly for debugging purposes - to get the key-value pairs display
         public Dictionary<TKey, TValue> AsDictionary

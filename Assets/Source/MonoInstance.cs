@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zetta.Generics;
+﻿using Zetta.Generics;
 
 namespace Zetta
 {

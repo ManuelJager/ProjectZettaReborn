@@ -32,5 +32,4 @@ namespace UniRx.Async
     }
 }
 
-
 #endif

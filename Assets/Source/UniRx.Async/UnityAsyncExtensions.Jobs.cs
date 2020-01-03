@@ -48,12 +48,12 @@ namespace UniRx.Async
             return new UniTask(awaiter);
         }
 
-        class JobHandleAwaiter : IAwaiter, IPlayerLoopItem
+        private class JobHandleAwaiter : IAwaiter, IPlayerLoopItem
         {
-            JobHandle jobHandle;
-            CancellationToken cancellationToken;
-            AwaiterStatus status;
-            Action continuation;
+            private JobHandle jobHandle;
+            private CancellationToken cancellationToken;
+            private AwaiterStatus status;
+            private Action continuation;
 
             public JobHandleAwaiter(JobHandle jobHandle, CancellationToken cancellationToken, int skipFrame = 2)
             {
@@ -109,7 +109,7 @@ namespace UniRx.Async
                 return true;
             }
 
-            void InvokeContinuation(AwaiterStatus status)
+            private void InvokeContinuation(AwaiterStatus status)
             {
                 this.status = status;
                 var cont = this.continuation;

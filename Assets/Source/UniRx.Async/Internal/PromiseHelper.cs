@@ -16,7 +16,7 @@ namespace UniRx.Async.Internal
             {
                 var array = rentArray.Array;
                 var len = rentArray.Length;
-                for (int i = 0; i < len; i++) 
+                for (int i = 0; i < len; i++)
                 {
                     array[i].TrySetResult(value);
                     array[i] = null;

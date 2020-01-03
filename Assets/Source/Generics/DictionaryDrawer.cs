@@ -13,7 +13,7 @@ namespace Zetta.Generics
         private const float kButtonWidth = 18f;
         private const float PropertyFieldHeight = 17f;
 
-        // Get total height of drawer 
+        // Get total height of drawer
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             CheckInitialize(property, label);
@@ -75,7 +75,6 @@ namespace Zetta.Generics
             // draw fields for each keyvaluepair
             foreach (var item in _Dictionary)
             {
-
                 var key = item.Key;
                 var value = item.Value;
 

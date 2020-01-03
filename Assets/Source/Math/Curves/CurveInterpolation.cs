@@ -1,12 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using UniRx.Async;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using UniRx.Async;
+using UnityEngine;
 
 namespace Zetta.Math.Curves
 {
-    public static class CurveInterpolation
+    public static class CurveInterpolationf
     {
         public static async UniTask DeltaCurveInterpolate(
             this ICurveProvider curve,
@@ -37,5 +34,4 @@ namespace Zetta.Math.Curves
             }
         }
     }
-
 }

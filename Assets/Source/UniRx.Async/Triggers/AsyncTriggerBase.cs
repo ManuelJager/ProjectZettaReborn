@@ -12,6 +12,7 @@ namespace UniRx.Async.Triggers
     public interface ICancelablePromise
     {
         CancellationToken RegisteredCancellationToken { get; }
+
         bool TrySetCanceled();
     }
 
@@ -84,12 +85,12 @@ namespace UniRx.Async.Triggers
 
     public abstract class AsyncTriggerBase : MonoBehaviour
     {
-        static readonly Action<object> Callback = CancelCallback;
+        private static readonly Action<object> Callback = CancelCallback;
 
-        bool calledAwake = false;
-        bool destroyCalled = false;
-        CancellationTokenRegistration[] registeredCancellations;
-        int registeredCancellationsCount;
+        private bool calledAwake = false;
+        private bool destroyCalled = false;
+        private CancellationTokenRegistration[] registeredCancellations;
+        private int registeredCancellationsCount;
 
         protected abstract IEnumerable<ICancelablePromise> GetPromises();
 
@@ -199,7 +200,7 @@ namespace UniRx.Async.Triggers
             return cancellablePromise.Task;
         }
 
-        static void CancelCallback(object state)
+        private static void CancelCallback(object state)
         {
             var tuple = (Tuple<ICancellationTokenKeyDictionary, ICancelablePromise>)state;
             var dict = tuple.Item1;
@@ -221,12 +222,12 @@ namespace UniRx.Async.Triggers
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             calledAwake = true;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (destroyCalled) return;
             destroyCalled = true;
@@ -245,9 +246,9 @@ namespace UniRx.Async.Triggers
             }
         }
 
-        class AwakeMonitor : IPlayerLoopItem
+        private class AwakeMonitor : IPlayerLoopItem
         {
-            readonly AsyncTriggerBase trigger;
+            private readonly AsyncTriggerBase trigger;
 
             public AwakeMonitor(AsyncTriggerBase trigger)
             {

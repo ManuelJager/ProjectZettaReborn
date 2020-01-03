@@ -1,10 +1,10 @@
 ﻿#pragma warning disable CS4014
+
 using UnityEngine;
-using System.Collections;
-using Zetta.GridSystem;
-using Zetta.UI;
-using Zetta.GridSystem.Blueprints;
 using Zetta.Controllers;
+using Zetta.GridSystem;
+using Zetta.GridSystem.Blueprints;
+using Zetta.UI;
 
 namespace Zetta
 {

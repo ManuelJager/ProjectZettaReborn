@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zetta.Extensions;
 
@@ -12,6 +8,7 @@ namespace Zetta.GridSystem.Blueprints
     public class BlueprintBlock
     {
         protected string blockTypeID;
+
         public string BlockTypeID
         {
             get => blockTypeID;
@@ -34,7 +31,9 @@ namespace Zetta.GridSystem.Blueprints
                 { "y", position.y }
             };
         }
+
         protected int rotation;
+
         public int Rotation
         {
             get => rotation;

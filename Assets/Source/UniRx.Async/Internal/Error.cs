@@ -16,7 +16,7 @@ namespace UniRx.Async.Internal
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        static void ThrowArgumentNullExceptionCore(string paramName)
+        private static void ThrowArgumentNullExceptionCore(string paramName)
         {
             throw new ArgumentNullException(paramName);
         }
@@ -47,7 +47,7 @@ namespace UniRx.Async.Internal
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        static void ThrowInvalidOperationExceptionCore(string message)
+        private static void ThrowInvalidOperationExceptionCore(string message)
         {
             throw new InvalidOperationException(message);
         }

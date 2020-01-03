@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zetta.GridSystem.Blocks;
 
@@ -28,7 +27,6 @@ namespace Zetta.GridSystem
             ship.rb2d.gravityScale = 0f;
             ship.uBlockList = ship.InstantiateBlueprint(blueprint);
             return ship;
-        } 
+        }
     }
 }
-

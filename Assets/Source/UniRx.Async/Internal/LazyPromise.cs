@@ -8,15 +8,15 @@ namespace UniRx.Async.Internal
 {
     internal sealed class LazyPromise : IAwaiter
     {
-        Func<UniTask> factory;
-        UniTask value;
+        private Func<UniTask> factory;
+        private UniTask value;
 
         public LazyPromise(Func<UniTask> factory)
         {
             this.factory = factory;
         }
 
-        void Create()
+        private void Create()
         {
             var f = Interlocked.Exchange(ref factory, null);
             if (f != null)
@@ -68,15 +68,15 @@ namespace UniRx.Async.Internal
 
     internal sealed class LazyPromise<T> : IAwaiter<T>
     {
-        Func<UniTask<T>> factory;
-        UniTask<T> value;
+        private Func<UniTask<T>> factory;
+        private UniTask<T> value;
 
         public LazyPromise(Func<UniTask<T>> factory)
         {
             this.factory = factory;
         }
 
-        void Create()
+        private void Create()
         {
             var f = Interlocked.Exchange(ref factory, null);
             if (f != null)
@@ -98,8 +98,8 @@ namespace UniRx.Async.Internal
         {
             get
             {
-                    Create();
-                    return value.Status;
+                Create();
+                return value.Status;
             }
         }
 

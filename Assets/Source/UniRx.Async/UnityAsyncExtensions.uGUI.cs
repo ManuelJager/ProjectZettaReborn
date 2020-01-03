@@ -5,10 +5,10 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using UniRx.Async.Internal;
+using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UniRx.Async.Triggers;
 
 namespace UniRx.Async
 {
@@ -168,33 +168,36 @@ namespace UniRx.Async
     public interface IAsyncClickEventHandler : IDisposable
     {
         UniTask OnClickAsync();
+
         UniTask<bool> OnClickAsyncSuppressCancellationThrow();
     }
 
     public interface IAsyncValueChangedEventHandler<T> : IDisposable
     {
         UniTask<T> OnValueChangedAsync();
+
         UniTask<(bool IsCanceled, T Result)> OnValueChangedAsyncSuppressCancellationThrow();
     }
 
     public interface IAsyncEndEditEventHandler<T> : IDisposable
     {
         UniTask<T> OnEndEditAsync();
+
         UniTask<(bool IsCanceled, T Result)> OnEndEditAsyncSuppressCancellationThrow();
     }
 
     // event handler is reusable when callOnce = false.
     public class AsyncUnityEventHandler : IAwaiter, IDisposable, IAsyncClickEventHandler
     {
-        static Action<object> cancellationCallback = CancellationCallback;
+        private static Action<object> cancellationCallback = CancellationCallback;
 
-        readonly UnityAction action;
-        readonly UnityEvent unityEvent;
-        Action continuation;
-        CancellationTokenRegistration registration;
-        bool isDisposed;
-        bool callOnce;
-        UniTask<bool>? suppressCancellationThrowTask;
+        private readonly UnityAction action;
+        private readonly UnityEvent unityEvent;
+        private Action continuation;
+        private CancellationTokenRegistration registration;
+        private bool isDisposed;
+        private bool callOnce;
+        private UniTask<bool>? suppressCancellationThrowTask;
 
         public AsyncUnityEventHandler(UnityEvent unityEvent, CancellationToken cancellationToken, bool callOnce)
         {
@@ -233,7 +236,7 @@ namespace UniRx.Async
             return suppressCancellationThrowTask.Value;
         }
 
-        void Invoke()
+        private void Invoke()
         {
             var c = continuation;
             continuation = null;
@@ -243,7 +246,7 @@ namespace UniRx.Async
             }
         }
 
-        static void CancellationCallback(object state)
+        private static void CancellationCallback(object state)
         {
             var self = (AsyncUnityEventHandler)state;
             self.Dispose();
@@ -266,6 +269,7 @@ namespace UniRx.Async
 
         bool IAwaiter.IsCompleted => isDisposed ? true : false;
         AwaiterStatus IAwaiter.Status => isDisposed ? AwaiterStatus.Canceled : AwaiterStatus.Pending;
+
         void IAwaiter.GetResult()
         {
             if (isDisposed) throw new OperationCanceledException();
@@ -299,16 +303,16 @@ namespace UniRx.Async
     // event handler is reusable when callOnce = false.
     public class AsyncUnityEventHandler<T> : IAwaiter<T>, IDisposable, IAsyncValueChangedEventHandler<T>, IAsyncEndEditEventHandler<T>
     {
-        static Action<object> cancellationCallback = CancellationCallback;
+        private static Action<object> cancellationCallback = CancellationCallback;
 
-        readonly UnityAction<T> action;
-        readonly UnityEvent<T> unityEvent;
-        Action continuation;
-        CancellationTokenRegistration registration;
-        bool isDisposed;
-        T eventValue;
-        bool callOnce;
-        UniTask<(bool, T)>? suppressCancellationThrowTask;
+        private readonly UnityAction<T> action;
+        private readonly UnityEvent<T> unityEvent;
+        private Action continuation;
+        private CancellationTokenRegistration registration;
+        private bool isDisposed;
+        private T eventValue;
+        private bool callOnce;
+        private UniTask<(bool, T)>? suppressCancellationThrowTask;
 
         public AsyncUnityEventHandler(UnityEvent<T> unityEvent, CancellationToken cancellationToken, bool callOnce)
         {
@@ -347,7 +351,7 @@ namespace UniRx.Async
             return suppressCancellationThrowTask.Value;
         }
 
-        void Invoke(T value)
+        private void Invoke(T value)
         {
             this.eventValue = value;
 
@@ -359,7 +363,7 @@ namespace UniRx.Async
             }
         }
 
-        static void CancellationCallback(object state)
+        private static void CancellationCallback(object state)
         {
             var self = (AsyncUnityEventHandler<T>)state;
             self.Dispose();

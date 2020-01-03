@@ -24,13 +24,12 @@ namespace UniRx.Async
             return new OnlyValueChangedProgress<T>(handler, comparer ?? UnityEqualityComparer.GetDefault<T>());
         }
 
-        sealed class NullProgress<T> : IProgress<T>
+        private sealed class NullProgress<T> : IProgress<T>
         {
             public static readonly IProgress<T> Instance = new NullProgress<T>();
 
-            NullProgress()
+            private NullProgress()
             {
-
             }
 
             public void Report(T value)
@@ -38,9 +37,9 @@ namespace UniRx.Async
             }
         }
 
-        sealed class AnonymousProgress<T> : IProgress<T>
+        private sealed class AnonymousProgress<T> : IProgress<T>
         {
-            readonly Action<T> action;
+            private readonly Action<T> action;
 
             public AnonymousProgress(Action<T> action)
             {
@@ -53,12 +52,12 @@ namespace UniRx.Async
             }
         }
 
-        sealed class OnlyValueChangedProgress<T> : IProgress<T>
+        private sealed class OnlyValueChangedProgress<T> : IProgress<T>
         {
-            readonly Action<T> action;
-            readonly IEqualityComparer<T> comparer;
-            bool isFirstCall;
-            T latestValue;
+            private readonly Action<T> action;
+            private readonly IEqualityComparer<T> comparer;
+            private bool isFirstCall;
+            private T latestValue;
 
             public OnlyValueChangedProgress(Action<T> action, IEqualityComparer<T> comparer)
             {

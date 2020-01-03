@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Mathematics;
+﻿using UnityEngine;
 
 namespace Zetta.GridSystem.Blocks
 {
@@ -9,6 +6,7 @@ namespace Zetta.GridSystem.Blocks
     {
         [SerializeField]
         private float armor;
+
         public float Armor
         {
             get => armor;
@@ -17,6 +15,7 @@ namespace Zetta.GridSystem.Blocks
 
         [SerializeField]
         private float health;
+
         public float Health
         {
             get => health;
@@ -29,4 +28,3 @@ namespace Zetta.GridSystem.Blocks
         }
     }
 }
-

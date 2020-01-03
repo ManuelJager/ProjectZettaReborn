@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zetta.Math
 {
     public class Interpolationf
     {
         public static float MixedInterpolate(
-            float from, 
-            float to, 
-            float multiplier = 0.5f, 
+            float from,
+            float to,
+            float multiplier = 0.5f,
             float step = 0.5f)
         {
             if (from == to)
@@ -24,9 +22,9 @@ namespace Zetta.Math
         }
 
         public static Vector2 MixedInterpolatev2(
-            Vector2 from, 
-            Vector2 to, 
-            float multiplier = 0.5f, 
+            Vector2 from,
+            Vector2 to,
+            float multiplier = 0.5f,
             float step = 0.5f)
         {
             return new Vector2(
@@ -35,9 +33,9 @@ namespace Zetta.Math
         }
 
         public static Vector3 MixedInterpolatev3(
-            Vector3 from, 
-            Vector3 to, 
-            float multiplier = 0.5f, 
+            Vector3 from,
+            Vector3 to,
+            float multiplier = 0.5f,
             float step = 0.5f)
         {
             return new Vector3(

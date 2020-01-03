@@ -1,13 +1,9 @@
 ﻿#pragma warning disable CS0649
 #pragma warning disable CS4014
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Threading;
-using System.Threading.Tasks;
-using Zetta;
 using UniRx.Async;
+using UnityEngine;
 using Zetta.Math.Curves;
 using Zetta.UI.Controllers;
 
@@ -23,6 +19,7 @@ namespace Zetta.UI
         [SerializeField] private bool extendFadeTimeOnContent;
         private float maxHeight;
         private Dictionary<RectTransform, NoticeStatus> notices = new Dictionary<RectTransform, NoticeStatus>();
+
         private BezierCurve fadeCurve = new BezierCurve(
             new Vector2(0.29f, 0.95f),
             new Vector2(0.29f, 0.95f));
@@ -90,7 +87,8 @@ namespace Zetta.UI
                         status.group,
                         fadeCurve,
                         fadeTime,
-                        () => {
+                        () =>
+                        {
                             notices.Remove(rect);
                             Destroy(rect.gameObject);
                         });
@@ -108,4 +106,3 @@ namespace Zetta.UI
         }
     }
 }
-

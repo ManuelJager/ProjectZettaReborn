@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zetta.GridSystem.Blocks
 {
@@ -9,10 +7,13 @@ namespace Zetta.GridSystem.Blocks
     {
         [SerializeField]
         public GameObject frontSide;
+
         [SerializeField]
         public GameObject rightSide;
+
         [SerializeField]
         public GameObject backSide;
+
         [SerializeField]
         public GameObject leftSide;
 

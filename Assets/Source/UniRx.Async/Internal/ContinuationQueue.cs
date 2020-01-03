@@ -8,17 +8,17 @@ namespace UniRx.Async.Internal
 {
     internal class ContinuationQueue
     {
-        const int MaxArrayLength = 0X7FEFFFFF;
-        const int InitialSize = 16;
+        private const int MaxArrayLength = 0X7FEFFFFF;
+        private const int InitialSize = 16;
 
-        SpinLock gate = new SpinLock();
-        bool dequing = false;
+        private SpinLock gate = new SpinLock();
+        private bool dequing = false;
 
-        int actionListCount = 0;
-        Action[] actionList = new Action[InitialSize];
+        private int actionListCount = 0;
+        private Action[] actionList = new Action[InitialSize];
 
-        int waitingListCount = 0;
-        Action[] waitingList = new Action[InitialSize];
+        private int waitingListCount = 0;
+        private Action[] waitingList = new Action[InitialSize];
 
         public void Enqueue(Action continuation)
         {
