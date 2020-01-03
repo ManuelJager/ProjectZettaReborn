@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Mathematics;
+﻿using UnityEngine;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public class ArmorGridBlock : GridBlockBase, IPhysicalGridBlock
     {
         [SerializeField]
         private float armor;
+
         public float Armor
         {
             get => armor;
@@ -17,6 +15,7 @@ namespace GridSystem
 
         [SerializeField]
         private float health;
+
         public float Health
         {
             get => health;
@@ -29,4 +28,3 @@ namespace GridSystem
         }
     }
 }
-

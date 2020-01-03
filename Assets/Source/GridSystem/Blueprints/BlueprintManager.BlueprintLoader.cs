@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exceptions;
-using GridSystem;
-using Newtonsoft.Json;
-using UnityEngine;
 using System.IO;
+using System.Linq;
+using UnityEngine;
+using Zetta.Exceptions;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public static partial class BlueprintManager
     {
-		public class LoadedBlueprints : List<Blueprint>
+        public class LoadedBlueprints : List<Blueprint>
         {
             private static readonly string savePath;
 
@@ -64,7 +61,7 @@ namespace Blueprints
             public Blueprint GetFirstWithName(string name)
             {
                 return (from blueprint in this
-                        where blueprint.Name == name 
+                        where blueprint.Name == name
                         select blueprint)
                         .FirstOrDefault();
             }
@@ -108,7 +105,6 @@ namespace Blueprints
             }
             catch (DuplicateBlueprintException)
             {
-                 
             }
             catch (Exception e)
             {

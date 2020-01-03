@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Mathematics;
-
-namespace GridSystem
+﻿namespace Zetta.GridSystem.Blocks
 {
     public class ThrusterGridBlock : GridBlockBase
     {
@@ -13,4 +8,3 @@ namespace GridSystem
         }
     }
 }
-

@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Mathematics;
-using Unity.Entities;
+﻿using UnityEngine;
 
-namespace GridSystem
+namespace Zetta.GridSystem.Blocks
 {
     public class GridBlockBase : MonoBehaviour
     {
@@ -13,6 +9,7 @@ namespace GridSystem
 
         [SerializeField]
         protected string blockTypeID;
+
         public string BlockTypeID
         {
             get => blockTypeID;
@@ -20,6 +17,7 @@ namespace GridSystem
 
         [SerializeField]
         private Vector2 size;
+
         public Vector2 Size
         {
             get => size;
@@ -28,6 +26,7 @@ namespace GridSystem
 
         [SerializeField]
         private Vector2[] blockPositions;
+
         public Vector2[] BlockPositions
         {
             get => blockPositions;
@@ -36,6 +35,7 @@ namespace GridSystem
 
         [SerializeField]
         private float mass;
+
         public float Mass
         {
             get => mass;

@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public static class EnumerableExtensions
+namespace Zetta.Extensions
 {
-    public static int GetHashCodeAggregate<T>(this IEnumerable<T> source)
+    public static class EnumerableExtensions
     {
-        return source.GetHashCodeAggregate(17);
-    }
- 
-    public static int GetHashCodeAggregate<T>(this IEnumerable<T> source, int hash)
-    {
-        unchecked
+        public static int GetHashCodeAggregate<T>(this IEnumerable<T> source)
         {
-            foreach (var item in source)
-            {
-                hash = hash * 31 + item.GetHashCode();
-            }
+            return source.GetHashCodeAggregate(17);
         }
-        return hash;
+
+        public static int GetHashCodeAggregate<T>(this IEnumerable<T> source, int hash)
+        {
+            unchecked
+            {
+                foreach (var item in source)
+                {
+                    hash = hash * 31 + item.GetHashCode();
+                }
+            }
+            return hash;
+        }
     }
 }

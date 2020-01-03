@@ -1,26 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using GridSystem;
-using Blueprints;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
+using Zetta.GridSystem.Blueprints;
 
-public class GameManager : MonoBehaviour
+namespace Zetta
 {
-    public static GameManager Instance;
-    public PrefabProviderInstance prefabProvider = new PrefabProviderInstance();
-
-    [System.NonSerialized]
-    public BlueprintInstantiator bpInstantiator;
-
-    public GameManager()
+    public partial class GameManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        public static GameManager Instance;
+        public PrefabProviderInstance prefabProvider = new PrefabProviderInstance();
 
-    public void Awake()
-    {
-        // Create an instance of the blueprint instantiator
-        bpInstantiator = GetComponent<BlueprintInstantiator>();
+        [System.NonSerialized]
+        public BlueprintInstantiator bpInstantiator;
+
+        public GameManager()
+        {
+            Instance = this;
+        }
+
+        public void Awake()
+        {
+            // Create an instance of the blueprint instantiator
+            bpInstantiator = GetComponent<BlueprintInstantiator>();
+        }
     }
 }

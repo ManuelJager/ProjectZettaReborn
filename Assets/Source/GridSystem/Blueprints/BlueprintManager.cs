@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exceptions;
-using GridSystem;
-using Newtonsoft.Json;
 using UnityEngine;
+using Zetta.Exceptions;
+using Zetta.GridSystem.Blocks;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public static partial class BlueprintManager
     {
@@ -22,7 +19,7 @@ namespace Blueprints
         /// <returns>The blueprint string</returns>
         public static string Export(Blueprint blueprint)
         {
-            // Creates the data 
+            // Creates the data
             var jsonData = new Dictionary<string, object>
             {
                 { "Name", blueprint.Name },
@@ -43,7 +40,7 @@ namespace Blueprints
         public static Blueprint Import(string json)
         {
             Blueprint blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
-            
+
             return blueprint;
         }
 
@@ -66,7 +63,7 @@ namespace Blueprints
         private static List<Vector2> FindDuplicates(List<Vector2> list)
         {
             var duplicates = new List<Vector2>();
-            foreach(Vector2 item in list)
+            foreach (Vector2 item in list)
                 if (CountOccurenceOfValue(list, item) > 1 && !duplicates.Contains(item))
                     duplicates.Add(item);
 
@@ -83,12 +80,12 @@ namespace Blueprints
             var positions = new List<Vector2>();
 
             // Add all position blocks of the blueprint to the positions list
-            foreach(BlueprintBlock blueprintBlock in blueprint.Blocks)
+            foreach (BlueprintBlock blueprintBlock in blueprint.Blocks)
             {
                 try
                 {
                     // Get the prefab
-                    GameObject prefab = PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID);
+                    GameObject prefab = GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID);
 
                     // Get the blockbase script
                     GridBlockBase blockBase = (GridBlockBase)prefab.GetComponent(typeof(GridBlockBase));
@@ -111,7 +108,6 @@ namespace Blueprints
 
         private static Blueprint CreateTestBlueprint(int size)
         {
-
             List<BlueprintBlock> blocks = new List<BlueprintBlock>();
             blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 0)));
 

@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Zetta.Extensions;
 
-namespace Blueprints
+namespace Zetta.GridSystem.Blueprints
 {
     public class Blueprint
     {
@@ -13,12 +10,14 @@ namespace Blueprints
         private int? cachedHash;
 
         protected string name;
+
         public string Name
         {
             get => name;
         }
 
         protected List<BlueprintBlock> blocks;
+
         public List<BlueprintBlock> Blocks
         {
             get => blocks;

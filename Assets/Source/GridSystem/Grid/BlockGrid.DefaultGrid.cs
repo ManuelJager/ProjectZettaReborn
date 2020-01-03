@@ -1,9 +1,8 @@
-﻿using Blueprints;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Zetta.GridSystem.Blocks;
+using Zetta.GridSystem.Blueprints;
 
-namespace GridSystem
+namespace Zetta.GridSystem
 {
     public partial class BlockGrid
     {

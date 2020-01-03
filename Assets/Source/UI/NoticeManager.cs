@@ -1,9 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿#pragma warning disable CS0649
+#pragma warning disable CS4014
 
-namespace UI
+using System.Collections.Generic;
+using UniRx.Async;
+using UnityEngine;
+using Zetta.Math.Curves;
+using Zetta.UI.Controllers;
+
+namespace Zetta.UI
 {
     public class NoticeManager : MonoBehaviour
     {
@@ -11,9 +15,12 @@ namespace UI
 
         [SerializeField] private int padding;
         [SerializeField] private GameObject NoticeTextBoxPrefab;
+        [SerializeField] private float fadeTime;
+        [SerializeField] private bool extendFadeTimeOnContent;
         private float maxHeight;
         private Dictionary<RectTransform, NoticeStatus> notices = new Dictionary<RectTransform, NoticeStatus>();
-        private Zetta.Math.BezierCurve fadeCurve = new Zetta.Math.BezierCurve(
+
+        private BezierCurve fadeCurve = new BezierCurve(
             new Vector2(0.29f, 0.95f),
             new Vector2(0.29f, 0.95f));
 
@@ -22,7 +29,7 @@ namespace UI
             Instance = this;
         }
 
-        public void Prompt(string value, float duration = 3f)
+        public async UniTask Prompt(string value, float duration = 1f)
         {
             var NoticeTextBox = Instantiate(NoticeTextBoxPrefab, transform);
 
@@ -32,13 +39,31 @@ namespace UI
             // Hide component for now
             // Cannot unable gameobject because the gameobject needs to be active for the layout group to calculate
             rect.anchoredPosition = new Vector2(0, -1000);
-            // Unhide and set pos of element after layout group calculated element height
-            StartCoroutine(LatePrompt(rect, duration));
+
+            // Wait one frame to let layout
+            await UniTask.DelayFrame(1);
+
+            var rectHeight = rect.rect.height;
+            rect.anchoredPosition = new Vector2(0, -(rectHeight + padding));
+
+            foreach (var notice in notices)
+            {
+                notice.Value.targetYPos = notice.Value.targetYPos + padding + rectHeight;
+            }
+
+            duration += value.Length * 0.05f;
+
+            notices[rect] = new NoticeStatus(
+                0f,
+                duration,
+                rect.gameObject.GetComponent<CanvasGroup>());
         }
 
         private void Start()
         {
             maxHeight = Screen.height / 3f;
+            var rect = GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(-padding, padding);
         }
 
         private void Update()
@@ -53,45 +78,31 @@ namespace UI
 
                 // handle lifetime
                 status.lifetimeRemaining -= Time.deltaTime;
-                if ((rect.anchoredPosition.y >= maxHeight || status.lifetimeRemaining < 0.3f) && !status.fading)
+
+                if ((rect.anchoredPosition.y >= maxHeight || status.lifetimeRemaining < fadeTime) && !status.fading)
                 {
                     status.fading = true;
-                    Zetta.UI.FadingUtilities.FadeOut(status.group, fadeCurve, 0.3f);
-                }
-                if (status.lifetimeRemaining < 0f)
-                {
-                    notices.Remove(rect);
-                    Destroy(rect.gameObject);
+
+                    FadingUtilities.FadeOut(
+                        status.group,
+                        fadeCurve,
+                        fadeTime,
+                        () =>
+                        {
+                            notices.Remove(rect);
+                            Destroy(rect.gameObject);
+                        });
                 }
 
                 // if notice is where it is not supossed to be
                 if (status.targetYPos != rect.anchoredPosition.y)
                 {
                     var currPos = rect.anchoredPosition.y;
-                    var nextPos = Zetta.Math.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
+                    var nextPos = Math.Interpolationf.MixedInterpolate(currPos, status.targetYPos, 0.05f, 1f);
 
                     rect.anchoredPosition = new Vector2(0, nextPos);
                 }
             }
         }
-
-        private IEnumerator LatePrompt(RectTransform rect, float duration)
-        {
-            yield return new WaitForEndOfFrame();
-            
-            var rectHeight = rect.rect.height;
-            rect.anchoredPosition = new Vector2(0, -rectHeight);
-
-            foreach (var notice in notices)
-            {
-                notice.Value.targetYPos = notice.Value.targetYPos + padding + rectHeight;
-            }
-
-            notices[rect] = new NoticeStatus(
-                padding, 
-                duration, 
-                rect.gameObject.GetComponent<CanvasGroup>());
-        }
     }
 }
-

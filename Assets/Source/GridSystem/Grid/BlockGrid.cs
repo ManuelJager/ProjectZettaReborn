@@ -1,10 +1,9 @@
-﻿using Blueprints;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Zetta.GridSystem.Blocks;
+using Zetta.GridSystem.Blueprints;
 
-namespace GridSystem
+namespace Zetta.GridSystem
 {
     public partial class BlockGrid : MonoBehaviour
     {
@@ -14,21 +13,22 @@ namespace GridSystem
         // The size of the grid
         public Vector2 Size
         {
-            get {
+            get
+            {
                 // Create new empty bounds
                 Bounds bounds = new Bounds(this.transform.position, Vector3.zero);
 
                 // Get the all bounds of all children
                 var renderers = GetComponentsInChildren<Renderer>();
 
-                foreach(Renderer renderer in renderers)
+                foreach (Renderer renderer in renderers)
                 {
                     // Encalsulate the renderer bounds to the global bounds
                     bounds.Encapsulate(renderer.bounds);
                 }
                 return new Vector2(
-                    (float)Math.Floor(bounds.size.x),
-                    (float)Math.Floor(bounds.size.y));
+                    (float)System.Math.Floor(bounds.size.x),
+                    (float)System.Math.Floor(bounds.size.y));
             }
         }
 

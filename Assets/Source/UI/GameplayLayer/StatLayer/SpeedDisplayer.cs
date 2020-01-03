@@ -1,14 +1,14 @@
 ﻿#pragma warning disable CS0649
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
 
-public class SpeedDisplayer : Text
+using UnityEngine.UI;
+
+namespace Zetta.UI.Controllers.ValueDisplayers
 {
-    public void UpdateDisplayValue(float value)
+    public class SpeedDisplayer : Text
     {
-        text = $"{Math.Round(value, 1)} M/S";
+        public void UpdateDisplayValue(float value)
+        {
+            text = $"{System.Math.Round(value, 1)} M/S";
+        }
     }
 }

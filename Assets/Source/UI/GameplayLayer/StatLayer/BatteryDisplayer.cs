@@ -1,21 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BatteryDisplayer : MonoBehaviour
+namespace Zetta.UI.Controllers.ValueDisplayers
 {
-    public Image displayImage;
-    public List<Sprite> sprites;
-
-    public void UpdateDisplayValue(float percentageValue)
+    public class BatteryDisplayer : MonoBehaviour
     {
-        var index = GetIndex(percentageValue);
-        displayImage.sprite = sprites[index];
-    }
+        public Image displayImage;
+        public List<Sprite> sprites;
 
-    public int GetIndex(float percentageValue)
-    {
-        return Mathf.FloorToInt((100f - percentageValue) / 12.5f);
+        public void UpdateDisplayValue(float percentageValue)
+        {
+            var index = GetIndex(percentageValue);
+            displayImage.sprite = sprites[index];
+        }
+
+        public int GetIndex(float percentageValue)
+        {
+            return Mathf.FloorToInt((100f - percentageValue) / 12.5f);
+        }
     }
 }
