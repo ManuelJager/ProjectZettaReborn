@@ -4,7 +4,7 @@ using Zetta.GridSystem.Blocks;
 
 namespace Zetta.GridSystem
 {
-    public class Ship : BlockGrid
+    public class Ship : ZettaEntity
     {
         public Rigidbody2D rb2d;
 
@@ -26,6 +26,8 @@ namespace Zetta.GridSystem
             ship.rb2d = shipObject.AddComponent<Rigidbody2D>();
             ship.rb2d.gravityScale = 0f;
             ship.uBlockList = ship.InstantiateBlueprint(blueprint);
+
+            ZettaEntityManager.Instance.TrackEntity(ship);
             return ship;
         }
     }
