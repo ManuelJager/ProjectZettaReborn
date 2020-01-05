@@ -23,7 +23,9 @@ MonoBehaviour:
   - {x: 0, y: 0}
   mass: 10
   armor: 10
+  maxArmor: 10
   health: 10
+  maxHealth: 10
 --- !u!1001 &6173231675390562367
 PrefabInstance:
   m_ObjectHideFlags: 0

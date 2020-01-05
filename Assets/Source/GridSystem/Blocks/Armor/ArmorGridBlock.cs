@@ -12,7 +12,14 @@ namespace Zetta.GridSystem.Blocks
             get => armor;
             set => armor = value;
         }
-        public float MaxArmor { get => 10f; }
+
+        [SerializeField]
+        private float maxArmor;
+
+        public float MaxArmor
+        {
+            get => maxArmor;
+        }
 
         [SerializeField]
         private float health;
@@ -22,7 +29,14 @@ namespace Zetta.GridSystem.Blocks
             get => health;
             set => health = value;
         }
-        public float MaxHealth { get => 10f; }
+
+        [SerializeField]
+        private float maxHealth;
+
+        public float MaxHealth
+        {
+            get => maxHealth;
+        }
 
         public void ApplyDamage(float damage)
         {

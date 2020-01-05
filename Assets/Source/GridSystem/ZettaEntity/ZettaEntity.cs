@@ -11,6 +11,14 @@ namespace Zetta.GridSystem
 {
     public class ZettaEntity : BlockGrid
     {
+        private Vector2Int chunkPosition;
+
+        public Vector2Int ChunkPosition
+        {
+            get => chunkPosition;
+            set => chunkPosition = value;
+        }
+
         public float Health
         {
             get
@@ -45,19 +53,15 @@ namespace Zetta.GridSystem
             }
         }
 
-        /// <summary>
-        /// Checks the visibilty of the current entity and enables or disables it if it is visible
-        /// </summary>
-        public void CheckVisibilty()
+        public void FixedUpdate()
         {
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main); //TODO Change camera
-            bool isVisible = GeometryUtility.TestPlanesAABB(planes, Bounds);
-
-            // Only change the rendering if it isn't already in that state
-            if(isVisible != Rendering)
+            Vector2Int nextChunkPosition = ChunkHelper.GetChunkPosition(transform.position);
+            if (nextChunkPosition != ChunkPosition || nextChunkPosition != ChunkPosition)
             {
-                Rendering = isVisible;
+                ChunkManager.Instance.HopChunk(this, nextChunkPosition);
             }
+
+            ChunkPosition = nextChunkPosition;
         }
     }
 }

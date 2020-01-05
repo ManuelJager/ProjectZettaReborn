@@ -8,6 +8,7 @@ namespace Zetta.UI.Controllers
         public Button loadBlueprintButton;
         public InputField loadBlueprintInputField;
         public Button loadDefaultBlueprintButton;
+        public Button toggleChunkBordersButton;
         public Button setMaxPowerButton;
         public InputField setMaxPowerInputField;
         public Button setMaxIntegrityButton;
@@ -19,6 +20,7 @@ namespace Zetta.UI.Controllers
             setMaxPowerButton.onClick.AddListener(SetMaxPower);
             setMaxIntegrityButton.onClick.AddListener(SetMaxIntegrity);
             loadDefaultBlueprintButton.onClick.AddListener(SpawnDefaultShip);
+            toggleChunkBordersButton.onClick.AddListener(ToggleChunkBorders);
         }
 
         public void SpawnShip()
@@ -39,6 +41,11 @@ namespace Zetta.UI.Controllers
         public void SpawnDefaultShip()
         {
             Debugger.SpawnShipByName("Default Ship");
+        }
+
+        public void ToggleChunkBorders()
+        {
+            Debugger.DrawChunkBorders = !Debugger.DrawChunkBorders;
         }
     }
 }

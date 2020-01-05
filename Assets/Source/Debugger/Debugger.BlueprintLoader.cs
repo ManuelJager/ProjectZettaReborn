@@ -10,6 +10,10 @@ namespace Zetta
 {
     public static partial class Debugger
     {
+        /// <summary>
+        /// Instantiates a ship by the given blueprint name
+        /// </summary>
+        /// <param name="name">The blueprint name</param>
         public static void SpawnShipByName(string name)
         {
             var blueprint = BlueprintManager.loadedBlueprints.GetFirstWithName(name);
