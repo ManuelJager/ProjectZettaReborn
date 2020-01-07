@@ -30,7 +30,7 @@ namespace Zetta.Controllers
             set
             {
                 gameObject.SetActive(value);
-                UIManager.Instance.GameplayLayerActiveState = value;
+                UIManager.GameplayLayerActiveState = value;
             }
         }
 

@@ -3,17 +3,19 @@
 using UnityEngine;
 using Zetta.InputWrapper;
 using Zetta.UI.Controllers;
+using Zetta.UI.UIWindows;
 
 namespace Zetta.UI
 {
     public partial class UIManager : MonoBehaviour
     {
-        public GameplayLayer gameplayLayer;
-        public DebuggerLayer debuggerLayer;
-
         public static UIManager Instance;
 
-        [SerializeField] private Canvas canvas;
+        public GameplayLayer gameplayLayer;
+        public DebuggerLayer debuggerLayer;
+        public UIWindowTabManager pauseMenuLayer;
+
+        [SerializeField] public Canvas canvas;
 
         public UIManager()
         {
@@ -25,6 +27,7 @@ namespace Zetta.UI
             canvas.worldCamera = Camera.main;
             DebuggerLayerActiveState = false;
             InputManager.ClickF10 += ToggleDebuggerLayer;
+            InputManager.ClickEsc += TogglePauseMenuLayer;
         }
     }
 }

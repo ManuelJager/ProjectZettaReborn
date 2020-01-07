@@ -20,9 +20,7 @@ namespace Zetta.UI
         private float maxHeight;
         private Dictionary<RectTransform, NoticeStatus> notices = new Dictionary<RectTransform, NoticeStatus>();
 
-        private BezierCurve fadeCurve = new BezierCurve(
-            new Vector2(0.29f, 0.95f),
-            new Vector2(0.29f, 0.95f));
+        private BezierCurve fadeCurve = BezierCurve.Ease;
 
         public NoticeManager()
         {
