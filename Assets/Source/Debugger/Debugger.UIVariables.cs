@@ -5,6 +5,20 @@ namespace Zetta
 {
     public static partial class Debugger
     {
+        private static bool drawChunkBorders = false;
+
+        public static bool DrawChunkBorders {
+            get => drawChunkBorders;
+            set {
+                // Give a notice
+                var statusString = value ? "ON" : "OFF";
+                NoticeManager.Instance.Prompt($"Drawing chunk borders is now {statusString}");
+
+                DrawChunkBordersChanged?.Invoke(value);
+                drawChunkBorders = value;
+            }
+        }
+
         public static void SetMaxPower(string input)
         {
             float value;
