@@ -1,13 +1,8 @@
 ﻿#pragma warning disable CS0649
 #pragma warning disable CS4014
 
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UniRx.Async;
+using UnityEngine;
 using Zetta.Audio.Clips;
 using Zetta.Generics;
 using Zetta.Math.Curves;
@@ -80,9 +75,11 @@ namespace Zetta.Audio
                 case Atmosphere.Title:
                     audioSource.Stop();
                     break;
+
                 case Atmosphere.Gameplay:
                     audioSourceFeeder.Stop();
                     break;
+
                 default:
                     break;
             }
@@ -95,9 +92,11 @@ namespace Zetta.Audio
                     audioSource.clip = titleSong;
                     audioSource.Play();
                     break;
+
                 case Atmosphere.Gameplay:
                     audioSourceFeeder.Start();
                     break;
+
                 default:
                     break;
             }
