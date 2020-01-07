@@ -24,6 +24,8 @@ namespace Zetta.GridSystem
             get => ChunkManager.Instance.GetChunkPosition(transform.position);
         }
 
+        // TODO: Cache and listen for change events.
+        // TODO: Add uBlockList loop to the place where this is used
         public float Health
         {
             get
@@ -41,6 +43,8 @@ namespace Zetta.GridSystem
             }
         }
 
+        // TODO: Cache and listen for change events.
+        // TODO: Add uBlockList loop to the place where this is used
         public float Armor
         {
             get
