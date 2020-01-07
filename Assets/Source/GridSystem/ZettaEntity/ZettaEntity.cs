@@ -19,6 +19,11 @@ namespace Zetta.GridSystem
             set => chunkPosition = value;
         }
 
+        public Vector2Int CalculatedChunkPosition
+        {
+            get => ChunkManager.Instance.GetChunkPosition(transform.position);
+        }
+
         public float Health
         {
             get
@@ -55,8 +60,9 @@ namespace Zetta.GridSystem
 
         public void FixedUpdate()
         {
-            Vector2Int nextChunkPosition = ChunkHelper.GetChunkPosition(transform.position);
-            if (nextChunkPosition != ChunkPosition || nextChunkPosition != ChunkPosition)
+            Vector2Int nextChunkPosition = CalculatedChunkPosition;
+
+            if (nextChunkPosition != ChunkPosition)
             {
                 ChunkManager.Instance.HopChunk(this, nextChunkPosition);
             }

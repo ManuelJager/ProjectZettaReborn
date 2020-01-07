@@ -10,52 +10,44 @@ using Zetta.Generics;
 
 namespace Zetta.GridSystem
 {
-    // TODO: Fix chunk aligning
-
     public partial class ChunkManager : LazySingleton<ChunkManager>
     {
         public static readonly int CHUNK_SIZE = 16;
 
-        public List<Chunk> loadedChunks;
+        public Chunk[,] loadedChunks;
 
         public ChunkManager()
         {
-            loadedChunks = new List<Chunk>();
-
-            // ChunkManager.Drawing
-            linesToDraw = new List<Vector3>();
-        }
-
-        public void Update()
-        {
-            // ChunkManager.Drawing
-            lineRenderer.positionCount = linesToDraw.Count;
-            for (int i = 0; i < linesToDraw.Count; i++)
-            {
-                Vector3 line = linesToDraw[i];
-                lineRenderer.SetPosition(i, line);
-            }
+            loadedChunks = new Chunk[256, 256];
+            Array.Clear(loadedChunks, 0, loadedChunks.Length);
         }
 
         /// <summary>
-        /// Loads all chunks in a certain radius
+        /// Converts the given position into a chunk position
         /// </summary>
-        /// <param name="radius">The radius of the chunks that should be loaded in</param>
-        public void LoadChunks(Vector2Int origin, int radius)
+        /// <param name="position">The position to convert</param>
+        /// <returns>The converted chunk position</returns>
+        public Vector2Int GetChunkPosition(Vector2 position)
         {
+            int x = position.x > 0 ? (int)System.Math.Floor((position.x + CHUNK_SIZE / 2) / CHUNK_SIZE) : (int)System.Math.Ceiling((position.x - CHUNK_SIZE / 2) / CHUNK_SIZE);
+            int y = position.y > 0 ? (int)System.Math.Floor((position.y + CHUNK_SIZE / 2) / CHUNK_SIZE) : (int)System.Math.Ceiling((position.y - CHUNK_SIZE / 2) / CHUNK_SIZE);
 
-            // TODO: Change the loaded to a circle not to a square
-            for(int x = -(radius / 2); x < radius / 2; x++)
-            {
-                for(int y = -(radius / 2); y < radius / 2; y++)
-                {
-                    GetOrCreateChunk(new Vector2Int(x + origin.x, y + origin.y));
-                }
-            }
-            
+            return new Vector2Int(
+                x + loadedChunks.GetLength(0) / 2,
+                y + loadedChunks.GetLength(1) / 2);
         }
-
-        // TODO: Create an unloading chunks method
+        
+        /// <summary>
+        /// Gets the world position of the given chunk position
+        /// </summary>
+        /// <param name="chunkPosition">The chunk position to get the world position of</param>
+        /// <returns>A world position</returns>
+        public Vector2 GetWorldPosition(Vector2Int chunkPosition)
+        {
+            return new Vector2(
+                -(CHUNK_SIZE * (loadedChunks.GetLength(0) / 2)) + chunkPosition.x * CHUNK_SIZE,
+                -(CHUNK_SIZE * (loadedChunks.GetLength(1) / 2)) + chunkPosition.y * CHUNK_SIZE);
+        }
 
         /// <summary>
         /// Adds a chunk to the loaded chunks
@@ -63,12 +55,12 @@ namespace Zetta.GridSystem
         /// <param name="chunk">The chunk to add</param>
         public void AddChunk(Chunk chunk)
         {
-            loadedChunks.Add(chunk);
+            loadedChunks[chunk.position.x, chunk.position.y] = chunk;
 
             // Check if the chunk borders should be drawn
             if(Debugger.DrawChunkBorders)
             {
-                DrawChunkBorders(chunk);
+                ChunkDrawer.Instance.DrawChunkBorder(chunk);
             }
         }
 
@@ -78,9 +70,9 @@ namespace Zetta.GridSystem
         /// <param name="entity">The entity to add to a chunk</param>
         public void AddEntity(ZettaEntity entity)
         {
-            var chunkToAdd = GetOrCreateChunk(entity.ChunkPosition);
+            var chunkToAdd = GetOrCreateChunk(entity.CalculatedChunkPosition);
 
-            chunkToAdd.AddEntity(entity);
+            chunkToAdd.Add(entity);
 
             // Load more chunks when the entity has been added
             LoadChunks(chunkToAdd.position, SettingsController.CHUNK_RENDER_DISTANCE);
@@ -97,42 +89,35 @@ namespace Zetta.GridSystem
             var currentChunk = GetOrCreateChunk(entity.ChunkPosition);
             var nextChunk = GetOrCreateChunk(toChunk);
 
-            currentChunk.RemoveEntity(entity);
-            nextChunk.AddEntity(entity);
+            currentChunk.Remove(entity);
+            nextChunk.Add(entity);
 
             // Fire chunk changed event
             EntityChangedChunk?.Invoke(entity);
 
-            // TODO: Make old chunks unload
+            // Unload the unused chunks
+            int side = GetSide(currentChunk.position, toChunk);
+            UnloadUnusedChunks(toChunk, SettingsController.CHUNK_RENDER_DISTANCE, side);
+
+            // Load new chunks
             LoadChunks(toChunk, SettingsController.CHUNK_RENDER_DISTANCE);
         }
 
         /// <summary>
-        /// Tries to find a chunk at the given position
+        /// Gets the side the chunk is changing to
         /// </summary>
-        /// <param name="position">The position of the chunk to get</param>
-        /// <returns>The found chunk</returns>
-        public Chunk GetChunk(Vector2Int position)
+        /// <param name="from">From chunk</param>
+        /// <param name="towards">Towards chunk</param>
+        /// <returns>The side of the chunk is moving(0=up 1=right 2=down 3=left)</returns>
+        private int GetSide(Vector2Int from, Vector2Int towards)
         {
-            // Finds the position in all loaded chunks
-            var chunk = loadedChunks.Find(c => c.position.Equals(position));
+            if (towards.y > from.y) return 0;
+            else if (towards.x > from.x) return 1;
+            else if (towards.y < from.y) return 2;
+            else if (towards.x < from.x) return 3;
 
-            return chunk;
-        }
-
-        protected Chunk GetOrCreateChunk(Vector2Int chunkPosition)
-        {
-            var chunkToAdd = GetChunk(chunkPosition);
-
-            // Create the chunk if it doesn't exist
-            if (chunkToAdd == null)
-            {
-                chunkToAdd = new Chunk(chunkPosition);
-                AddChunk(chunkToAdd);
-                Debug.Log($"Created chunk on {chunkPosition}");
-            }
-
-            return chunkToAdd;
+            // No side was found(should never happen)
+            return -1;
         }
 
         [RuntimeInitializeOnLoadMethod]
