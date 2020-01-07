@@ -54,6 +54,26 @@ namespace Zetta.Math.Curves
             }
         }
 
+        public BezierCurve Reverse
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(
+                        P0.x,
+                        1f - P0.y),
+                    new Vector2(
+                        P1.x,
+                        1f - P1.y),
+                    new Vector2(
+                        P2.x,
+                        1f - P2.y),
+                    new Vector2(
+                        P3.x,
+                        1f - P3.y));
+            }
+        }
+
         public BezierCurve(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
         {
             P0 = p0;
@@ -78,8 +98,16 @@ namespace Zetta.Math.Curves
         public float GetY(float x)
         {
             double? y = GetY((double)x);
-            if (y == null) throw new System.Exception("Invalid curve");
+            if (y == null)
+            {
+                throw new System.Exception("Invalid curve");
+            }
             return (float)y;
+        }
+
+        public override string ToString()
+        {
+            return $"P0:{P0.ToString()},P1:{P1.ToString()},P2:{P2.ToString()},P3:{P3.ToString()}";
         }
 
         private double? GetY(double x)
