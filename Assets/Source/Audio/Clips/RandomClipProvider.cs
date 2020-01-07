@@ -18,14 +18,8 @@ namespace Zetta.Audio.Clips
         /// </summary>
         private int Index
         {
-            get
-            {
-                return index;
-            }
-            set
-            {
-                index = value % clips.Count;
-            }
+            get => index;
+            set => index = value % clips.Count;
         }
 
         /// <summary>
@@ -33,14 +27,18 @@ namespace Zetta.Audio.Clips
         /// </summary>
         public void Shuffle()
         {
-            int n = clips.Count;
-            while (n > 1)
+            int iterIndex = clips.Count;
+            // Loops over list
+            while (iterIndex > 1)
             {
-                n--;
-                int k = rng.Next(n + 1);
-                var value = clips[k];
-                clips[k] = clips[n];
-                clips[n] = value;
+                iterIndex--;
+                // Selects index of value to be swapped with current
+                int newValueIndex = rng.Next(iterIndex + 1);
+
+                // Swap values
+                var value = clips[newValueIndex];
+                clips[newValueIndex] = clips[iterIndex];
+                clips[iterIndex] = value;
             }
         }
 

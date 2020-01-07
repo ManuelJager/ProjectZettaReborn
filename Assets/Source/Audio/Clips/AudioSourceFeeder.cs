@@ -25,6 +25,11 @@ namespace Zetta.Audio.Clips
             this.promptSoundEffect = promptSoundEffect;
         }
 
+        ~AudioSourceFeeder()
+        {
+            Stop();
+        }
+
         public void Start()
         {
             if (!audioSource.isPlaying)
@@ -39,6 +44,10 @@ namespace Zetta.Audio.Clips
             audioSource.Stop();
         }
 
+        /// <summary>
+        /// Play song and queue the next one when the current finishes
+        /// </summary>
+        /// <param name="token"></param>
         private void QueueNext(CancellationToken token)
         {
             var clip = clips.GetClip();
@@ -50,6 +59,7 @@ namespace Zetta.Audio.Clips
                 UI.NoticeManager.Instance.Prompt($"Now playing {clip.name}", 2.5f);
             }
 
+            // call itself on clip end
             AudioSourceUtilities.RaiseOnClipEnd(audioSource, () => QueueNext(token), token);
         }
     }

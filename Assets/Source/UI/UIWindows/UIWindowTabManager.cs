@@ -16,11 +16,6 @@ namespace Zetta.UI.UIWindows
 
         [SerializeField] private GameObject[] tabPrefabs;
 
-        public void Awake()
-        {
-            
-        }
-
         public void Start()
         {
             tabs = new UIWindowTabCollection(this);
@@ -33,6 +28,11 @@ namespace Zetta.UI.UIWindows
             tabs[0].gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Construct the tab content prefab
+        /// Creates a header with the name of the content prefab
+        /// </summary>
+        /// <param name="tab"></param>
         public void Add(GameObject tab)
         {
             var tabContentObject = Instantiate(tab, contentOwner.transform);

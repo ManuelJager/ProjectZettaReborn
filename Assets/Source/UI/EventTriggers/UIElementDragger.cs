@@ -53,6 +53,12 @@ namespace Zetta.UI.EventTriggers
             lastFrameRectCorners = fourCornerArray;
         }
 
+        /// <summary>
+        /// Determine if the next mouse pos would result in the rect staying within screenbounds
+        /// </summary>
+        /// <param name="newMousePos"></param>
+        /// <param name="fourCornerArray"></param>
+        /// <returns></returns>
         private bool DetermineValidMousepos(Vector2 newMousePos, out Vector2[] fourCornerArray)
         {
             var diff = lastFrameMousePos - newMousePos;

@@ -14,8 +14,7 @@ namespace Zetta.UI
         public GameplayLayer gameplayLayer;
         public DebuggerLayer debuggerLayer;
         public UIWindowTabManager pauseMenuLayer;
-
-        [SerializeField] public Canvas canvas;
+        public Canvas canvas;
 
         public UIManager()
         {

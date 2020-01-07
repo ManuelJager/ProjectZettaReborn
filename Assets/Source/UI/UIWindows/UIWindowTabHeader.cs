@@ -21,10 +21,7 @@ namespace Zetta.UI.UIWindows
 
         public string Text
         {
-            set
-            {
-                text.text = value;
-            }
+            set => text.text = value;
         }
 
         public void OnPointerDown(PointerEventData eventData)

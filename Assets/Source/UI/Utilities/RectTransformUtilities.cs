@@ -8,12 +8,22 @@ namespace Zetta.UI.Utilities
 {
     public static class RectTransformUtilities
     {
+        /// <summary>
+        /// Get coordinates of corners in pixel format
+        /// </summary>
+        /// <param name="rectTransform"></param>
+        /// <returns></returns>
         public static Vector2[] GetScreenCoordinatesOfCorners(RectTransform rectTransform)
         {
             var center = GetScreenSpacePos(rectTransform);
             return GetScreenCoordinatesOfCorners(rectTransform, center);
         }
 
+        /// <summary>
+        /// Get coordinates of corners in pixel format with assumed rect transform pixel center
+        /// </summary>
+        /// <param name="rectTransform"></param>
+        /// <returns></returns>
         public static Vector2[] GetScreenCoordinatesOfCorners(RectTransform rectTransform, Vector2 center)
         {
             var worldCorners = new Vector2[4];
@@ -60,7 +70,7 @@ namespace Zetta.UI.Utilities
         }
 
         /// <summary>
-        /// Gets the center of the rect in viewport pixels
+        /// Gets the center of the rect in pixel format
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
@@ -71,6 +81,11 @@ namespace Zetta.UI.Utilities
                 rectTransform.anchoredPosition.y + Screen.height / 2);
         }
 
+        /// <summary>
+        /// set position of rect transform with pixel format
+        /// </summary>
+        /// <param name="rectTransform"></param>
+        /// <param name="pos"></param>
         public static void SetScreenSpacePos(RectTransform rectTransform, Vector2 pos)
         {
             rectTransform.anchoredPosition = new Vector2(

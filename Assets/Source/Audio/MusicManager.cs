@@ -14,9 +14,9 @@ namespace Zetta.Audio
     {
         public static float maxVolume = 1f;
 
-        private AudioSource audioSource;
         [SerializeField] private AudioClip titleSong;
         [SerializeField] private RandomClipProvider gameplaySongs;
+        private AudioSource audioSource;
         private AudioSourceFeeder audioSourceFeeder;
         private Atmosphere currentAtmosphere;
         private bool fading = false;
