@@ -12,7 +12,7 @@ namespace Zetta.GridSystem
 {
     public partial class ChunkManager : LazySingleton<ChunkManager>
     {
-        public static readonly int CHUNK_SIZE = 16;
+        public static readonly int CHUNK_SIZE = 160;
 
         public Chunk[,] loadedChunks;
 
