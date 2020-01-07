@@ -4,6 +4,56 @@ namespace Zetta.Math.Curves
 {
     public class BezierCurve : ICurveProvider
     {
+        public static BezierCurve Ease
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(0.25f, 0.1f),
+                    new Vector2(0.25f, 0.1f));
+            }
+        }
+
+        public static BezierCurve Linear
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(0f, 0f),
+                    new Vector2(1f, 1f));
+            }
+        }
+
+        public static BezierCurve EaseIn
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(0.42f, 0f),
+                    new Vector2(1f, 1f));
+            }
+        }
+
+        public static BezierCurve EaseOut
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(0f, 0f),
+                    new Vector2(0.58f, 1f));
+            }
+        }
+
+        public static BezierCurve EaseInOut
+        {
+            get
+            {
+                return new BezierCurve(
+                    new Vector2(0.42f, 0f),
+                    new Vector2(0.58f, 1f));
+            }
+        }
+
         public BezierCurve(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
         {
             P0 = p0;
