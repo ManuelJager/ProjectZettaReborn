@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zetta.Math;
 
 namespace Zetta.Controllers
 {
@@ -7,6 +8,9 @@ namespace Zetta.Controllers
     {
         // Singleton instance
         public static CameraController Instance;
+
+        const float CAMERA_LERP = 2f;
+        const float LERP_THRESHOLD = 0.5f;
 
         public CameraController()
         {
@@ -35,6 +39,23 @@ namespace Zetta.Controllers
 
             // Set the field of view of the current camera
             currentCamera.fieldOfView = FOV;
+        }
+
+        private Vector2 targetPosition;
+
+        public void Update()
+        {
+            Vector2 normalizedVector = GetCenterMouseOffset(
+                new Vector2(Screen.width, Screen.height),
+                Input.mousePosition);
+
+            targetPosition = new Vector2(
+                CAMERA_LERP * normalizedVector.x,
+                CAMERA_LERP * normalizedVector.y
+                );
+
+            Vector2 lerped = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * 3);
+            transform.position = new Vector3(lerped.x, lerped.y, transform.position.z);
         }
 
         /// <summary>
@@ -83,7 +104,7 @@ namespace Zetta.Controllers
             // Set the new position
             Vector3 currentPosition = currentCamera.transform.position;
             currentPosition.z = posZ;
-
+                
             if (setPosition)
                 currentCamera.transform.position = currentPosition;
 
@@ -98,6 +119,29 @@ namespace Zetta.Controllers
         public Vector3 ZoomCamera(Vector2 size)
         {
             return ZoomCamera(size, false);
+        }
+
+        /// <summary>
+        /// Normalizes the given dimension and position to its normalized value
+        /// </summary>
+        /// <param name="dimension"></param>
+        /// <param name="position"></param>
+        /// <returns>The normalized value(-1 to 1)</returns>
+        private float Normalized(float dimension, float position)
+        {
+            float val = Geometryf.NormalizeValue(0, dimension, position);
+            val = val > 1 ? 1 : val;
+            val = val < -1 ? -1 : val;
+
+            val = System.Math.Abs(val) < LERP_THRESHOLD ? 0 : val;
+            return val;
+        }
+
+        private Vector2 GetCenterMouseOffset(Vector2 screenDimensions, Vector2 mousePosition)
+        {
+            return new Vector2(
+                Normalized(screenDimensions.x, mousePosition.x),
+                Normalized(screenDimensions.y, mousePosition.y));
         }
     }
 }
