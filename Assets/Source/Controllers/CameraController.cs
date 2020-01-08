@@ -64,8 +64,8 @@ namespace Zetta.Controllers
 
                 // Calculate the acceleration delta
                 Vector2 accelerationDelta = new Vector2(
-                    MaxValue(maxAccelerationDistance, acceleration.x / 100),
-                    MaxValue(maxAccelerationDistance, acceleration.y / 100));
+                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.x / 100),
+                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.y / 100));
 
                 // Calculate the new camera x, y position
                 Vector2 normalizedVector = GetCenterMouseOffset(
@@ -156,19 +156,6 @@ namespace Zetta.Controllers
         }
 
         /// <summary>
-        /// Maxizes and minimizes the given values
-        /// </summary>
-        /// <param name="max">The max value</param>
-        /// <param name="val">The current value</param>
-        /// <returns>The maximized value</returns>
-        private float MaxValue(float max, float val)
-        {
-            val = val > max ? max : val;
-            val = val < -max ? -max : val;
-            return val;
-        }
-
-        /// <summary>
         /// Normalizes the given dimension and position to its normalized value
         /// </summary>
         /// <param name="dimension"></param>
@@ -177,7 +164,7 @@ namespace Zetta.Controllers
         private float Normalized(float dimension, float position)
         {
             float val = Geometryf.NormalizeValue(0, dimension, position);
-            val = MaxValue(1, val);
+            val = Geometryf.MaxValue(1, val);
 
             val = System.Math.Abs(val) < cameraLerpThreshold ? 0 : val;
             return val;
