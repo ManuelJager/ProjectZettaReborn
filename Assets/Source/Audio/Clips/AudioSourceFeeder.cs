@@ -56,7 +56,7 @@ namespace Zetta.Audio.Clips
 
             if (promptSoundEffect)
             {
-                UI.NoticeManager.Instance.Prompt($"Now playing {clip.name}", 2.5f);
+                UI.NoticeManager.Instance.Prompt($"Now playing \"{clip.name}\"", 2.5f);
             }
 
             // call itself on clip end
