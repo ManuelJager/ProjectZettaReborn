@@ -72,7 +72,7 @@ namespace Zetta.Audio.Atmosphere
 
             if (Prompt)
             {
-                UI.NoticeManager.Instance.Prompt($"Now playing {clip.name}", 2.5f);
+                UI.NoticeManager.Instance.Prompt($"Now playing \"{clip.name}\"", 2.5f);
             }
 
             // call itself on clip end

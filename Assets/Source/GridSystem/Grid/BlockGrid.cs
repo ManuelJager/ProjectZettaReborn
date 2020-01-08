@@ -10,13 +10,44 @@ namespace Zetta.GridSystem
         // Unordered list of references to all blocks in grid
         public List<GridBlockBase> uBlockList = null;
 
+        public bool rendering;
+
+        public bool Rendering
+        {
+            get => rendering;
+            set 
+            {
+                // Grab all renderers of this blockgrid
+                var renderers = GetComponentsInChildren<Renderer>();
+                for (int i = 0; i < renderers.Length; i++)
+                {
+                    var renderer = renderers[i];
+
+                    // Set the rendering state of the renderer
+                    renderer.enabled = value;
+                }
+                // Set the global rendering state
+                rendering = value;
+            }
+        }
+
         // The size of the grid
         public Vector2 Size
         {
             get
             {
+                return new Vector2(
+                    (float)System.Math.Floor(Bounds.size.x),
+                    (float)System.Math.Floor(Bounds.size.y));
+            }
+        }
+
+        protected Bounds Bounds
+        {
+            get
+            {
                 // Create new empty bounds
-                Bounds bounds = new Bounds(this.transform.position, Vector3.zero);
+                Bounds bounds = new Bounds(transform.position, Vector3.zero);
 
                 // Get the all bounds of all children
                 var renderers = GetComponentsInChildren<Renderer>();
@@ -26,9 +57,7 @@ namespace Zetta.GridSystem
                     // Encalsulate the renderer bounds to the global bounds
                     bounds.Encapsulate(renderer.bounds);
                 }
-                return new Vector2(
-                    (float)System.Math.Floor(bounds.size.x),
-                    (float)System.Math.Floor(bounds.size.y));
+                return bounds;
             }
         }
 

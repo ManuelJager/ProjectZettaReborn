@@ -27,7 +27,7 @@ namespace Zetta.UI
         {
             DebuggerLayerActiveState = !DebuggerLayerActiveState;
             var statusString = DebuggerLayerActiveState ? "ON" : "OFF";
-            Zetta.UI.NoticeManager.Instance.Prompt($"Debugger is now {statusString}");
+            Zetta.UI.NoticeManager.Instance.Prompt($"Debugger menu is now {statusString}");
         }
 
         public static void TogglePauseMenuLayer()
