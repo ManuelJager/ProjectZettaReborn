@@ -19,6 +19,9 @@ namespace Zetta.InputWrapper
         public static event ButtonActionClickDelegate ClickEsc;
         public static event ButtonActionClickDelegate ClickF10;
         public static event InputAxisDelegate InputAxis;
+        public static event UpdateDelegate InputAxisRelease;
+
+        private Vector2 previousInputAxis = new Vector2(0f, 0f);
 
         private void OnGUI()
         {
@@ -63,10 +66,16 @@ namespace Zetta.InputWrapper
             // Axis input
             var horizontalAxis = Input.GetAxisRaw("Horizontal");
             var verticalAxis = Input.GetAxisRaw("Vertical");
+            Vector2 axis = new Vector2(horizontalAxis, verticalAxis);
+            
             if (horizontalAxis != 0f || verticalAxis != 0f)
             {
-                InputAxis?.Invoke(new Vector2(horizontalAxis, verticalAxis));
+                InputAxis?.Invoke(axis);
+            } else if(horizontalAxis == 0f && verticalAxis == 0f && (previousInputAxis.x != 0f || previousInputAxis.y != 0f))
+            {
+                InputAxisRelease?.Invoke();
             }
+            previousInputAxis = axis;
         }
 
         [RuntimeInitializeOnLoadMethod]
