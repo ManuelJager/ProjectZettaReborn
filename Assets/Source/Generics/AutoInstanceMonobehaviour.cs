@@ -26,6 +26,7 @@ namespace Zetta.Generics
 
         protected void Awake()
         {
+            DontDestroyOnLoad(this);
             if (!instance || destroyed)
             {
                 instance = (T)this;

@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIWindowTab Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2135940659686769597, guid: 7ca611bf372a9d24890c7afc2d57057d,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6161446407578355680, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: tabName

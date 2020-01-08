@@ -9,6 +9,7 @@ namespace Zetta.Audio.Clips
     public class RandomClipProvider : IObservableClipProvider
     {
         private static System.Random rng = new System.Random();
+
         [SerializeField] private List<AudioClip> clips;
         private int index = 0;
         private bool shuffled = false;

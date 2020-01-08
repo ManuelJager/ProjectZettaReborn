@@ -5,7 +5,7 @@ namespace Zetta.Audio.Clips
     /// <summary>
     /// Provides a clip
     /// </summary>
-    internal interface IClipProvider
+    public interface IClipProvider
     {
         AudioClip GetClip();
     }
