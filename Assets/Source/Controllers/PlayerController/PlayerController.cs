@@ -10,7 +10,7 @@ namespace Zetta.Controllers
     /// <summary>
     /// Takes it input from global events from <see cref="InputManager"/>
     /// </summary>
-    public class PlayerController : LazySingleton<PlayerController>
+    public partial class PlayerController : LazySingleton<PlayerController>
     {
         private Ship ship;
 
@@ -56,22 +56,35 @@ namespace Zetta.Controllers
         /// <param name="input"></param>
         public void OnAxis(Vector2 input)
         {
+            // Calculate the force to add
             var inputRotation = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
             inputRotation += q.eulerAngles.z + 270f;
             inputRotation %= 360f;
             input = Math.Vectorf.DegreeToVector2(inputRotation);
+
+            // Add the force to the rigidbody
             ship.rb2d.AddForce(input);
+
+            // Fire the accelerate event
+            PlayerStartAccelerating?.Invoke(input);
+        }
+
+        public void ReleaseAxis()
+        {
+            PlayerStoppedAccelerating?.Invoke();
         }
 
         private void OnEnable()
         {
             InputManager.InputAxis += OnAxis;
+            InputManager.InputAxisRelease += ReleaseAxis;
             InputManager.UpdateEvent += RotateShipToCursor;
         }
 
         private void OnDisable()
         {
             InputManager.InputAxis -= OnAxis;
+            InputManager.InputAxisRelease -= ReleaseAxis;
             InputManager.UpdateEvent -= RotateShipToCursor;
         }
 
