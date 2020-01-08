@@ -3,7 +3,7 @@ using System.Threading;
 using UniRx.Async;
 using UnityEngine;
 
-namespace Zetta.Audio
+namespace Zetta.Audio.Atmosphere
 {
     public static class AudioSourceUtilities
     {

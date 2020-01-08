@@ -2,27 +2,31 @@
 
 using System.Threading;
 using UnityEngine;
+using Zetta.Audio.Clips;
+using Zetta.Audio.Controllers;
 
-namespace Zetta.Audio.Clips
+namespace Zetta.Audio.Atmosphere
 {
-    internal class AudioSourceFeeder
+    public class AudioSourceFeeder : IAudioSourcePlayer
     {
         private AudioSource audioSource;
-        private IClipProvider clips;
+        private IClipProvider clipProvider;
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        private bool promptSoundEffect;
+        protected bool prompt;
+        protected bool isRunning;
 
-        public AudioSourceFeeder(AudioSource audioSource, IClipProvider clips)
+        public AudioSourceFeeder(AudioSource audioSource, IClipProvider clipProvider)
         {
             this.audioSource = audioSource;
-            this.clips = clips;
+            this.clipProvider = clipProvider;
+            this.prompt = false;
         }
 
-        public AudioSourceFeeder(AudioSource audioSource, IClipProvider clips, bool promptSoundEffect)
+        public AudioSourceFeeder(AudioSource audioSource, IClipProvider clipProvider, bool prompt)
         {
             this.audioSource = audioSource;
-            this.clips = clips;
-            this.promptSoundEffect = promptSoundEffect;
+            this.clipProvider = clipProvider;
+            this.prompt = prompt;
         }
 
         ~AudioSourceFeeder()
@@ -30,11 +34,22 @@ namespace Zetta.Audio.Clips
             Stop();
         }
 
+        public bool Prompt
+        {
+            get => prompt;
+        }
+
+        public bool IsRunning
+        {
+            get => isRunning;
+        }
+
         public void Start()
         {
             if (!audioSource.isPlaying)
             {
                 QueueNext(tokenSource.Token);
+                isRunning = true;
             }
         }
 
@@ -42,6 +57,7 @@ namespace Zetta.Audio.Clips
         {
             tokenSource.Cancel();
             audioSource.Stop();
+            isRunning = false;
         }
 
         /// <summary>
@@ -50,11 +66,11 @@ namespace Zetta.Audio.Clips
         /// <param name="token"></param>
         private void QueueNext(CancellationToken token)
         {
-            var clip = clips.GetClip();
+            var clip = clipProvider.GetClip();
             audioSource.clip = clip;
             audioSource.Play();
 
-            if (promptSoundEffect)
+            if (Prompt)
             {
                 UI.NoticeManager.Instance.Prompt($"Now playing {clip.name}", 2.5f);
             }

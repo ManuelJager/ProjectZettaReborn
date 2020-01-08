@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#pragma warning disable CS4014
+using UnityEngine;
 using Zetta.UI;
 
 namespace Zetta

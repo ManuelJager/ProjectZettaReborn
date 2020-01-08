@@ -1,58 +1,44 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Zetta.Math.Curves
 {
     public class BezierCurve : ICurveProvider
     {
-        public static BezierCurve Ease
-        {
-            get
-            {
-                return new BezierCurve(
-                    new Vector2(0.25f, 0.1f),
-                    new Vector2(0.25f, 0.1f));
-            }
-        }
+        private static Lazy<BezierCurve> ease = new Lazy<BezierCurve>(
+            () => new BezierCurve(
+                new Vector2(0.25f, 0.1f),
+                new Vector2(0.25f, 0.1f)));
 
-        public static BezierCurve Linear
-        {
-            get
-            {
-                return new BezierCurve(
-                    new Vector2(0f, 0f),
-                    new Vector2(1f, 1f));
-            }
-        }
+        private static Lazy<BezierCurve> linear = new Lazy<BezierCurve>(
+            () => new BezierCurve(
+                new Vector2(0f, 0f),
+                new Vector2(1f, 1f)));
 
-        public static BezierCurve EaseIn
-        {
-            get
-            {
-                return new BezierCurve(
-                    new Vector2(0.42f, 0f),
-                    new Vector2(1f, 1f));
-            }
-        }
+        private static Lazy<BezierCurve> easeIn = new Lazy<BezierCurve>(
+            () => new BezierCurve(
+                new Vector2(0.42f, 0f),
+                new Vector2(1f, 1f)));
 
-        public static BezierCurve EaseOut
-        {
-            get
-            {
-                return new BezierCurve(
-                    new Vector2(0f, 0f),
-                    new Vector2(0.58f, 1f));
-            }
-        }
+        private static Lazy<BezierCurve> easeOut = new Lazy<BezierCurve>(
+            () => new BezierCurve(
+                new Vector2(0f, 0f),
+                new Vector2(0.58f, 1f)));
 
-        public static BezierCurve EaseInOut
-        {
-            get
-            {
-                return new BezierCurve(
-                    new Vector2(0.42f, 0f),
-                    new Vector2(0.58f, 1f));
-            }
-        }
+        private static Lazy<BezierCurve> easeInOut = new Lazy<BezierCurve>(
+            () => new BezierCurve(
+                new Vector2(0.42f, 0f),
+                new Vector2(0.58f, 1f)));
+
+        public static BezierCurve Ease => ease.Value;
+
+        public static BezierCurve Linear => linear.Value;
+
+        public static BezierCurve EaseIn => easeIn.Value;
+
+        public static BezierCurve EaseOut => easeOut.Value;
+
+        public static BezierCurve EaseInOut => easeInOut.Value;
 
         public BezierCurve Reverse
         {
@@ -90,10 +76,10 @@ namespace Zetta.Math.Curves
             P3 = Vector2.one;
         }
 
-        public Vector2 P0 { get; private set; }
-        public Vector2 P1 { get; private set; }
-        public Vector2 P2 { get; private set; }
-        public Vector2 P3 { get; private set; }
+        readonly Vector2 P0;
+        readonly Vector2 P1;
+        readonly Vector2 P2;
+        readonly Vector2 P3;
 
         public float GetY(float x)
         {
