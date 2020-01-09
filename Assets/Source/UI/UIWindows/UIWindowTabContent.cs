@@ -6,8 +6,8 @@ namespace Zetta.UI.UIWindows
 {
     public class UIWindowTabContent : MonoBehaviour
     {
-        public GameObject tabHeader;
-        public RectTransform rectTransform;
+        [HideInInspector] public GameObject tabHeader;
+        [HideInInspector] public RectTransform rectTransform;
         public string tabName;
 
         private void Start()

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2119923227889711421, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: m_Name
-      value: UIWindowTab Variant
+      value: UIWindowTab Default
       objectReference: {fileID: 0}
     - target: {fileID: 2135940659686769597, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
@@ -80,22 +80,22 @@ PrefabInstance:
     - target: {fileID: 8434991273485130266, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -960
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434991273485130266, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434991273485130266, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1920
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434991273485130266, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -1080
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434991273485130266, guid: 7ca611bf372a9d24890c7afc2d57057d,
         type: 3}
@@ -127,5 +127,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2135940659686769597, guid: 7ca611bf372a9d24890c7afc2d57057d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ca611bf372a9d24890c7afc2d57057d, type: 3}

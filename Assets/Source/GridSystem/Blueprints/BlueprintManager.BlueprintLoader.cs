@@ -20,6 +20,12 @@ namespace Zetta.GridSystem.Blueprints
                 savePath = Path.Combine(destinationFolder, "loadedblueprints.zetta");
             }
 
+            public delegate void BlueprintAddedDelegate(Blueprint blueprint);
+            public delegate void BlueprintRemovedDelegate(Blueprint blueprint);
+
+            public event BlueprintAddedDelegate BlueprintAdded;
+            public event BlueprintRemovedDelegate BlueprintRemoved;
+
             public static List<Blueprint> SerializeBlueprints()
             {
                 try
@@ -86,11 +92,19 @@ namespace Zetta.GridSystem.Blueprints
                 if (!Contains(blueprint))
                 {
                     base.Add(blueprint);
+                    BlueprintAdded?.Invoke(blueprint);
                 }
                 else
                 {
                     throw new DuplicateBlueprintException();
                 }
+                
+            }
+            
+            public new void Remove(Blueprint blueprint)
+            {
+                base.Remove(blueprint);
+                BlueprintRemoved?.Invoke(blueprint);
             }
         }
 

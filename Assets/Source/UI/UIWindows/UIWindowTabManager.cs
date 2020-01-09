@@ -15,6 +15,7 @@ namespace Zetta.UI.UIWindows
         public GameObject headerPrefab;
 
         [SerializeField] private GameObject[] tabPrefabs;
+        private UIWindowTabContent activeWindow;
 
         public void Start()
         {
@@ -26,6 +27,7 @@ namespace Zetta.UI.UIWindows
             }
 
             tabs[0].gameObject.SetActive(true);
+            activeWindow = tabs[0];
         }
 
         /// <summary>
@@ -38,10 +40,17 @@ namespace Zetta.UI.UIWindows
             var tabContentObject = Instantiate(tab, contentOwner.transform);
             var tabContent = tabContentObject.GetComponent<UIWindowTabContent>();
             var tabHeaderObject = Instantiate(headerPrefab, headerOwner.transform);
-            var tabHeader = tabHeaderObject.GetComponent<UIWindowTabContent>();
+            var tabHeader = tabHeaderObject.GetComponent<UIWindowTabHeader>();
 
             tabContent.tabHeader = tabHeaderObject;
-            tabHeaderObject.GetComponent<UIWindowTabHeader>().Text = tabContent.tabName;
+            tabHeader.Text = tabContent.tabName;
+
+            tabHeader.Click += () =>
+            {
+                activeWindow.gameObject.SetActive(false);
+                activeWindow = tabContent;
+                tabContent.gameObject.SetActive(true);
+            };
 
             tabs.Add(tabContent);
 
