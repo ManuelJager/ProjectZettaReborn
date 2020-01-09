@@ -12,6 +12,7 @@ namespace Zetta.Background
         public float parallaxSpeed;
         public float starDensity;
         public Vector2 brightnessRange;
+        public GameObject gameObject;
 
         public BackgroundLayer(float parallaxSpeed, float starDensity, Vector2 brightnessRange)
         {
@@ -19,5 +20,10 @@ namespace Zetta.Background
             this.starDensity = starDensity;
             this.brightnessRange = brightnessRange;
         }
+
+        public void SetGameObject(GameObject gameObject)
+        {
+            this.gameObject = gameObject;
+        } 
     }
 }

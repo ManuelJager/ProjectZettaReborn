@@ -10,6 +10,8 @@ namespace Zetta.Background
 {
     public class BackgroundManager : MonoBehaviour
     {
+        public static BackgroundManager Instance;
+
         public Color backgroundColor;
         public GameObject defaultBackgroundLayer;
         public int backgroundChunkSize = 500;
@@ -20,23 +22,50 @@ namespace Zetta.Background
 
         public BackgroundManager()
         {
+            Instance = this;
+            
             layers = new List<BackgroundLayer>();
+            layers.Add(new BackgroundLayer(1f, 0.00075f, new Vector2(0.15f, 0.2f)));
+            layers.Add(new BackgroundLayer(2f, 0.00060f, new Vector2(0.1f, 0.15f)));
+            layers.Add(new BackgroundLayer(3f, 0.0005f, new Vector2(0.075f, 0.1f)));
+            layers.Add(new BackgroundLayer(4f, 0.00025f, new Vector2(0.05f, 0.15f)));
 
-            layers.Add(new BackgroundLayer(1, 0.005f, new Vector2(0.5f, 0.8f)));
         }
-        
+
+        public void UpdateParallax(Vector2 vector)
+        {
+            //for(int i = 0; i < layers.Count; i++)
+            //{
+            //    BackgroundLayer layer = layers[i];
+            //    GameObject layerObject = layer.gameObject;
+            //    if(layerObject != null)
+            //    {
+            //        MeshRenderer meshRenderer = layerObject.GetComponent<MeshRenderer>();
+            //        meshRenderer.material.mainTextureOffset += new Vector2(layer.parallaxSpeed, 0f);
+            //    }
+            //}
+        }
+
         public void Start()
         {
             //layerObject.AddComponent<Texture>();
 
             InitializeLayer(layers[0]);
+            InitializeLayer(layers[1]);
+            InitializeLayer(layers[2]);
+            InitializeLayer(layers[3]);
         }
-        
+
         public void InitializeLayer(BackgroundLayer layer)
         {
             GameObject layerObject = Instantiate(defaultBackgroundLayer);
             MeshRenderer meshRenderer = layerObject.GetComponent<MeshRenderer>();
             meshRenderer.material = CreateMaterial(CreateQuadTexture(layer), meshRenderer);
+
+            Vector3 position = layerObject.transform.position;
+            position.z = layers.IndexOf(layer) * 2 + 1;
+            layerObject.transform.position = position;
+            layer.gameObject = layerObject;
         }
 
 
@@ -52,8 +81,6 @@ namespace Zetta.Background
             {
                 for (int y = 0; y < texture.height; y++)
                 {
-                    //texture.SetPixel(x, y, Color.black);
-
                     bool isStar = System.Math.Round((decimal)UnityEngine.Random.Range(0, 1 / layer.starDensity)) == 1;
                     if(texture.GetPixel(x, y) == startingColor)
                     {
@@ -62,14 +89,12 @@ namespace Zetta.Background
                     if (isStar)
                     {
                         int starSize = (int)System.Math.Round((decimal)UnityEngine.Random.Range(1, 3));
-                        //int starSize = 5;
-                        Color starColor = new Color(1, 1, 1, UnityEngine.Random.Range(layer.brightnessRange.x, layer.brightnessRange.y));
-
+                        Color starColor = new Color(1, 1, 1);
+                        starColor.a = UnityEngine.Random.Range(layer.brightnessRange.x, layer.brightnessRange.y);
                         for (int xs = 0; xs < starSize; xs++)
                         {
                             for (int ys = 0; ys < starSize; ys++)
                             {
-                                texture.SetPixel(x, y, empty);
                                 texture.SetPixel(x + xs, y + ys, starColor);
                             }
                         }

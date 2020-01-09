@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zetta.Background;
 using Zetta.GridSystem;
 using Zetta.Math;
 
@@ -16,11 +17,11 @@ namespace Zetta.Controllers
         // The field of view of the camera
         public float FOV = 60f;
 
-        public float cameraLerp = 2f;
+        public float cameraLerp = 1.5f;
         public float cameraLerpThreshold = 0.5f;
         public float cameraBias = 1.9f;
         public float lerpTime = 1.5f;
-        public float maxAccelerationDistance = 3f;
+        public float maxAccelerationDistance = 2f;
         public float maxCameraZ = 1000f;
 
         private Vector2 acceleration = new Vector2(0f, 0f);
@@ -59,13 +60,16 @@ namespace Zetta.Controllers
             Ship toFollow = PlayerController.Instance.Ship;
             if(toFollow != null)
             {
+                // Update background
+                BackgroundManager.Instance.UpdateParallax(new Vector2());
+
                 float shipX = toFollow.transform.position.x;
                 float shipY = toFollow.transform.position.y;
 
                 // Calculate the acceleration delta
                 Vector2 accelerationDelta = new Vector2(
-                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.x / 100),
-                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.y / 100));
+                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.x / 150),
+                    Geometryf.MaxValue(maxAccelerationDistance, acceleration.y / 150));
 
                 // Calculate the new camera x, y position
                 Vector2 normalizedVector = GetCenterMouseOffset(
