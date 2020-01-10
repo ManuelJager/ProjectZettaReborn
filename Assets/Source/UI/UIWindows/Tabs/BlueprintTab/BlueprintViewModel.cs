@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿#pragma warning disable CS4014
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zetta.GridSystem.Blueprints;
+using Zetta.GridSystem.Blueprints.Thumbnails;
 
 namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 {
     public class BlueprintViewModel
     {
-        public readonly Sprite thumbnail;
         public readonly string nameString;
         public readonly string ratingString;
         public readonly string blockCountString;

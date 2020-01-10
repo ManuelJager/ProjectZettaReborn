@@ -17,7 +17,7 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
             viewModel.view = view;
             view.viewModel = viewModel;
             views.Add(view);
-            view.Update();
+            view.ReflectViewModel();
             return view;
         }
 

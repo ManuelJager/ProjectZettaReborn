@@ -9,7 +9,7 @@ namespace Zetta.UI.UIWindows
 {
     public class UIWindowTabManager : MonoBehaviour
     {
-        public UIWindowTabCollection tabs;
+        public UIWindowTabCollection tabs = new UIWindowTabCollection();
         public GameObject contentOwner;
         public GameObject headerOwner;
         public GameObject headerPrefab;
@@ -19,15 +19,12 @@ namespace Zetta.UI.UIWindows
 
         public void Start()
         {
-            tabs = new UIWindowTabCollection(this);
-
             for (int i = 0; i < tabPrefabs.Length; i++)
             {
                 Add(tabPrefabs[i]);
             }
 
-            tabs[0].gameObject.SetActive(true);
-            activeWindow = tabs[0];
+            tabs.SetActive(tabs[0]);
         }
 
         /// <summary>
@@ -39,18 +36,13 @@ namespace Zetta.UI.UIWindows
         {
             var tabContentObject = Instantiate(tab, contentOwner.transform);
             var tabContent = tabContentObject.GetComponent<UIWindowTabContent>();
+
             var tabHeaderObject = Instantiate(headerPrefab, headerOwner.transform);
             var tabHeader = tabHeaderObject.GetComponent<UIWindowTabHeader>();
 
-            tabContent.tabHeader = tabHeaderObject;
+            tabContent.tabHeader = tabHeader;
+            tabHeader.tabContent = tabContent;
             tabHeader.Text = tabContent.tabName;
-
-            tabHeader.Click += () =>
-            {
-                activeWindow.gameObject.SetActive(false);
-                activeWindow = tabContent;
-                tabContent.gameObject.SetActive(true);
-            };
 
             tabs.Add(tabContent);
 

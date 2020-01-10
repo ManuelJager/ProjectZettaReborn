@@ -23,6 +23,9 @@ namespace Zetta.GridSystem.Blueprints
             set => position = value;
         }
 
+        [JsonIgnore]
+        public Vector2 size;
+
         public Dictionary<string, float> Position
         {
             get => new Dictionary<string, float>
@@ -49,6 +52,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = 0;
+            size = RuntimeValues.sizeValue[blockTypeID];
         }
 
         /// <summary>
@@ -63,6 +67,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = rotation;
+            size = RuntimeValues.sizeValue[blockTypeID];
         }
 
         public override int GetHashCode()
