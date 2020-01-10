@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zetta.GridSystem.Blueprints;
+using Zetta.Generics;
 
 namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 {

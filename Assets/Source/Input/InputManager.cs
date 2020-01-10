@@ -6,7 +6,7 @@ namespace Zetta.InputWrapper
     /// <summary>
     /// Global event driven inputManager
     /// </summary>
-    public partial class InputManager : LazySingleton<InputManager>
+    public partial class InputManager : AutoInstanceMonoBehaviour<InputManager>
     {
         public delegate void UpdateDelegate();
         public delegate void ButtonActionClickDelegate();
@@ -77,8 +77,5 @@ namespace Zetta.InputWrapper
             }
             previousInputAxis = axis;
         }
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
     }
 }

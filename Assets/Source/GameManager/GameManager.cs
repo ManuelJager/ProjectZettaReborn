@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 using Zetta.GridSystem.Blueprints;
+using Zetta.GridSystem.Blueprints.Thumbnails;
+using Zetta.Generics;
 
 namespace Zetta
 {
-    public partial class GameManager : MonoBehaviour
+    public partial class GameManager : AutoInstanceMonoBehaviour<GameManager>
     {
-        public static GameManager Instance;
         public PrefabProviderInstance prefabProvider = new PrefabProviderInstance();
 
         [System.NonSerialized]
         public BlueprintInstantiator bpInstantiator;
 
-        public GameManager()
-        {
-            Instance = this;
-        }
 
-        public void Awake()
+        public new void Awake()
         {
+            base.Awake();
             // Create an instance of the blueprint instantiator
             bpInstantiator = GetComponent<BlueprintInstantiator>();
-            BlueprintManager.AddDefaultShipToLoadedBlueprints();
+
+        }
+
+        private void InitializeGridSystem()
+        {
+
         }
     }
 }

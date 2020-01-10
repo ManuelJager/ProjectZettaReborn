@@ -4,25 +4,21 @@ using UnityEngine;
 using Zetta.InputWrapper;
 using Zetta.UI.Controllers;
 using Zetta.UI.UIWindows;
+using Zetta.Generics;
 
 namespace Zetta.UI
 {
-    public partial class UIManager : MonoBehaviour
+    public partial class UIManager : AutoInstanceMonoBehaviour<UIManager>
     {
-        public static UIManager Instance;
-
         public GameplayLayer gameplayLayer;
         public DebuggerLayer debuggerLayer;
         public UIWindowTabManager pauseMenuLayer;
         public Canvas canvas;
 
-        public UIManager()
-        {
-            Instance = this;
-        }
 
-        public void Awake()
+        public new void Awake()
         {
+            base.Awake();
             canvas.worldCamera = Camera.main;
             DebuggerLayerActiveState = false;
             InputManager.ClickF10 += ToggleDebuggerLayer;

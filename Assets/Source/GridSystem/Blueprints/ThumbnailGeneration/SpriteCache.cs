@@ -40,6 +40,10 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
             }
         }
 
+        /// <summary>
+        /// Open 
+        /// </summary>
+        /// <returns></returns>
         public static Dictionary<int, Sprite> OpenCache()
         {
             var cache = new Dictionary<int, Sprite>();
@@ -91,7 +95,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
 
                 if (valid)
                 {
-                    if (BlueprintManager.loadedBlueprints.Hashes.Contains(hashKey))
+                    if (BlueprintManager.blueprints.Hashes.Contains(hashKey))
                     {
                         alreadyWriteThumbnailHashes.Add(hashKey);
                     }
@@ -123,7 +127,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
 
         public void LoadThumbnails()
         {
-            foreach (var item in BlueprintManager.loadedBlueprints)
+            foreach (var item in BlueprintManager.blueprints)
             {
                 base[item.GetHashCode()] = ThumbnailManager.Instance.GetThumbnail(item);
             }

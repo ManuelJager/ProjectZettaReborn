@@ -31,15 +31,14 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
             blueprintViewController.Remove(selectedViewModel);
         }
 
-        public void Awake()
+        private void Start()
         {
-            BlueprintManager.loadedBlueprints.BlueprintAdded += Add;
-            BlueprintManager.loadedBlueprints.BlueprintRemoved += Remove;
+            Initialize();   
         }
 
-        public void Start()
+        public void Initialize()
         {
-            foreach (var blueprint in BlueprintManager.loadedBlueprints)
+            foreach (var blueprint in BlueprintManager.blueprints)
             {
                 Add(blueprint);
             }

@@ -8,11 +8,10 @@ using Zetta.Generics;
 
 namespace Zetta.Drawing
 {
-    public class DrawManager : LazySingleton<DrawManager>
+    public class DrawManager : AutoInstanceMonoBehaviour<DrawManager>
     {
 
 
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
+        
     }
 }

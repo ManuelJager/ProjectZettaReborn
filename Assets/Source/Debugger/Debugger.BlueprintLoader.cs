@@ -16,7 +16,7 @@ namespace Zetta
         /// <param name="name">The blueprint name</param>
         public static void SpawnShipByName(string name)
         {
-            var blueprint = BlueprintManager.loadedBlueprints.GetFirstWithName(name);
+            var blueprint = BlueprintManager.blueprints.GetFirstWithName(name);
             if (blueprint != default)
             {
                 PlayerController.Instance.Ship = Ship.InstantiateShip(blueprint);

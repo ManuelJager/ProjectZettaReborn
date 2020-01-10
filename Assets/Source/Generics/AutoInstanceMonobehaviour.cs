@@ -30,6 +30,7 @@ namespace Zetta.Generics
             if (!instance || destroyed)
             {
                 instance = (T)this;
+                instance.gameObject.name += " (singleton)";
                 destroyed = false;
             }
         }
@@ -40,6 +41,11 @@ namespace Zetta.Generics
             {
                 destroyed = true;
             }
+        }
+
+        public static void Echo()
+        {
+            instance = GetAutoMonoBehaviour(true);
         }
 
         public static T GetAutoMonoBehaviour(bool dontDestroyOnLoad = false)

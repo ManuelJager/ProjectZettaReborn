@@ -8,7 +8,7 @@ using Zetta.Generics;
 
 namespace Zetta.GridSystem
 {
-    public class ChunkDrawer : LazySingleton<ChunkDrawer>
+    public class ChunkDrawer : AutoInstanceMonoBehaviour<ChunkDrawer>
     {
         private List<(Vector2, Vector2, Color)> drawList;
 
@@ -72,8 +72,5 @@ namespace Zetta.GridSystem
             (Vector2, Vector2, Color) to = (corner.Item1, corner.Item2, color);
             drawList[drawList.FindIndex(i => i.Equals(corner))] = to;
         }
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
     }
 }

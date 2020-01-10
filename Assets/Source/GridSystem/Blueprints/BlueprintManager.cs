@@ -4,13 +4,29 @@ using System.Linq;
 using UnityEngine;
 using Zetta.Exceptions;
 using Zetta.GridSystem.Blocks;
+using Zetta.Generics;
 
 namespace Zetta.GridSystem.Blueprints
 {
-    public static partial class BlueprintManager
+    public partial class BlueprintManager : AutoInstanceMonoBehaviour<BlueprintManager>
     {
         // The default blueprint
         public static string DEFAULT_BLUEPRINT = "{\"Name\":\"Default Ship\",\"Blocks\":[{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-4.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":2.0},\"Rotation\":0}]}";
+
+        public static BlueprintCollection blueprints;
+
+        public new void Awake()
+        {
+            base.Awake();
+            BlueprintCollection.BlueprintsLoaded += AddDefaultShipToLoadedBlueprints;
+            RuntimeValues.Initialize();
+        }
+
+        public void Start()
+        {
+            blueprints = SerializeBlueprints(BlueprintCollection.savePath);
+            blueprints.PerformBlueprintsLoaded();
+        }
 
         /// <summary>
         /// Parses the current blueprint to a string represatation

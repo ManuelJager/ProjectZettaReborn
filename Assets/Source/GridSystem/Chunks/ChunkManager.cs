@@ -10,7 +10,7 @@ using Zetta.Generics;
 
 namespace Zetta.GridSystem
 {
-    public partial class ChunkManager : LazySingleton<ChunkManager>
+    public partial class ChunkManager : AutoInstanceMonoBehaviour<ChunkManager>
     {
         public static readonly int CHUNK_SIZE = 160;
 
@@ -127,8 +127,5 @@ namespace Zetta.GridSystem
             // No side was found(should never happen)
             return -1;
         }
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
     }
 }

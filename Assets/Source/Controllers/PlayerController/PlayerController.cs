@@ -10,9 +10,13 @@ namespace Zetta.Controllers
     /// <summary>
     /// Takes it input from global events from <see cref="InputManager"/>
     /// </summary>
-    public partial class PlayerController : LazySingleton<PlayerController>
+
+    public partial class PlayerController : AutoInstanceMonoBehaviour<PlayerController>
     {
         private Ship ship;
+
+        private Quaternion q;
+        private Camera orthographicCamera;
 
         public Ship Ship
         {
@@ -33,9 +37,6 @@ namespace Zetta.Controllers
                 UIManager.GameplayLayerActiveState = value;
             }
         }
-
-        private Quaternion q;
-        private Camera orthographicCamera;
 
         public void Start()
         {
@@ -87,8 +88,5 @@ namespace Zetta.Controllers
             InputManager.InputAxisRelease -= ReleaseAxis;
             InputManager.UpdateEvent -= RotateShipToCursor;
         }
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
     }
 }

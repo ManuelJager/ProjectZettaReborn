@@ -7,45 +7,11 @@ namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintBlock
     {
-        public readonly BlueprintRuntimeReadonlyValues runtimeReadonlyValues;
 
-        protected string blockTypeID;
-
-        public string BlockTypeID
-        {
-            get => blockTypeID;
-        }
-
-        [JsonIgnore]
-        public Vector2 position;
-
-        [JsonIgnore]
-        public Vector2 VectorPosition
-        {
-            get => position;
-            set => position = value;
-        }
-
-        public Dictionary<string, float> Position
-        {
-            get => new Dictionary<string, float>
-            {
-                { "x", position.x },
-                { "y", position.y }
-            };
-        }
-
-        protected int rotation;
-
-        public int Rotation
-        {
-            get => rotation;
-        }
-
-        public float RotationInDegs
-        {
-            get => rotation * 90f;
-        }
+        [JsonIgnore] public readonly BlueprintRuntimeReadonlyValues runtimeReadonlyValues;
+        [JsonIgnore] public Vector2 position;
+        [JsonIgnore] protected int rotation;
+        [JsonIgnore] protected string blockTypeID;
 
         /// <summary>
         /// Blueprint block is a list simplified version of an grid block
@@ -73,6 +39,38 @@ namespace Zetta.GridSystem.Blueprints
             this.position = position;
             this.rotation = rotation;
             runtimeReadonlyValues = RuntimeValues.Get(blockTypeID);
+        }
+
+        public string BlockTypeID
+        {
+            get => blockTypeID;
+        }
+
+        [JsonIgnore]
+        public Vector2 VectorPosition
+        {
+            get => position;
+            set => position = value;
+        }
+
+        public Dictionary<string, float> Position
+        {
+            get => new Dictionary<string, float>
+            {
+                { "x", position.x },
+                { "y", position.y }
+            };
+        }
+
+        public int Rotation
+        {
+            get => rotation;
+        }
+
+        [JsonIgnore]
+        public float RotationInDegs
+        {
+            get => rotation * 90f;
         }
 
         public override int GetHashCode()
