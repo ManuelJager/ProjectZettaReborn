@@ -158,6 +158,33 @@ namespace Zetta.GridSystem.Blueprints
             });
         }
 
+        private static Blueprint NaziShip()
+        {
+            return new Blueprint("Nazi Ship", new List<BlueprintBlock>() {
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-2, 2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-2, 1)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-2, 0)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-1, 0)),
+
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(2, -2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(2, -1)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(2, 0)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(1, 0)),
+
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, -1)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, -2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-1, -2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-2, -2)),
+
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 1)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(1, 2)),
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(2, 2)),
+
+                new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 0))
+            });
+        }
+
         //TODO Remove this later when don't need it anymore
         // [RuntimeInitializeOnLoadMethod]
         public static void createTestBlueprint()

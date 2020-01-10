@@ -102,6 +102,8 @@ namespace Zetta.GridSystem.Blueprints
             try
             {
                 loadedBlueprints.Add(Import(DEFAULT_BLUEPRINT));
+                loadedBlueprints.Add(NaziShip());
+
             }
             catch (DuplicateBlueprintException)
             {
