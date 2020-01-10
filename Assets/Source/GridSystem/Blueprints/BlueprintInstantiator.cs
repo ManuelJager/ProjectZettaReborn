@@ -55,8 +55,7 @@ namespace Zetta.GridSystem.Blueprints
                         0);
 
                     // Set the rotation of the block
-                    float zRotation = blueprintBlock.Rotation * -90f;
-                    block.transform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
+                    block.transform.localRotation = Quaternion.Euler(0f, 0f, blueprintBlock.RotationInDegs);
 
                     // Add the block to the list
                     blocks.Add(blockBase);

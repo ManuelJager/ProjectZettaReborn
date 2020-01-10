@@ -43,6 +43,76 @@ namespace Zetta.GridSystem.Blueprints
 
     public static class BlueprintUtilities
     {
+        public static Bounds GetBounds(Blueprint blueprint, bool useUnityAPI = false)
+        {
+            if (useUnityAPI)
+            {
+                return GetBoundsUnityAPI(blueprint);
+            }
+            else
+            {
+                return GetBoundsNormal(blueprint);
+            }
+        }
+
+        public static Bounds GetBoundsUnityAPI(this Blueprint blueprint)
+        {
+            var count = blueprint.Blocks.Count;
+            if (count > 0)
+            {
+                var bounds = GetBounds(blueprint.Blocks[0]);
+                if (count > 1)
+                {
+                    for (int i = 1; i < count; i++)
+                    {
+                        bounds.Encapsulate(GetBounds(blueprint.Blocks[i]));
+                    }
+                }
+                return bounds;
+            }
+            else
+            {
+                throw new System.Exception("Cannot get bounds of empty blueprint");
+            }
+        }
+
+        private static Bounds GetBounds(BlueprintBlock blueprintBlock)
+        {
+            return new Bounds(
+                GetBlueprintPosition(blueprintBlock),
+                GetBlueprintBlockSize(blueprintBlock));
+        }
+
+        private static Vector3 GetBlueprintPosition(BlueprintBlock blueprintBlock)
+        {
+            return new Vector3(
+                blueprintBlock.position.x,
+                blueprintBlock.position.y);
+        }
+
+        private static Vector3 GetBlueprintBlockSize(BlueprintBlock blueprintBlock)
+        {
+            var size = blueprintBlock.runtimeReadonlyValues.size;
+
+            if (blueprintBlock.Rotation % 2 == 1)
+            {
+                size = new Vector2(size.y, size.x);
+            }
+
+            return new Vector3(size.x, size.y);
+        }
+
+        private static Bounds GetBoundsNormal(this Blueprint blueprint)
+        {
+            var corners = GetBlueprintCorners(blueprint);
+            var size = GetSize(corners);
+            var sizev3 = new Vector3(size.x, size.y);
+            var center = GetCenter(corners);
+            var centerv3 = new Vector3(center.x, center.y);
+            var bounds = new Bounds(centerv3, sizev3);
+            return bounds;
+        }
+
         public static Vector2 GetSize(this Blueprint blueprint)
         {
             var blueprintCorners = new MinMaxVector2(0f, 0f, 0f, 0f);
@@ -96,7 +166,7 @@ namespace Zetta.GridSystem.Blueprints
             for (int i = 0; i < count; i++)
             {
                 var block = blueprint.Blocks[i];
-                var size = block.size;
+                var size = block.runtimeReadonlyValues.size;
 
                 if (block.Rotation % 2 == 1)
                 {

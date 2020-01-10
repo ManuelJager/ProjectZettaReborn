@@ -7,6 +7,8 @@ namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintBlock
     {
+        public readonly BlueprintRuntimeReadonlyValues runtimeReadonlyValues;
+
         protected string blockTypeID;
 
         public string BlockTypeID
@@ -14,7 +16,8 @@ namespace Zetta.GridSystem.Blueprints
             get => blockTypeID;
         }
 
-        protected Vector2 position;
+        [JsonIgnore]
+        public Vector2 position;
 
         [JsonIgnore]
         public Vector2 VectorPosition
@@ -22,9 +25,6 @@ namespace Zetta.GridSystem.Blueprints
             get => position;
             set => position = value;
         }
-
-        [JsonIgnore]
-        public Vector2 size;
 
         public Dictionary<string, float> Position
         {
@@ -42,6 +42,11 @@ namespace Zetta.GridSystem.Blueprints
             get => rotation;
         }
 
+        public float RotationInDegs
+        {
+            get => rotation * 90f;
+        }
+
         /// <summary>
         /// Blueprint block is a list simplified version of an grid block
         /// </summary>
@@ -52,7 +57,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = 0;
-            size = RuntimeValues.sizeValue[blockTypeID];
+            runtimeReadonlyValues = RuntimeValues.Get(blockTypeID);
         }
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = rotation;
-            size = RuntimeValues.sizeValue[blockTypeID];
+            runtimeReadonlyValues = RuntimeValues.Get(blockTypeID);
         }
 
         public override int GetHashCode()

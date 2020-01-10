@@ -13,6 +13,11 @@ namespace Zetta.GridSystem
     {
         private Vector2Int chunkPosition;
 
+        ~ZettaEntity()
+        {
+            ChunkManager.Instance.RemoveEntity(this);
+        }
+
         public Vector2Int ChunkPosition
         {
             get => chunkPosition;

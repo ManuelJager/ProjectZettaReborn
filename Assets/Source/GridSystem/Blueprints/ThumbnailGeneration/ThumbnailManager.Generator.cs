@@ -10,29 +10,26 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
         private Sprite CreateThumbnail(Blueprint blueprint)
         {
             // Instantiate ship
-            var parent = Instantiate(new GameObject(), transform);
-            GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, parent.transform);
+            var parent = Ship.InstantiateShip(blueprint, transform);
 
             // Get size of ship
-            var corners = BlueprintUtilities.GetBlueprintCorners(blueprint);
-            var size = BlueprintUtilities.GetSize(corners);
-            var centerv2 = BlueprintUtilities.GetCenter(corners);
-            var centerv3 = new Vector3(centerv2.x, centerv2.y);
-            var highestval = size.x > size.y ? size.x : size.y;
+            var bounds = BlueprintUtilities.GetBounds(blueprint);
+            var highestval = bounds.extents.x > bounds.extents.y ?
+                bounds.extents.x : bounds.extents.y;
 
             var thumbnailCameraTransform = thumbnailCamera.gameObject.transform;
-
             var originalPosition = thumbnailCameraTransform.position;
 
+
             // Set position
-            thumbnailCameraTransform.position = originalPosition + centerv3;
+            thumbnailCameraTransform.position = originalPosition + bounds.center;
 
             // Set size of camera to half of the highest value in the size vector of the ship
-            thumbnailCamera.orthographicSize = highestval / 2f;
+            thumbnailCamera.orthographicSize = highestval;
 
             // Take snapshot and destroy parent
             var texture = RTImage(thumbnailCamera);
-            Destroy(parent);
+            Destroy(parent.gameObject);
 
             thumbnailCameraTransform.position = originalPosition;
 

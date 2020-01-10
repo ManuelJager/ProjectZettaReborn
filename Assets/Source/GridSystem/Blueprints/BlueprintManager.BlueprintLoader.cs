@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using Zetta.Exceptions;
+using Zetta.GridSystem.Blueprints.Thumbnails;
 
 namespace Zetta.GridSystem.Blueprints
 {
@@ -13,18 +14,39 @@ namespace Zetta.GridSystem.Blueprints
         public class LoadedBlueprints : List<Blueprint>
         {
             private static readonly string savePath;
-
-            static LoadedBlueprints()
-            {
-                var destinationFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                savePath = Path.Combine(destinationFolder, "loadedblueprints.zetta");
-            }
+            private List<int> hashes = new List<int>();
 
             public delegate void BlueprintAddedDelegate(Blueprint blueprint);
             public delegate void BlueprintRemovedDelegate(Blueprint blueprint);
 
             public event BlueprintAddedDelegate BlueprintAdded;
             public event BlueprintRemovedDelegate BlueprintRemoved;
+
+            static LoadedBlueprints()
+            {
+                var destinationFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                savePath = Path.Combine(destinationFolder, "loadedblueprints.zetta");
+            }
+
+            public LoadedBlueprints()
+                : base(SerializeBlueprints())
+            {
+                RuntimeValues.Initialize();
+            }
+
+            // save blueprints to file
+            ~LoadedBlueprints()
+            {
+                DeserializeBlueprints(this);
+            }
+
+            public List<int> Hashes
+            {
+                get
+                {
+                    return hashes;
+                }
+            }
 
             public static List<Blueprint> SerializeBlueprints()
             {
@@ -35,9 +57,9 @@ namespace Zetta.GridSystem.Blueprints
                     // Return a list of blueprints that are valid and unique
                     return unverifiedBlueprints.Distinct().Where(x => x.IsValid).ToList();
                 }
-                catch
+                catch (Exception e)
                 {
-                    Debug.LogWarning("Failed to serialize blueprints");
+                    Debug.LogWarning(e);
                     // if error, return an empty list
                     return new List<Blueprint>();
                 }
@@ -51,17 +73,6 @@ namespace Zetta.GridSystem.Blueprints
                 {
                     sr.WriteLine(json);
                 }
-            }
-
-            public LoadedBlueprints()
-                : base(SerializeBlueprints())
-            {
-            }
-
-            // save blueprints to file
-            ~LoadedBlueprints()
-            {
-                DeserializeBlueprints(this);
             }
 
             public Blueprint GetFirstWithName(string name)
@@ -92,6 +103,7 @@ namespace Zetta.GridSystem.Blueprints
                 if (!Contains(blueprint))
                 {
                     base.Add(blueprint);
+                    hashes.Add(blueprint.GetHashCode());
                     BlueprintAdded?.Invoke(blueprint);
                 }
                 else
@@ -103,6 +115,7 @@ namespace Zetta.GridSystem.Blueprints
             
             public new void Remove(Blueprint blueprint)
             {
+                hashes.Remove(blueprint.GetHashCode());
                 base.Remove(blueprint);
                 BlueprintRemoved?.Invoke(blueprint);
             }
@@ -110,7 +123,6 @@ namespace Zetta.GridSystem.Blueprints
 
         public static LoadedBlueprints loadedBlueprints = new LoadedBlueprints();
 
-        [RuntimeInitializeOnLoadMethod]
         public static void AddDefaultShipToLoadedBlueprints()
         {
             try

@@ -12,6 +12,8 @@ namespace Zetta.GridSystem
 
         public bool rendering;
 
+        public Blueprint blueprint;
+
         public bool Rendering
         {
             get => rendering;
@@ -36,9 +38,10 @@ namespace Zetta.GridSystem
         {
             get
             {
+                var bounds = Bounds;
                 return new Vector2(
-                    (float)System.Math.Floor(Bounds.size.x),
-                    (float)System.Math.Floor(Bounds.size.y));
+                    (float)System.Math.Floor(bounds.size.x),
+                    (float)System.Math.Floor(bounds.size.y));
             }
         }
 
@@ -66,6 +69,7 @@ namespace Zetta.GridSystem
             GridSizeChanged += UpdateCenterOfMass;
         }
 
+
         /// <summary>
         /// Instantiates the blueprint and sets the parent to the current block
         /// </summary>
@@ -73,8 +77,17 @@ namespace Zetta.GridSystem
         /// <returns>The objects instantiated</returns>
         public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
         {
-            uBlockList = GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
-            return uBlockList;
+            return GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
+        }
+
+        /// <summary>
+        /// Instantiates the blueprint and sets the parent to the current block
+        /// </summary>
+        /// <param name="blueprint">The blueprint to instantiate</param>
+        /// <returns>The objects instantiated</returns>
+        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint, Transform transform)
+        {
+            return GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
         }
     }
 }

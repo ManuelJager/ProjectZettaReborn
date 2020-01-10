@@ -39,7 +39,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <returns>The deserialized blueprint</returns>
         public static Blueprint Import(string json)
         {
-            Blueprint blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
+            var blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
 
             return blueprint;
         }

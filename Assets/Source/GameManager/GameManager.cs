@@ -20,6 +20,7 @@ namespace Zetta
         {
             // Create an instance of the blueprint instantiator
             bpInstantiator = GetComponent<BlueprintInstantiator>();
+            BlueprintManager.AddDefaultShipToLoadedBlueprints();
         }
     }
 }

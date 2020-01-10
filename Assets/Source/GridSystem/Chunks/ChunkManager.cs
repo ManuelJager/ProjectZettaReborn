@@ -73,9 +73,17 @@ namespace Zetta.GridSystem
             var chunkToAdd = GetOrCreateChunk(entity.CalculatedChunkPosition);
 
             chunkToAdd.Add(entity);
+            
 
             // Load more chunks when the entity has been added
             LoadChunks(chunkToAdd.position, SettingsController.CHUNK_RENDER_DISTANCE);
+        }
+
+        public void RemoveEntity(ZettaEntity entity)
+        {
+            var chunkToRemove = GetOrCreateChunk(entity.CalculatedChunkPosition);
+
+            chunkToRemove.Remove(entity);
         }
 
         /// <summary>

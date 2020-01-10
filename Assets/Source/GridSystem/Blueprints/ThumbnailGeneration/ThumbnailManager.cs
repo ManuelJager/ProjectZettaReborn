@@ -12,8 +12,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
         public Camera thumbnailCamera;
         public RenderTexture renderTexture;
 
-        private Dictionary<int, Sprite> spriteCache =
-            new Dictionary<int, Sprite>();
+        public SpriteCache spriteCache;
 
         public new void Awake()
         {
@@ -22,21 +21,33 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
             thumbnailCamera.targetTexture = renderTexture;
         }
 
-        public Sprite GetThumbnail(Blueprint blueprint)
+        public void Start()
         {
-            if (spriteCache.ContainsKey(blueprint.GetHashCode()))
+            spriteCache = new SpriteCache();
+            spriteCache.LoadThumbnails();
+            spriteCache.SaveCache();
+        }
+
+        public Sprite GetThumbnail(Blueprint blueprint, bool forceGet = false)
+        {
+            if (!forceGet)
             {
-                return spriteCache[blueprint.GetHashCode()];
+                if (spriteCache.ContainsKey(blueprint.GetHashCode()))
+                {
+                    return spriteCache[blueprint.GetHashCode()];
+                }
             }
+            
 
             var thumbnail = CreateThumbnail(blueprint);
+
             spriteCache[blueprint.GetHashCode()] = thumbnail;
             return thumbnail;
         }
 
-        public void SetThumbnail(Blueprint blueprint, Image image)
+        public void SetThumbnail(Blueprint blueprint, Image image, bool forceGet = false)
         {
-            var thumbnail = GetThumbnail(blueprint);
+            var thumbnail = GetThumbnail(blueprint, forceGet);
             image.sprite = thumbnail;
         }
     }
