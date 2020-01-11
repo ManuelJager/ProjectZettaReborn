@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zetta.GridSystem.Blocks;
-using System.Linq;
 
 namespace Zetta.GridSystem.Blueprints
 {
@@ -21,7 +20,7 @@ namespace Zetta.GridSystem.Blueprints
 
     public static class RuntimeValues
     {
-        private static readonly Dictionary<string, BlueprintRuntimeReadonlyValues> 
+        private static readonly Dictionary<string, BlueprintRuntimeReadonlyValues>
             values = new Dictionary<string, BlueprintRuntimeReadonlyValues>();
 
         public static BlueprintRuntimeReadonlyValues Get(string id)
@@ -31,11 +30,10 @@ namespace Zetta.GridSystem.Blueprints
 
         public static void Initialize()
         {
-            var IDPrefabDictionary = GameManager.PrefabProviderInstance.Instance.AsDictionary;
+            var IDPrefabDictionary = BlockPrefabProvider.Instance.Dictionary;
             foreach (var item in IDPrefabDictionary)
             {
-                var gridBlockBase = (GridBlockBase)item.Value.GetComponent(typeof(GridBlockBase));
-                var size = gridBlockBase.Size;
+                var size = item.Value.gridBlockBase.Size;
                 var rating = 1f;
                 values[item.Key] = new BlueprintRuntimeReadonlyValues(size, rating);
             }

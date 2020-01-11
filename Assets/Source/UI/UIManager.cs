@@ -1,10 +1,10 @@
 ﻿#pragma warning disable CS0649
 
 using UnityEngine;
+using Zetta.Generics;
 using Zetta.InputWrapper;
 using Zetta.UI.Controllers;
 using Zetta.UI.UIWindows;
-using Zetta.Generics;
 
 namespace Zetta.UI
 {
@@ -14,7 +14,6 @@ namespace Zetta.UI
         public DebuggerLayer debuggerLayer;
         public UIWindowTabManager pauseMenuLayer;
         public Canvas canvas;
-
 
         public new void Awake()
         {

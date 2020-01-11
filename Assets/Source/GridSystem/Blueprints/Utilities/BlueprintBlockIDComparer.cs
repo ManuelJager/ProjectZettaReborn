@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace Zetta.GridSystem.Blueprints.Utilities
 {
@@ -17,4 +15,3 @@ namespace Zetta.GridSystem.Blueprints.Utilities
         }
     }
 }
-

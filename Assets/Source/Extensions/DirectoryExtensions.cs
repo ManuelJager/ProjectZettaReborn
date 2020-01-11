@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using System.IO;
-using System.Drawing;
+﻿using System.IO;
+using UnityEngine;
 
 namespace Zetta.Extensions
 {
@@ -20,7 +17,7 @@ namespace Zetta.Extensions
 
             if (File.Exists(filePath))
             {
-                fileData = File.ReadAllBytes(filePath); 
+                fileData = File.ReadAllBytes(filePath);
                 tex = new Texture2D(width, height);
                 tex.LoadImage(fileData);
             }

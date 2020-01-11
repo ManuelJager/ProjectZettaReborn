@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Zetta.Audio.Controllers;
 
 namespace Zetta.Audio.Atmosphere.AtmosphereControllers
@@ -43,4 +41,3 @@ namespace Zetta.Audio.Atmosphere.AtmosphereControllers
         }
     }
 }
-

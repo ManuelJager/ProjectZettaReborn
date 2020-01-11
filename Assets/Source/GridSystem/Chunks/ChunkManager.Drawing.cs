@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using Zetta.Drawing;
-
-namespace Zetta.GridSystem
+﻿namespace Zetta.GridSystem
 {
     public partial class ChunkManager
     {
@@ -21,18 +13,19 @@ namespace Zetta.GridSystem
         /// <param name="newState">The new state of the option</param>
         public void DrawBordersChange(bool newState)
         {
-            if(newState == false)
+            if (newState == false)
             {
                 // Clear all lines
                 ChunkDrawer.Instance.ClearChunkBorders();
-            } else
+            }
+            else
             {
                 // Add all chunks to the drawing list
-                ChunkHelper.LoopOverChunks(loadedChunks, (Chunk chunk) => {
+                ChunkHelper.LoopOverChunks(loadedChunks, (Chunk chunk) =>
+                {
                     ChunkDrawer.Instance.DrawChunkBorder(chunk);
                 });
             }
         }
-
     }
 }

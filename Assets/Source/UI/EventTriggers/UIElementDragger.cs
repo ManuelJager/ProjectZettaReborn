@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using Zetta.UI.Utilities;
 
@@ -14,7 +11,7 @@ namespace Zetta.UI.EventTriggers
         private Vector2[] lastFrameRectCorners;
         private Vector2 lastFrameMousePos;
 
-        void Start()
+        private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
             enabled = false;

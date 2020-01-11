@@ -1,10 +1,9 @@
 ﻿#pragma warning disable CS0649
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
-using Zetta.GridSystem;
-using Zetta.GridSystem.Blueprints;
 using System.Linq;
+using UnityEngine;
+using Zetta.GridSystem.Blueprints;
 
 namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 {
@@ -33,7 +32,7 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 
         private void Start()
         {
-            Initialize();   
+            Initialize();
         }
 
         public void Initialize()

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zetta.Exceptions;
-using Zetta.GridSystem.Blocks;
 using Zetta.Generics;
+using Zetta.GridSystem.Blocks;
+using Zetta.Attributes;
 
 namespace Zetta.GridSystem.Blueprints
 {
@@ -18,13 +19,12 @@ namespace Zetta.GridSystem.Blueprints
         public new void Awake()
         {
             base.Awake();
-            BlueprintCollection.BlueprintsLoaded += AddDefaultShipToLoadedBlueprints;
-            RuntimeValues.Initialize();
+            BlueprintCollection.Loaded += AddDefaultShipToLoadedBlueprints;
         }
 
         public void Start()
         {
-            blueprints = SerializeBlueprints(BlueprintCollection.savePath);
+            blueprints = new BlueprintCollection();
             blueprints.PerformBlueprintsLoaded();
         }
 
@@ -91,6 +91,7 @@ namespace Zetta.GridSystem.Blueprints
         /// </summary>
         /// <param name="blueprint">The blueprint to validate</param>
         /// <returns>The invalid blueprint blocks</returns>
+        [UglyCode]
         public static List<Vector2> ValidateBlueprint(Blueprint blueprint)
         {
             var positions = new List<Vector2>();

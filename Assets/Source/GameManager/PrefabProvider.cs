@@ -7,6 +7,7 @@ namespace Zetta
 {
     public partial class GameManager
     {
+        [System.Obsolete("Use BlockPrefabProvide")]
         public static class PrefabProvider
         {
             public static GameObject GetPrefab(string index)
@@ -23,6 +24,7 @@ namespace Zetta
         }
 
         [System.Serializable]
+        [System.Obsolete("Use BlockPrefabProvide")]
         public class PrefabProviderInstance : SerializableDictionary<string, GameObject>
         {
             public static PrefabProviderInstance Instance;

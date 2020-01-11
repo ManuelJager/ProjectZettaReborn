@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Zetta.GridSystem.Blocks;
-using Zetta.UI;
 
 namespace Zetta.GridSystem
 {
@@ -36,9 +30,9 @@ namespace Zetta.GridSystem
             get
             {
                 float totalHealth = 0;
-                for(int i = 0; i < uBlockList.Count; i++)
+                for (int i = 0; i < uBlockList.Count; i++)
                 {
-                    if(uBlockList[i] is IPhysicalGridBlock)
+                    if (uBlockList[i] is IPhysicalGridBlock)
                     {
                         var physicalGridBlock = (IPhysicalGridBlock)uBlockList[i];
                         totalHealth += physicalGridBlock.Health;

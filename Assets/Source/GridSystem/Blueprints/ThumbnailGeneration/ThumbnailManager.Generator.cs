@@ -20,7 +20,6 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
             var thumbnailCameraTransform = thumbnailCamera.gameObject.transform;
             var originalPosition = thumbnailCameraTransform.position;
 
-
             // Set position
             thumbnailCameraTransform.position = originalPosition + bounds.center;
 

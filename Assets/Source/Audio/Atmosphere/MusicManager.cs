@@ -1,16 +1,14 @@
 ﻿#pragma warning disable CS0649
 #pragma warning disable CS4014
 
+using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
+using Zetta.Audio.Atmosphere.AtmosphereControllers;
 using Zetta.Audio.Clips;
+using Zetta.Audio.Controllers;
 using Zetta.Generics;
 using Zetta.Math.Curves;
-using Zetta.Audio.Atmosphere.AtmosphereControllers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Zetta.Audio.Controllers;
 
 namespace Zetta.Audio.Atmosphere
 {
@@ -24,6 +22,7 @@ namespace Zetta.Audio.Atmosphere
         private AudioSource audioSource;
         private Atmosphere currentAtmosphere = Atmosphere.Title;
         private bool fading = false;
+
         private Dictionary<Atmosphere, IAudioSourceController> atmosphereControllers =
             new Dictionary<Atmosphere, IAudioSourceController>();
 
@@ -46,7 +45,7 @@ namespace Zetta.Audio.Atmosphere
                     await UniTask.DelayFrame(1);
                 }
                 fading = true;
-                
+
                 await curve.Reverse.DeltaCurveInterpolate(0f, maxVolume, 2f, (float value) =>
                 {
                     audioSource.volume = value;
@@ -73,10 +72,10 @@ namespace Zetta.Audio.Atmosphere
             base.Awake();
             audioSource = GetComponent<AudioSource>();
 
-            atmosphereControllers[Atmosphere.Gameplay] = 
+            atmosphereControllers[Atmosphere.Gameplay] =
                 new GameplayAtmosphereController(audioSource, gameplaySongs, true);
 
-            atmosphereControllers[Atmosphere.Title] = 
+            atmosphereControllers[Atmosphere.Title] =
                 new TitleAtmosphereController(audioSource, titleSong);
         }
 

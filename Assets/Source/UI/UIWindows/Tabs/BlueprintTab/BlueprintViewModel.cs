@@ -1,9 +1,6 @@
 ﻿#pragma warning disable CS4014
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using Zetta.GridSystem.Blueprints;
-using Zetta.GridSystem.Blueprints.Thumbnails;
 
 namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 {
@@ -14,7 +11,7 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
         public readonly string blockCountString;
         public readonly Blueprint blueprint;
         public BlueprintView view;
-        
+
         public BlueprintViewModel(Blueprint blueprint)
         {
             nameString = blueprint.Name;
@@ -30,4 +27,3 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
         }
     }
 }
-

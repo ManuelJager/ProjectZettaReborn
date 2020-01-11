@@ -92,7 +92,7 @@ namespace Zetta.GridSystem.Blueprints
 
         private static Vector3 GetBlueprintBlockSize(BlueprintBlock blueprintBlock)
         {
-            var size = blueprintBlock.runtimeReadonlyValues.size;
+            var size = blueprintBlock.runtimeValues.size;
 
             if (blueprintBlock.Rotation % 2 == 1)
             {
@@ -166,7 +166,7 @@ namespace Zetta.GridSystem.Blueprints
             for (int i = 0; i < count; i++)
             {
                 var block = blueprint.Blocks[i];
-                var size = block.runtimeReadonlyValues.size;
+                var size = block.runtimeValues.size;
 
                 if (block.Rotation % 2 == 1)
                 {

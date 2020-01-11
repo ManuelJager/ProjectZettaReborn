@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS0649
+
 using UnityEngine;
 
 namespace Zetta.GridSystem.Blocks

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zetta.Controllers;
-using Zetta.Exceptions;
 using Zetta.Generics;
 
 namespace Zetta.GridSystem
@@ -36,7 +31,7 @@ namespace Zetta.GridSystem
                 x + loadedChunks.GetLength(0) / 2,
                 y + loadedChunks.GetLength(1) / 2);
         }
-        
+
         /// <summary>
         /// Gets the world position of the given chunk position
         /// </summary>
@@ -58,7 +53,7 @@ namespace Zetta.GridSystem
             loadedChunks[chunk.position.x, chunk.position.y] = chunk;
 
             // Check if the chunk borders should be drawn
-            if(Debugger.DrawChunkBorders)
+            if (Debugger.DrawChunkBorders)
             {
                 ChunkDrawer.Instance.DrawChunkBorder(chunk);
             }
@@ -73,7 +68,6 @@ namespace Zetta.GridSystem
             var chunkToAdd = GetOrCreateChunk(entity.CalculatedChunkPosition);
 
             chunkToAdd.Add(entity);
-            
 
             // Load more chunks when the entity has been added
             LoadChunks(chunkToAdd.position, SettingsController.CHUNK_RENDER_DISTANCE);

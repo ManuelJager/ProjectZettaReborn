@@ -17,7 +17,7 @@ namespace Zetta.GridSystem
         public bool Rendering
         {
             get => rendering;
-            set 
+            set
             {
                 // Grab all renderers of this blockgrid
                 var renderers = GetComponentsInChildren<Renderer>();
@@ -68,7 +68,6 @@ namespace Zetta.GridSystem
         {
             GridSizeChanged += UpdateCenterOfMass;
         }
-
 
         /// <summary>
         /// Instantiates the blueprint and sets the parent to the current block

@@ -1,10 +1,8 @@
 ﻿#pragma warning disable CS0649
 #pragma warning disable CS4014
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
-using Zetta.GridSystem.Blueprints;
 using Zetta.GridSystem.Blueprints.Thumbnails;
 
 namespace Zetta.UI.UIWindows.Tabs.BlueprintTab

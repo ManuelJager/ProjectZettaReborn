@@ -7,8 +7,7 @@ namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintBlock
     {
-
-        [JsonIgnore] public readonly BlueprintRuntimeReadonlyValues runtimeReadonlyValues;
+        [JsonIgnore] public readonly BlueprintRuntimeReadonlyValues runtimeValues;
         [JsonIgnore] public Vector2 position;
         [JsonIgnore] protected int rotation;
         [JsonIgnore] protected string blockTypeID;
@@ -23,7 +22,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = 0;
-            runtimeReadonlyValues = RuntimeValues.Get(blockTypeID);
+            runtimeValues = RuntimeValues.Get(blockTypeID);
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace Zetta.GridSystem.Blueprints
             this.blockTypeID = blockTypeID;
             this.position = position;
             this.rotation = rotation;
-            runtimeReadonlyValues = RuntimeValues.Get(blockTypeID);
+            runtimeValues = RuntimeValues.Get(blockTypeID);
         }
 
         public string BlockTypeID

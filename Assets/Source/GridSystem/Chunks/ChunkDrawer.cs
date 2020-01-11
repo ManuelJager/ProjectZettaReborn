@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zetta.Generics;
 
@@ -55,7 +51,7 @@ namespace Zetta.GridSystem
 
         public void FixedUpdate()
         {
-            for(int i = 0; i < drawList.Count; i++)
+            for (int i = 0; i < drawList.Count; i++)
             {
                 var toDraw = drawList[i];
                 Debug.DrawLine(toDraw.Item1, toDraw.Item2, toDraw.Item3);

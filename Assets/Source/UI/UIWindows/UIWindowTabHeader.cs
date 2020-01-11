@@ -1,10 +1,8 @@
 ﻿#pragma warning disable CS0649
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Zetta.UI.UIWindows
 {
@@ -18,7 +16,9 @@ namespace Zetta.UI.UIWindows
         [SerializeField] private Text text;
 
         public delegate void ClickDelegate();
+
         public event ClickDelegate Click;
+
         public UIWindowTabContent tabContent;
 
         public bool Selected

@@ -42,7 +42,7 @@ namespace Zetta.GridSystem.Blueprints
                 // Instantiate the block by prefab block type
                 try
                 {
-                    var block = Instantiate(GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID));
+                    var block = Instantiate(BlockPrefabProvider.Instance.GetPrefab(blueprintBlock.BlockTypeID));
                     GridBlockBase blockBase = (GridBlockBase)block.GetComponent(typeof(GridBlockBase));
                     // Set the parent of the block
                     block.transform.SetParent(parent);

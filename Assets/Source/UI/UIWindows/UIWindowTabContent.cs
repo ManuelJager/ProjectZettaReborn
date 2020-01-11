@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zetta.UI.UIWindows
 {
@@ -16,4 +14,3 @@ namespace Zetta.UI.UIWindows
         }
     }
 }
-

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Zetta.GridSystem
@@ -43,13 +39,13 @@ namespace Zetta.GridSystem
         /// <param name="callback">The action to execute every chunk</param>
         public static void LoopOverChunks(Chunk[,] chunks, Action<Chunk> callback)
         {
-            for(int x = 0; x < chunks.GetLength(0); x++)
+            for (int x = 0; x < chunks.GetLength(0); x++)
             {
                 for (int y = 0; y < chunks.GetLength(0); y++)
                 {
                     Chunk chunk = chunks[x, y];
 
-                    if(chunk != null)
+                    if (chunk != null)
                     {
                         callback.Invoke(chunk);
                     }

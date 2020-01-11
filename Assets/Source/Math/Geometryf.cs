@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zetta.Math
+﻿namespace Zetta.Math
 {
     public static class Geometryf
     {
@@ -19,7 +13,6 @@ namespace Zetta.Math
         {
             return ((value - min) / (max - min)) * 2 - 1;
         }
-
 
         /// <summary>
         /// Maxizes and minimizes the given values
