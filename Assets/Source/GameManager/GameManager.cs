@@ -5,10 +5,6 @@ namespace Zetta
 {
     public partial class GameManager : AutoInstanceMonoBehaviour<GameManager>
     {
-        [System.Obsolete("Use BlockPrefabProvide")]
-        public PrefabProviderInstance prefabProvider = 
-           new PrefabProviderInstance();
-
         [System.NonSerialized]
         public BlueprintInstantiator bpInstantiator;
 

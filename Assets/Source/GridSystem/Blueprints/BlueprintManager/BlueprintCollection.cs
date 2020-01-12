@@ -8,13 +8,12 @@ using System.Linq;
 using UnityEngine;
 using Zetta.Exceptions;
 using Zetta.Generics;
+using Zetta.FileSystem;
 
 namespace Zetta.GridSystem.Blueprints
 {
     public class BlueprintCollection : List<Blueprint>, ISaveable
     {
-        private static readonly string savePath;
-
         public delegate void AddedDelegate(Blueprint blueprint);
 
         public delegate void RemovedDelegate(Blueprint blueprint);
@@ -27,15 +26,9 @@ namespace Zetta.GridSystem.Blueprints
 
         public static event LoadedDelegate Loaded;
 
-        static BlueprintCollection()
-        {
-            var destinationFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            savePath = Path.Combine(destinationFolder, "loadedblueprints.zetta");
-        }
-
         public BlueprintCollection()
         {
-            Load(savePath);
+            Load(SpecialFile.PlayerBlueprintCollection.GetPath());
         }
 
         private BlueprintCollection(List<Blueprint> blueprints)
@@ -94,7 +87,7 @@ namespace Zetta.GridSystem.Blueprints
                     throw new DuplicateBlueprintException();
                 }
             }
-            Save(savePath);
+            Save(SpecialFile.PlayerBlueprintCollection.GetPath());
         }
 
         // override base functionality to only add unique blueprints
@@ -106,7 +99,7 @@ namespace Zetta.GridSystem.Blueprints
                 Hashes.Add(blueprint.GetHashCode());
 
                 Added?.Invoke(blueprint);
-                Save(savePath);
+                Save(SpecialFile.PlayerBlueprintCollection.GetPath());
             }
             else
             {
@@ -124,9 +117,14 @@ namespace Zetta.GridSystem.Blueprints
                 // Return a list of blueprints that are valid and unique
                 AddManySafe(unverifiedBlueprints.Distinct().Where(x => x.IsValid).ToList());
             }
+            catch (FileNotFoundException)
+            {
+                File.Create(path);
+                AddManySafe(new List<Blueprint>());
+            }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                Debug.LogWarning("Error on blueprint collection load:" + e);
                 // if error, return an empty list
                 AddManySafe(new List<Blueprint>());
             }

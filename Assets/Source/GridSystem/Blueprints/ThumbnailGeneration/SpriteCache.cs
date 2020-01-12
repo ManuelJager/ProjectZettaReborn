@@ -8,6 +8,7 @@ using UnityEngine;
 using Zetta.Extensions;
 using Zetta.Generics;
 using Zetta.UI;
+using Zetta.FileSystem;
 
 namespace Zetta.GridSystem.Blueprints.Thumbnails
 {
@@ -15,31 +16,15 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
     {
         private const int WIDTH = 800;
         private const int HEIGHT = 800;
-        private static string savePath = "";
 
         public SpriteCache()
         {
-            Load(SavePath);
+            Load(SpecialFolder.BlueprintThumbnails.GetPath());
         }
 
         public SpriteCache(Dictionary<int, Sprite> keyValuePairs)
             : base(keyValuePairs)
         {
-        }
-
-        public static string SavePath
-        {
-            get
-            {
-                if (savePath == "")
-                {
-                    var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    path = Path.Combine(path, "Zetta", "Thumbnails");
-                    Directory.CreateDirectory(path);
-                    savePath = path;
-                }
-                return savePath;
-            }
         }
 
         public void LoadThumbnails()
@@ -53,7 +38,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
         public void Load(string path)
         {
             var fileNameNotValid = false;
-            var files = Directory.GetFiles(SavePath, "*.png");
+            var files = Directory.GetFiles(SpecialFolder.BlueprintThumbnails.GetPath(), "*.png");
             for (int i = 0; i < files.Length; i++)
             {
                 var texture = DirectoryExtensions.LoadPNG(files[i], WIDTH, HEIGHT);
@@ -104,7 +89,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
                     }
                     else
                     {
-                        File.Delete(path);
+                        File.Delete(files[i]);
                     }
                 }
                 else

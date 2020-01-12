@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Zetta.Generics;
+using Zetta.FileSystem;
 
 namespace Zetta.GridSystem.Blueprints.Thumbnails
 {
@@ -29,7 +30,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
         {
             spriteCache = new SpriteCache();
             spriteCache.LoadThumbnails();
-            spriteCache.Save(SpriteCache.SavePath);
+            spriteCache.Save(SpecialFolder.BlueprintThumbnails.GetPath());
         }
 
         public Sprite GetThumbnail(Blueprint blueprint, bool forceGet = false)

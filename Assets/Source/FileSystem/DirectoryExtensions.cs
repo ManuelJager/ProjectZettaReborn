@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace Zetta.Extensions
+namespace Zetta.FileSystem
 {
     public static class DirectoryExtensions
     {

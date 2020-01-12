@@ -101,11 +101,8 @@ namespace Zetta.GridSystem.Blueprints
             {
                 try
                 {
-                    // Get the prefab
-                    GameObject prefab = GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID);
+                    var blockBase = BlockPrefabProvider.Instance.GetGridBlockBase(blueprintBlock.BlockTypeID);
 
-                    // Get the blockbase script
-                    GridBlockBase blockBase = (GridBlockBase)prefab.GetComponent(typeof(GridBlockBase));
                     Vector2[] currentPositions = blockBase.BlockPositions;
                     foreach (Vector2 vector in currentPositions)
                     {
