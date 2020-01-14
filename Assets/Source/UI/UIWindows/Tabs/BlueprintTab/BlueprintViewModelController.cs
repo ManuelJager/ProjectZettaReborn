@@ -9,7 +9,7 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 {
     public class BlueprintViewModelController : MonoBehaviour
     {
-        private List<BlueprintViewModel> viewModels = new List<BlueprintViewModel>();
+        private static List<BlueprintViewModel> viewModels;
         [SerializeField] private BlueprintViewController blueprintViewController;
 
         public void Add(Blueprint blueprint)
@@ -28,6 +28,14 @@ namespace Zetta.UI.UIWindows.Tabs.BlueprintTab
 
             viewModels.Remove(selectedViewModel);
             blueprintViewController.Remove(selectedViewModel);
+        }
+
+        public void Awake()
+        {
+            if (viewModels == null)
+            {
+                viewModels = new List<BlueprintViewModel>();
+            }
         }
 
         private void Start()

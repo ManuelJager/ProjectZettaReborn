@@ -1,32 +1,38 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using Zetta.Extensions;
+using Zetta.MVVM;
 
 namespace Zetta.GridSystem.Blueprints
 {
     public class Blueprint
     {
-        [JsonIgnore]
-        private int? cachedHash;
+        [JsonIgnore] private int? cachedHash;
 
         protected string name;
+        protected List<BlueprintBlock> blocks;
+
+        public Blueprint(string name, List<BlueprintBlock> blocks)
+        {
+            this.name = name;
+            this.blocks = blocks;
+        }
 
         public string Name
         {
             get => name;
         }
 
-        protected List<BlueprintBlock> blocks;
-
         public List<BlueprintBlock> Blocks
         {
             get => blocks;
         }
 
-        public Blueprint(string name, List<BlueprintBlock> blocks)
+
+        [JsonIgnore]
+        public bool IsValid
         {
-            this.name = name;
-            this.blocks = blocks;
+            get => BlueprintManager.ValidateBlueprint(this).Count <= 0;
         }
 
         public override bool Equals(object obj)
@@ -61,12 +67,6 @@ namespace Zetta.GridSystem.Blueprints
         public override string ToString()
         {
             return name;
-        }
-
-        [JsonIgnore]
-        public bool IsValid
-        {
-            get => BlueprintManager.ValidateBlueprint(this).Count <= 0;
         }
     }
 }

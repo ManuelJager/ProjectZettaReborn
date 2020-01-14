@@ -2,10 +2,11 @@
 using UnityEngine;
 using Zetta.Exceptions;
 using Zetta.GridSystem.Blocks;
+using Zetta.Generics;
 
 namespace Zetta.GridSystem.Blueprints
 {
-    public class BlueprintInstantiator : MonoBehaviour
+    public class BlueprintInstantiator : AutoInstanceMonoBehaviour<BlueprintInstantiator>
     {
         /// <summary>
         /// Calculates the new block position

@@ -18,6 +18,10 @@ namespace Zetta.UI
         public new void Awake()
         {
             base.Awake();
+        }
+
+        public void Start()
+        {
             canvas.worldCamera = Camera.main;
             DebuggerLayerActiveState = false;
             InputManager.ClickF10 += ToggleDebuggerLayer;

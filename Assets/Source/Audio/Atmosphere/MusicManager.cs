@@ -20,7 +20,7 @@ namespace Zetta.Audio.Atmosphere
         [SerializeField] private AudioClip titleSong;
         [SerializeField] private RandomClipProvider gameplaySongs;
         private AudioSource audioSource;
-        private Atmosphere currentAtmosphere = Atmosphere.Title;
+        private Atmosphere? currentAtmosphere = null;
         private bool fading = false;
 
         private Dictionary<Atmosphere, IAudioSourceController> atmosphereControllers =
@@ -52,9 +52,12 @@ namespace Zetta.Audio.Atmosphere
                 });
             }
 
-            atmosphereControllers[currentAtmosphere].Stop();
+            if (currentAtmosphere != null)
+            {
+                atmosphereControllers[(Atmosphere)currentAtmosphere].Stop();
+            }
             currentAtmosphere = newAtmosphere;
-            atmosphereControllers[currentAtmosphere].Start();
+            atmosphereControllers[(Atmosphere)currentAtmosphere].Start();
 
             if (!immidiate)
             {
@@ -81,7 +84,7 @@ namespace Zetta.Audio.Atmosphere
 
         private void Start()
         {
-            SetAtmosphere(Atmosphere.Gameplay);
+            SetAtmosphere(Atmosphere.Title);
         }
     }
 }

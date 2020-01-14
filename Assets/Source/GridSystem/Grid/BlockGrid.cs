@@ -76,7 +76,7 @@ namespace Zetta.GridSystem
         /// <returns>The objects instantiated</returns>
         public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
         {
-            return GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
+            return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Zetta.GridSystem
         /// <returns>The objects instantiated</returns>
         public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint, Transform transform)
         {
-            return GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
+            return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
         }
     }
 }

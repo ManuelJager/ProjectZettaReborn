@@ -32,6 +32,7 @@ namespace Zetta.Audio.Atmosphere.AtmosphereControllers
 
         public void Start()
         {
+            audioSource.clip = audioClip;
             audioSource.Play();
         }
 

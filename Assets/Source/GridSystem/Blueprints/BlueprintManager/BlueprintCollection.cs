@@ -9,6 +9,7 @@ using UnityEngine;
 using Zetta.Exceptions;
 using Zetta.Generics;
 using Zetta.FileSystem;
+using Zetta.MVVM;
 
 namespace Zetta.GridSystem.Blueprints
 {

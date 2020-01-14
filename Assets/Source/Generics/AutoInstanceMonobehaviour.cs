@@ -7,7 +7,9 @@ namespace Zetta.Generics
     {
         public static bool destroyed { get; private set; }
 
-        private static T instance;
+        public static bool dontDestroyOnLoad = false;
+
+        protected static T instance;
 
         public static T Instance
         {
@@ -18,7 +20,7 @@ namespace Zetta.Generics
                     return instance;
                 }
 
-                instance = GetAutoMonoBehaviour(dontDestroyOnLoad: true);
+                instance = GetAutoMonoBehaviour(dontDestroyOnLoad: dontDestroyOnLoad);
                 destroyed = false;
                 return instance;
             }
@@ -26,7 +28,6 @@ namespace Zetta.Generics
 
         protected void Awake()
         {
-            DontDestroyOnLoad(this);
             if (!instance || destroyed)
             {
                 instance = (T)this;
@@ -51,12 +52,6 @@ namespace Zetta.Generics
         public static T GetAutoMonoBehaviour(bool dontDestroyOnLoad = false)
         {
             var result = FindObjectOfType<T>();
-            if (!result)
-            {
-                result = new GameObject(
-                    $"Auto instance: {typeof(T).Name}"
-                ).AddComponent<T>();
-            }
 
             if (dontDestroyOnLoad)
             {
