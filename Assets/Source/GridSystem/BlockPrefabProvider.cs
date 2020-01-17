@@ -5,16 +5,17 @@ using UnityEngine;
 using Zetta.Generics;
 using Zetta.GridSystem.Blocks;
 using Zetta.Exceptions;
+using Zetta.MVVM;
 
 namespace Zetta.GridSystem
 {
-    public class BlockPrefabProvider : AutoInstanceMonoBehaviour<BlockPrefabProvider>
+    public class BlockPrefabProvider : AutoInstanceMonoBehaviour<BlockPrefabProvider>, IInitializeable
     {
         [SerializeField] private GameObject[] prefabObjects;
 
         public Dictionary<string, BlockPrefab> Dictionary { get; private set; } = new Dictionary<string, BlockPrefab>();
 
-        public new void Awake()
+        public void Initialize()
         {
             base.Awake();
             foreach (var prefab in prefabObjects)

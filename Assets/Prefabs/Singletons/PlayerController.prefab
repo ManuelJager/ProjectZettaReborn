@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2168323832488576909}
   - component: {fileID: 8923329991442373209}
   m_Layer: 0
-  m_Name: PlayerController (singleton)
+  m_Name: PlayerController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2168323832488576909
 Transform:
   m_ObjectHideFlags: 0

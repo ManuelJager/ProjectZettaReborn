@@ -40,7 +40,7 @@ namespace Zetta.Controllers
             Instance = this;
         }
 
-        public void Awake()
+        public void Start()
         {
             // Set the current camera
             currentCamera = GetComponent<Camera>();

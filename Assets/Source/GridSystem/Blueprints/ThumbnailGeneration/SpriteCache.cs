@@ -17,21 +17,23 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
         private const int WIDTH = 800;
         private const int HEIGHT = 800;
 
+        public event LoadedDelegate Loaded;
+        public event SavedDelegate Saved;
+
         public SpriteCache()
         {
             Load(SpecialFolder.BlueprintThumbnails.GetPath());
         }
 
-        public SpriteCache(Dictionary<int, Sprite> keyValuePairs)
-            : base(keyValuePairs)
-        {
-        }
+        public bool HasLoaded { get; } = false;
 
-        public void LoadThumbnails()
+        public new Sprite this[int index]
         {
-            foreach (var item in BlueprintManager.blueprints)
+            get => base[index];
+            set
             {
-                base[item.GetHashCode()] = ThumbnailManager.Instance.GetThumbnail(item);
+                base[index] = value;
+                Save(SpecialFolder.BlueprintThumbnails.GetPath());
             }
         }
 
@@ -63,6 +65,8 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
             {
                 NoticeManager.Instance.Prompt("Incorrect files found in thumbnails folder. Stay the fuck away :)");
             }
+
+            Loaded?.Invoke();
         }
 
         public void Save(string path)
@@ -83,14 +87,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
 
                 if (valid)
                 {
-                    if (BlueprintManager.blueprints.Hashes.Contains(hashKey))
-                    {
-                        alreadyWriteThumbnailHashes.Add(hashKey);
-                    }
-                    else
-                    {
-                        File.Delete(files[i]);
-                    }
+                    alreadyWriteThumbnailHashes.Add(hashKey);
                 }
                 else
                 {
@@ -111,6 +108,8 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
                 var imgPath = Path.Combine(path, $"{setDifference[i]}.png");
                 File.WriteAllBytes(imgPath, bytes);
             }
+
+            Saved.Invoke();
         }
     }
 }

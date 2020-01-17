@@ -31,7 +31,7 @@ namespace Zetta.SceneManagement
 
         public void Start()
         {
-            LoadScene(SpecialScene.MainMenu);
+            LoadScene(SpecialScene.GameWorld);
         }
 
         public void LoadScene(SpecialScene specialScene)

@@ -7,7 +7,7 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
     public partial class ThumbnailManager
     {
         // Create thumbnail of given blueprint
-        private Sprite CreateThumbnail(Blueprint blueprint)
+        private Sprite CreateThumbnail(BlueprintModel blueprint)
         {
             // Instantiate ship
             var parent = Ship.InstantiateShip(blueprint, transform);

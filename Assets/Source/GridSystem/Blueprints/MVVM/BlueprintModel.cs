@@ -5,22 +5,16 @@ using Zetta.MVVM;
 
 namespace Zetta.GridSystem.Blueprints
 {
-    public class Blueprint
+    public class BlueprintModel : ModelBase
     {
+        protected List<BlueprintBlock> blocks;
+        protected string name;
         [JsonIgnore] private int? cachedHash;
 
-        protected string name;
-        protected List<BlueprintBlock> blocks;
-
-        public Blueprint(string name, List<BlueprintBlock> blocks)
+        public BlueprintModel(string name, List<BlueprintBlock> blocks)
         {
             this.name = name;
             this.blocks = blocks;
-        }
-
-        public string Name
-        {
-            get => name;
         }
 
         public List<BlueprintBlock> Blocks
@@ -28,11 +22,15 @@ namespace Zetta.GridSystem.Blueprints
             get => blocks;
         }
 
-
         [JsonIgnore]
         public bool IsValid
         {
-            get => BlueprintManager.ValidateBlueprint(this).Count <= 0;
+            get => BlueprintManager.ValidateBlueprint(this).Count == 0;
+        }
+
+        public string Name
+        {
+            get => name;
         }
 
         public override bool Equals(object obj)
@@ -41,8 +39,18 @@ namespace Zetta.GridSystem.Blueprints
             {
                 return false;
             }
-            var other = (Blueprint)obj;
+            var other = (BlueprintModel)obj;
             return GetHashCode() == other.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return cachedHash ?? GenerateHashCode();
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
         private int GenerateHashCode()
@@ -57,16 +65,6 @@ namespace Zetta.GridSystem.Blueprints
             cachedHash = hash;
 
             return hash;
-        }
-
-        public override int GetHashCode()
-        {
-            return cachedHash ?? GenerateHashCode();
-        }
-
-        public override string ToString()
-        {
-            return name;
         }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7196585867285217155}
-  - component: {fileID: 7755241872541793099}
+  - component: {fileID: 1258037822789812781}
   m_Layer: 0
   m_Name: Blueprint Manager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7755241872541793099
+--- !u!114 &1258037822789812781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,6 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5352202104614028391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0146271ea39bc41bfa2c695ac847f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a2ba03ec05aff441b7f13ffb9f66eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userBlueprintsViewController:
+    prefab: {fileID: 0}
+    parent: {fileID: 0}

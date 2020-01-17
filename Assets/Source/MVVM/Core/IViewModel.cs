@@ -2,10 +2,10 @@
 
 namespace Zetta.MVVM.Core
 {
-    public interface IViewModel<TModel, TModelImplementation> : IMVVMComponent
-        where TModel : TModelImplementation
-        where TModelImplementation : IModel
+    public interface IViewModel<TModel> : IMVVMComponent, IUpdateEventProvider
+        where TModel : IModel
     {
+        TModel model { get; }
         Action<TModel> OnUpdate { get; }
     }
 }

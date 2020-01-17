@@ -43,7 +43,7 @@ namespace Zetta.GridSystem.Blueprints
 
     public static class BlueprintUtilities
     {
-        public static Bounds GetBounds(Blueprint blueprint, bool useUnityAPI = false)
+        public static Bounds GetBounds(BlueprintModel blueprint, bool useUnityAPI = false)
         {
             if (useUnityAPI)
             {
@@ -55,7 +55,7 @@ namespace Zetta.GridSystem.Blueprints
             }
         }
 
-        public static Bounds GetBoundsUnityAPI(this Blueprint blueprint)
+        public static Bounds GetBoundsUnityAPI(this BlueprintModel blueprint)
         {
             var count = blueprint.Blocks.Count;
             if (count > 0)
@@ -102,7 +102,7 @@ namespace Zetta.GridSystem.Blueprints
             return new Vector3(size.x, size.y);
         }
 
-        private static Bounds GetBoundsNormal(this Blueprint blueprint)
+        private static Bounds GetBoundsNormal(this BlueprintModel blueprint)
         {
             var corners = GetBlueprintCorners(blueprint);
             var size = GetSize(corners);
@@ -113,7 +113,7 @@ namespace Zetta.GridSystem.Blueprints
             return bounds;
         }
 
-        public static Vector2 GetSize(this Blueprint blueprint)
+        public static Vector2 GetSize(this BlueprintModel blueprint)
         {
             var blueprintCorners = new MinMaxVector2(0f, 0f, 0f, 0f);
             var corners = GetCorners(blueprint);
@@ -141,7 +141,7 @@ namespace Zetta.GridSystem.Blueprints
                 blueprintCorners.maxY - blueprintCorners.minY);
         }
 
-        public static MinMaxVector2 GetBlueprintCorners(Blueprint blueprint)
+        public static MinMaxVector2 GetBlueprintCorners(BlueprintModel blueprint)
         {
             var blueprintCorners = new MinMaxVector2(0f, 0f, 0f, 0f);
             var corners = GetCorners(blueprint);
@@ -158,7 +158,7 @@ namespace Zetta.GridSystem.Blueprints
             return blueprintCorners;
         }
 
-        public static Vector2[] GetCorners(Blueprint blueprint)
+        public static Vector2[] GetCorners(BlueprintModel blueprint)
         {
             var count = blueprint.Blocks.Count;
             var corners = new Vector2[blueprint.Blocks.Count * 4];

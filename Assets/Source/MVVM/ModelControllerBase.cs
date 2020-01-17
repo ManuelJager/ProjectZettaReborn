@@ -21,6 +21,14 @@ namespace Zetta.MVVM
             base.Add(model);
         }
 
+        public new void AddRange(IEnumerable<TModel> models)
+        {
+            foreach (var model in models)
+            {
+                Add(model);
+            }
+        } 
+
         public new void Remove(TModel model)
         {
             foreach (var viewModelManager in viewModelManagers)

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3553845568602643961}
   - component: {fileID: 3405128158452749120}
   - component: {fileID: 4292004408606502800}
-  - component: {fileID: 5704319692028349582}
+  - component: {fileID: 920562870197362951}
   m_Layer: 5
   m_Name: ContentContainer
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &5704319692028349582
+--- !u!114 &920562870197362951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +94,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 845760050094485459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e8e5b06a8d4b23478543e7d0d8571b4, type: 3}
+  m_Script: {fileID: 11500000, guid: a5b64e0057fd340469c68e6db9867ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprintViewPrefab: {fileID: 6934845453369214745, guid: 053d0534726397b4ebeb15abc1b2da4a,
-    type: 3}
+  userBlueprintViewController:
+    prefab: {fileID: 6934845453369214745, guid: 053d0534726397b4ebeb15abc1b2da4a,
+      type: 3}
+    parent: {fileID: 2323814279262859503}
 --- !u!114 &2465404576007792423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +197,6 @@ GameObject:
   - component: {fileID: 6121117526904281569}
   - component: {fileID: 4741766328216682738}
   - component: {fileID: 4833525667994656701}
-  - component: {fileID: 6312771248631333217}
   m_Layer: 5
   m_Name: ContentMask
   m_TagString: Untagged
@@ -261,19 +262,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6312771248631333217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9066572117137989303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97559cb3cf52b0d4eb022546cfc75e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blueprintViewController: {fileID: 5704319692028349582}
 --- !u!1001 &2473231415023345719
 PrefabInstance:
   m_ObjectHideFlags: 0

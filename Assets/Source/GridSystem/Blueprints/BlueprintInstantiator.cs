@@ -33,7 +33,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <param name="parent">The parent transform of the blueprint</param>
         /// <returns></returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint, Transform parent)
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint, Transform parent)
         {
             List<GridBlockBase> blocks = new List<GridBlockBase>();
 

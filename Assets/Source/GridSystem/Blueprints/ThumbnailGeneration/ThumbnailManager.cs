@@ -7,33 +7,21 @@ using Zetta.FileSystem;
 
 namespace Zetta.GridSystem.Blueprints.Thumbnails
 {
-    public partial class ThumbnailManager : AutoInstanceMonoBehaviour<ThumbnailManager>
+    public partial class ThumbnailManager : AutoInstanceMonoBehaviour<ThumbnailManager>, IInitializeable
     {
         public Camera thumbnailCamera;
         public RenderTexture renderTexture;
 
         public SpriteCache spriteCache;
 
-        public delegate void ThumbnailManagerLoadedDelegate();
-
-        public static ThumbnailManagerLoadedDelegate ThumbnailManagerLoaded;
-
-        public new void Awake()
+        public void Initialize()
         {
-            base.Awake();
-            BlueprintCollection.Loaded += InitializeThumbnailManager;
             renderTexture = new RenderTexture(new RenderTextureDescriptor(800, 800));
             thumbnailCamera.targetTexture = renderTexture;
-        }
-
-        public void InitializeThumbnailManager()
-        {
             spriteCache = new SpriteCache();
-            spriteCache.LoadThumbnails();
-            spriteCache.Save(SpecialFolder.BlueprintThumbnails.GetPath());
         }
 
-        public Sprite GetThumbnail(Blueprint blueprint, bool forceGet = false)
+        public Sprite GetThumbnail(BlueprintModel blueprint, bool forceGet = false)
         {
             if (!forceGet)
             {
@@ -47,12 +35,6 @@ namespace Zetta.GridSystem.Blueprints.Thumbnails
 
             spriteCache[blueprint.GetHashCode()] = thumbnail;
             return thumbnail;
-        }
-
-        public void SetThumbnail(Blueprint blueprint, Image image, bool forceGet = false)
-        {
-            var thumbnail = GetThumbnail(blueprint, forceGet);
-            image.sprite = thumbnail;
         }
     }
 }

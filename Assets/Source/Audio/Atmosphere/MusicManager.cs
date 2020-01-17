@@ -13,7 +13,7 @@ using Zetta.Math.Curves;
 namespace Zetta.Audio.Atmosphere
 {
     [RequireComponent(typeof(AudioSource))]
-    public class MusicManager : AutoInstanceMonoBehaviour<MusicManager>
+    public class MusicManager : AutoInstanceMonoBehaviour<MusicManager>, IInitializeable
     {
         public static float maxVolume = 1f;
 
@@ -70,9 +70,8 @@ namespace Zetta.Audio.Atmosphere
             }
         }
 
-        private new void Awake()
+        public void Initialize()
         {
-            base.Awake();
             audioSource = GetComponent<AudioSource>();
 
             atmosphereControllers[Atmosphere.Gameplay] =
@@ -80,10 +79,7 @@ namespace Zetta.Audio.Atmosphere
 
             atmosphereControllers[Atmosphere.Title] =
                 new TitleAtmosphereController(audioSource, titleSong);
-        }
 
-        private void Start()
-        {
             SetAtmosphere(Atmosphere.Title);
         }
     }

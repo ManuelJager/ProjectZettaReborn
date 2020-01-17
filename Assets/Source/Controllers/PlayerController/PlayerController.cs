@@ -38,8 +38,10 @@ namespace Zetta.Controllers
             }
         }
 
-        public void Start()
+        private new void Awake()
         {
+            base.Awake();
+            Debug.Log("Awoken");
             orthographicCamera = CameraExtensions.GetMainOrthgraphicCamera();
             orthographicCamera.enabled = false;
             Enabled = false;

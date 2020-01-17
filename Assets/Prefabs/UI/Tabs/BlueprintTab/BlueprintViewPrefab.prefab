@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 4870675401520752044}
   - component: {fileID: 7432633831998741201}
   - component: {fileID: 3920890211195750689}
-  - component: {fileID: 843708085369139280}
+  - component: {fileID: 9099619456467799510}
   m_Layer: 5
   m_Name: BlueprintViewPrefab
   m_TagString: Untagged
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &843708085369139280
+--- !u!114 &9099619456467799510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,13 +434,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6934845453369214745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ca4151165de994e970fdbc3f995435, type: 3}
+  m_Script: {fileID: 11500000, guid: 403511757048abb4ab88ca160681d9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumbnailImage: {fileID: 8084358949645955914}
-  descriptionName: {fileID: 610484062312664462}
-  descriptionRating: {fileID: 4235882752454413459}
-  descriptionBlockCount: {fileID: 6670644823868673130}
+  nameTextComponent: {fileID: 610484062312664462}
+  ratingTextComponent: {fileID: 4235882752454413459}
+  blockCountTextComponent: {fileID: 6670644823868673130}
+  thumbnailImageComponent: {fileID: 8084358949645955914}
 --- !u!1 &8514231062432645253
 GameObject:
   m_ObjectHideFlags: 0

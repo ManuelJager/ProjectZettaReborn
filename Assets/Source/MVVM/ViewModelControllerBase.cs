@@ -5,8 +5,8 @@ using Zetta.MVVM.Core;
 namespace Zetta.MVVM
 {
     public abstract class ViewModelControllerBase<TModel, TViewModel> : List<TViewModel>, ILinkable<TModel>
-        where TModel : ModelBase
-        where TViewModel : ViewModelBase<TModel>
+        where TModel : IModel
+        where TViewModel : IViewModel<TModel>
     {
         private Dictionary<TModel, TViewModel> linkDictionary =
             new Dictionary<TModel, TViewModel>();
@@ -35,7 +35,7 @@ namespace Zetta.MVVM
             }
 
             // Set bindings
-            model.UpdateModel += viewModel.PerformUpdate;
+            model.Update += viewModel.PerformUpdate;
             linkDictionary[model] = viewModel;
             Add(viewModel);
         }
@@ -52,7 +52,7 @@ namespace Zetta.MVVM
             }
 
             // Remove bindings
-            model.UpdateModel -= viewModel.PerformUpdate;
+            model.Update -= viewModel.PerformUpdate;
             linkDictionary.Remove(model);
             Remove(viewModel);
         }

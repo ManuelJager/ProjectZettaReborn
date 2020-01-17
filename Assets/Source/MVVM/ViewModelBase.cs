@@ -12,16 +12,13 @@ namespace Zetta.MVVM
     /// Standard implementantion for a view model component
     /// Set OnUpdate to handle to create data ready for presentation
     /// </summary>
-    public abstract class ViewModelBase<TModel> : IViewModel<TModel, ModelBase>
-        where TModel : ModelBase
+    public abstract class ViewModelBase<TModel> : IViewModel<TModel>
+        where TModel : IModel
     {
-        public delegate void UpdateViewModelDelegate();
-
-        public event UpdateViewModelDelegate UpdateViewModel;
-
         public Action<TModel> OnUpdate { get; protected set; }
-
         public TModel model { get; }
+
+        public event UpdateDelegate Update;
 
         protected ViewModelBase(TModel model)
         {
@@ -31,7 +28,7 @@ namespace Zetta.MVVM
         public void PerformUpdate()
         {
             OnUpdate?.Invoke(model);
-            UpdateViewModel?.Invoke();
+            Update?.Invoke();
         }
     }
 }

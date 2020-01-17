@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zetta.GridSystem.Blueprints;
 
 namespace Zetta.GridSystem
 {
@@ -6,7 +7,7 @@ namespace Zetta.GridSystem
     {
         public Rigidbody2D rb2d;
 
-        public static Ship InstantiateShip(Blueprints.Blueprint blueprint)
+        public static Ship InstantiateShip(BlueprintModel blueprint)
         {
             // Create the ship object/entity
             var shipObject = new GameObject("Ship");
@@ -22,7 +23,7 @@ namespace Zetta.GridSystem
             return ship;
         }
 
-        public static Ship InstantiateShip(Blueprints.Blueprint blueprint, Transform parent)
+        public static Ship InstantiateShip(BlueprintModel blueprint, Transform parent)
         {
             // Create the ship object/entity
             var shipObject = new GameObject("Ship");

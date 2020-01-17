@@ -1,31 +1,36 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
-using Zetta.Exceptions;
 using Zetta.Generics;
-using Zetta.GridSystem.Blocks;
+using Zetta.FileSystem;
+using System.IO;
+using Newtonsoft.Json;
 using Zetta.Attributes;
+using Zetta.Exceptions;
+using Zetta.GridSystem;
 
 namespace Zetta.GridSystem.Blueprints
 {
-    public partial class BlueprintManager : AutoInstanceMonoBehaviour<BlueprintManager>
+    public class BlueprintManager : AutoInstanceMonoBehaviour<BlueprintManager>, IInitializeable
     {
-        // The default blueprint
-        public static string DEFAULT_BLUEPRINT = "{\"Name\":\"Default Ship\",\"Blocks\":[{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-4.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":2.0},\"Rotation\":0}]}";
+        internal BlueprintModelController userBlueprintsModelController;
+        internal BlueprintViewModelController userBlueprintsViewModelController;
 
-        public static BlueprintCollection blueprints;
+        private static readonly string DEFAULT_BLUEPRINT = "{\"Name\":\"Default Ship\",\"Blocks\":[{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-4.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":-2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":-1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":0.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":1.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":1.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-1.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":2.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":-2.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::LightArmorBlock\",\"Position\":{\"x\":3.0,\"y\":0.0},\"Rotation\":0},{\"BlockTypeID\":\"Zetta::SmallThruster\",\"Position\":{\"x\":3.0,\"y\":2.0},\"Rotation\":0}]}";
 
-        public new void Awake()
+        public void Initialize()
         {
-            base.Awake();
-            BlueprintCollection.Loaded += AddDefaultShipToLoadedBlueprints;
-        }
+            // Initialize on constructor
+            userBlueprintsModelController = new BlueprintModelController(SpecialFile.PlayerBlueprintCollection.GetPath());
+            userBlueprintsViewModelController = new BlueprintViewModelController();
+            userBlueprintsModelController.Connect(userBlueprintsViewModelController);
 
-        public void Start()
-        {
-            blueprints = new BlueprintCollection();
-            blueprints.PerformBlueprintsLoaded();
+            // Load on start so scripts using the
+            userBlueprintsModelController.Load();
+            userBlueprintsModelController.AddSafe(Import(DEFAULT_BLUEPRINT));
         }
 
         /// <summary>
@@ -33,7 +38,7 @@ namespace Zetta.GridSystem.Blueprints
         /// </summary>
         /// <param name="blueprint">The blueprint to export</param>
         /// <returns>The blueprint string</returns>
-        public static string Export(Blueprint blueprint)
+        public static string Export(BlueprintModel blueprint)
         {
             // Creates the data
             var jsonData = new Dictionary<string, object>
@@ -53,9 +58,9 @@ namespace Zetta.GridSystem.Blueprints
         /// </summary>
         /// <param name="json">The json to deserialize</param>
         /// <returns>The deserialized blueprint</returns>
-        public static Blueprint Import(string json)
+        public static BlueprintModel Import(string json)
         {
-            var blueprint = JsonConvert.DeserializeObject<Blueprint>(json);
+            var blueprint = JsonConvert.DeserializeObject<BlueprintModel>(json);
 
             return blueprint;
         }
@@ -68,7 +73,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <returns>The amount of occurences in the list</returns>
         private static int CountOccurenceOfValue(List<Vector2> list, Vector2 valueToFind)
         {
-            return ((from temp in list where temp.Equals(valueToFind) select temp).Count());
+            return (from temp in list where temp.Equals(valueToFind) select temp).Count();
         }
 
         /// <summary>
@@ -92,7 +97,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <param name="blueprint">The blueprint to validate</param>
         /// <returns>The invalid blueprint blocks</returns>
         [UglyCode]
-        public static List<Vector2> ValidateBlueprint(Blueprint blueprint)
+        public static List<Vector2> ValidateBlueprint(BlueprintModel blueprint)
         {
             var positions = new List<Vector2>();
 
@@ -120,7 +125,7 @@ namespace Zetta.GridSystem.Blueprints
             return FindDuplicates(positions);
         }
 
-        private static Blueprint CreateTestBlueprint(int size)
+        private static BlueprintModel CreateTestBlueprint(int size)
         {
             List<BlueprintBlock> blocks = new List<BlueprintBlock>();
             blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(0, 0)));
@@ -133,12 +138,12 @@ namespace Zetta.GridSystem.Blueprints
                 blocks.Add(new BlueprintBlock("Zetta::LightArmorBlock", new Vector2(-i, 0)));
             }
 
-            return new Blueprint("Test Ship", blocks);
+            return new BlueprintModel("Test Ship", blocks);
         }
 
-        private static Blueprint TestShip()
+        private static BlueprintModel TestShip()
         {
-            return new Blueprint("Default Ship", new List<BlueprintBlock>() {
+            return new BlueprintModel("Default Ship", new List<BlueprintBlock>() {
                 new BlueprintBlock("Zetta::MediumThruster", new Vector2(-3, 0)),
 
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(-2, 2)),
@@ -170,23 +175,6 @@ namespace Zetta.GridSystem.Blueprints
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(3, -2), 2),
                 new BlueprintBlock("Zetta::SmallThruster", new Vector2(3, 2), 2),
             });
-        }
-
-        //TODO Remove this later when don't need it anymore
-        // [RuntimeInitializeOnLoadMethod]
-        public static void createTestBlueprint()
-        {
-            Blueprint testBp = CreateTestBlueprint(5);
-
-            DEFAULT_BLUEPRINT = Export(testBp);
-            if (ValidateBlueprint(testBp).Count <= 0)
-            {
-                Debug.Log("Valid Test Ship");
-            }
-            else
-            {
-                Debug.Log("Invalid Test Ship");
-            }
         }
     }
 }

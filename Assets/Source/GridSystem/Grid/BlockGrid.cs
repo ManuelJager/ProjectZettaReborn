@@ -12,7 +12,7 @@ namespace Zetta.GridSystem
 
         public bool rendering;
 
-        public Blueprint blueprint;
+        public BlueprintModel blueprint;
 
         public bool Rendering
         {
@@ -74,7 +74,7 @@ namespace Zetta.GridSystem
         /// </summary>
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <returns>The objects instantiated</returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint)
         {
             return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
         }
@@ -84,7 +84,7 @@ namespace Zetta.GridSystem
         /// </summary>
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <returns>The objects instantiated</returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint, Transform transform)
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint, Transform transform)
         {
             return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
         }

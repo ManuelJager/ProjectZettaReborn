@@ -5,9 +5,9 @@ using Zetta.MVVM.Core;
 namespace Zetta.MVVM
 {
     public abstract class ViewControllerBase<TModel, TViewModel, TView> : ILinkable<TViewModel>
-        where TModel : ModelBase
-        where TViewModel : ViewModelBase<TModel>
-        where TView : ViewBase<TModel, TViewModel>
+        where TModel : IModel
+        where TViewModel : IViewModel<TModel>
+        where TView : IView<TModel, TViewModel>
     {
         private Dictionary<TViewModel, TView> linkDictionary =
             new Dictionary<TViewModel, TView>();
@@ -31,7 +31,7 @@ namespace Zetta.MVVM
             var view = viewFactory(viewModel);
 
             // Set bindings
-            viewModel.UpdateViewModel += view.PerformUpdate;
+            viewModel.Update += view.PerformUpdate;
             linkDictionary[viewModel] = view;
         }
 
@@ -42,7 +42,7 @@ namespace Zetta.MVVM
             var view = linkDictionary[viewModel];
 
             // Remove bindings and destroy
-            viewModel.UpdateViewModel -= view.PerformUpdate;
+            viewModel.Update -= view.PerformUpdate;
             linkDictionary.Remove(viewModel);
             destructor(view);
         }

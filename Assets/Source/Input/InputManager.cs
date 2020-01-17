@@ -3,19 +3,19 @@ using Zetta.Generics;
 
 namespace Zetta.InputWrapper
 {
+    public delegate void UpdateDelegate();
+
+    public delegate void ButtonActionClickDelegate();
+
+    public delegate void ButtonKeypressClickDelegate(char keyPressed);
+
+    public delegate void InputAxisDelegate(Vector2 input);
+
     /// <summary>
     /// Global event driven inputManager
     /// </summary>
     public partial class InputManager : AutoInstanceMonoBehaviour<InputManager>
     {
-        public delegate void UpdateDelegate();
-
-        public delegate void ButtonActionClickDelegate();
-
-        public delegate void ButtonKeypressClickDelegate(char keyPressed);
-
-        public delegate void InputAxisDelegate(Vector2 input);
-
         public static event UpdateDelegate UpdateEvent;
 
         public static event ButtonKeypressClickDelegate ClickKeypress;

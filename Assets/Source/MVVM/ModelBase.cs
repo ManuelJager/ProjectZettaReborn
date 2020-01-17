@@ -13,13 +13,11 @@ namespace Zetta.MVVM
     /// </summary>
     public abstract class ModelBase : IModel
     {
-        public delegate void UpdateModelDelegate();
-
-        public event UpdateModelDelegate UpdateModel;
+        public event UpdateDelegate Update;
 
         public void PerformUpdate()
         {
-            UpdateModel?.Invoke();
+            Update?.Invoke();
         }
     }
 }
