@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zetta.Generics;
 
 namespace Zetta.GridSystem
 {
-    public class ChunkDrawer : LazySingleton<ChunkDrawer>
+    public class ChunkDrawer : AutoInstanceMonoBehaviour<ChunkDrawer>
     {
         private List<(Vector2, Vector2, Color)> drawList;
 
@@ -55,7 +51,7 @@ namespace Zetta.GridSystem
 
         public void FixedUpdate()
         {
-            for(int i = 0; i < drawList.Count; i++)
+            for (int i = 0; i < drawList.Count; i++)
             {
                 var toDraw = drawList[i];
                 Debug.DrawLine(toDraw.Item1, toDraw.Item2, toDraw.Item3);
@@ -72,8 +68,5 @@ namespace Zetta.GridSystem
             (Vector2, Vector2, Color) to = (corner.Item1, corner.Item2, color);
             drawList[drawList.FindIndex(i => i.Equals(corner))] = to;
         }
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void EchoThis() => Echo();
     }
 }

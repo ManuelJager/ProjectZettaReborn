@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using Zetta.Controllers;
 
 namespace Zetta.GridSystem
 {
@@ -24,7 +20,6 @@ namespace Zetta.GridSystem
                     GetOrCreateChunk(new Vector2Int(x + origin.x, y + origin.y));
                 }
             }
-
         }
 
         /// <summary>
@@ -55,24 +50,25 @@ namespace Zetta.GridSystem
         public void UnloadUnusedChunks(Vector2Int origin, int radius, int side)
         {
             List<Chunk> toUnload = new List<Chunk>();
-            if(side == 0 || side == 2)
+            if (side == 0 || side == 2)
             {
-                int originY = side == 0 ? 
-                    origin.y - radius - 1:
+                int originY = side == 0 ?
+                    origin.y - radius - 1 :
                     origin.y + radius + 1;
 
                 for (int x = -radius; x <= radius; x++)
                 {
                     Chunk chunk = GetChunk(new Vector2Int(origin.x + x, originY));
-                    if(chunk != null)
+                    if (chunk != null)
                     {
                         toUnload.Add(chunk);
                     }
                 }
-            } else if(side == 1 || side == 3)
+            }
+            else if (side == 1 || side == 3)
             {
                 int originX = side == 1 ?
-                    origin.x - radius - 1:
+                    origin.x - radius - 1 :
                     origin.x + radius + 1;
 
                 for (int y = -radius; y <= radius; y++)
@@ -127,6 +123,5 @@ namespace Zetta.GridSystem
 
             return chunkToAdd;
         }
-
     }
 }

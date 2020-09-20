@@ -12,10 +12,12 @@ namespace Zetta.GridSystem
 
         public bool rendering;
 
+        public BlueprintModel blueprint;
+
         public bool Rendering
         {
             get => rendering;
-            set 
+            set
             {
                 // Grab all renderers of this blockgrid
                 var renderers = GetComponentsInChildren<Renderer>();
@@ -36,9 +38,10 @@ namespace Zetta.GridSystem
         {
             get
             {
+                var bounds = Bounds;
                 return new Vector2(
-                    (float)System.Math.Floor(Bounds.size.x),
-                    (float)System.Math.Floor(Bounds.size.y));
+                    (float)System.Math.Floor(bounds.size.x),
+                    (float)System.Math.Floor(bounds.size.y));
             }
         }
 
@@ -71,10 +74,19 @@ namespace Zetta.GridSystem
         /// </summary>
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <returns>The objects instantiated</returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint)
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint)
         {
-            uBlockList = GameManager.Instance.bpInstantiator.InstantiateBlueprint(blueprint, transform);
-            return uBlockList;
+            return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
+        }
+
+        /// <summary>
+        /// Instantiates the blueprint and sets the parent to the current block
+        /// </summary>
+        /// <param name="blueprint">The blueprint to instantiate</param>
+        /// <returns>The objects instantiated</returns>
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint, Transform transform)
+        {
+            return BlueprintInstantiator.Instance.InstantiateBlueprint(blueprint, transform);
         }
     }
 }

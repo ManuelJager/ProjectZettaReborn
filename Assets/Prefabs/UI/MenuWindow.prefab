@@ -252,3 +252,4 @@ MonoBehaviour:
     type: 3}
   tabPrefabs:
   - {fileID: 4067609420732570083, guid: 0eb8e4b37b6d9fc429827d57eccc4864, type: 3}
+  - {fileID: 4555905800261507338, guid: 36acd39773004264b9adc2c55e534384, type: 3}

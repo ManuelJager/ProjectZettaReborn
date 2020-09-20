@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace Zetta.Math.Curves
 {
@@ -76,10 +76,10 @@ namespace Zetta.Math.Curves
             P3 = Vector2.one;
         }
 
-        readonly Vector2 P0;
-        readonly Vector2 P1;
-        readonly Vector2 P2;
-        readonly Vector2 P3;
+        private readonly Vector2 P0;
+        private readonly Vector2 P1;
+        private readonly Vector2 P2;
+        private readonly Vector2 P3;
 
         public float GetY(float x)
         {

@@ -2,10 +2,11 @@
 using UnityEngine;
 using Zetta.Exceptions;
 using Zetta.GridSystem.Blocks;
+using Zetta.Generics;
 
 namespace Zetta.GridSystem.Blueprints
 {
-    public class BlueprintInstantiator : MonoBehaviour
+    public class BlueprintInstantiator : AutoInstanceMonoBehaviour<BlueprintInstantiator>
     {
         /// <summary>
         /// Calculates the new block position
@@ -32,7 +33,7 @@ namespace Zetta.GridSystem.Blueprints
         /// <param name="blueprint">The blueprint to instantiate</param>
         /// <param name="parent">The parent transform of the blueprint</param>
         /// <returns></returns>
-        public List<GridBlockBase> InstantiateBlueprint(Blueprint blueprint, Transform parent)
+        public List<GridBlockBase> InstantiateBlueprint(BlueprintModel blueprint, Transform parent)
         {
             List<GridBlockBase> blocks = new List<GridBlockBase>();
 
@@ -42,7 +43,7 @@ namespace Zetta.GridSystem.Blueprints
                 // Instantiate the block by prefab block type
                 try
                 {
-                    var block = Instantiate(GameManager.PrefabProvider.GetPrefab(blueprintBlock.BlockTypeID));
+                    var block = Instantiate(BlockPrefabProvider.Instance.GetPrefab(blueprintBlock.BlockTypeID));
                     GridBlockBase blockBase = (GridBlockBase)block.GetComponent(typeof(GridBlockBase));
                     // Set the parent of the block
                     block.transform.SetParent(parent);
@@ -55,8 +56,7 @@ namespace Zetta.GridSystem.Blueprints
                         0);
 
                     // Set the rotation of the block
-                    float zRotation = blueprintBlock.Rotation * -90f;
-                    block.transform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
+                    block.transform.localRotation = Quaternion.Euler(0f, 0f, blueprintBlock.RotationInDegs);
 
                     // Add the block to the list
                     blocks.Add(blockBase);

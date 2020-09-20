@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS4014
+
 using UnityEngine;
 using Zetta.UI;
 
@@ -8,9 +9,11 @@ namespace Zetta
     {
         private static bool drawChunkBorders = false;
 
-        public static bool DrawChunkBorders {
+        public static bool DrawChunkBorders
+        {
             get => drawChunkBorders;
-            set {
+            set
+            {
                 // Give a notice
                 var statusString = value ? "ON" : "OFF";
                 NoticeManager.Instance.Prompt($"Drawing chunk borders is now {statusString}");

@@ -40,7 +40,7 @@ namespace Zetta.Controllers
             Instance = this;
         }
 
-        public void Awake()
+        public void Start()
         {
             // Set the current camera
             currentCamera = GetComponent<Camera>();
@@ -57,7 +57,7 @@ namespace Zetta.Controllers
         {
             // Get the current player ship
             Ship toFollow = PlayerController.Instance.Ship;
-            if(toFollow != null)
+            if (toFollow != null)
             {
                 float shipX = toFollow.transform.position.x;
                 float shipY = toFollow.transform.position.y;
@@ -182,6 +182,5 @@ namespace Zetta.Controllers
                 Normalized(screenDimensions.x, mousePosition.x),
                 Normalized(screenDimensions.y, mousePosition.y));
         }
-
     }
 }

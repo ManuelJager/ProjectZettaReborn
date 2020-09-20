@@ -1,27 +1,26 @@
 ﻿#pragma warning disable CS0649
 
 using UnityEngine;
+using Zetta.Generics;
 using Zetta.InputWrapper;
 using Zetta.UI.Controllers;
 using Zetta.UI.UIWindows;
 
 namespace Zetta.UI
 {
-    public partial class UIManager : MonoBehaviour
+    public partial class UIManager : AutoInstanceMonoBehaviour<UIManager>
     {
-        public static UIManager Instance;
-
         public GameplayLayer gameplayLayer;
         public DebuggerLayer debuggerLayer;
         public UIWindowTabManager pauseMenuLayer;
         public Canvas canvas;
 
-        public UIManager()
+        public new void Awake()
         {
-            Instance = this;
+            base.Awake();
         }
 
-        public void Awake()
+        public void Start()
         {
             canvas.worldCamera = Camera.main;
             DebuggerLayerActiveState = false;

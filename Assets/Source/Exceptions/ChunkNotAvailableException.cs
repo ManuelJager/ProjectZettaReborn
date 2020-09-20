@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Zetta.Exceptions
 {
-    class ChunkNotAvailableException : Exception
+    internal class ChunkNotAvailableException : Exception
     {
-        public ChunkNotAvailableException() 
+        public ChunkNotAvailableException()
             : base("A chunk was not found.")
         {
         }
 
-        public ChunkNotAvailableException(Vector2 position) 
+        public ChunkNotAvailableException(Vector2 position)
             : base($"Chunk {position.x}, {position.y} was not found.")
         {
         }
